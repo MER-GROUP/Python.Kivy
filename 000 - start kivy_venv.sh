@@ -1,0 +1,1 @@
+source kivy_venv/bin/activate
