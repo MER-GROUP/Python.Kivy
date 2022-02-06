@@ -1,1 +1,2 @@
-source kivy_venv/bin/activate
+#!/bin/bash
+echo source "kivy_venv/bin/activate"
