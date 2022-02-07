@@ -1,0 +1,13 @@
+# kivy 1.0
+# пример рисования - хороший стиль
+# Описываем класс MyWidget для файла 002 - drawing_good_style.py
+<MyWidget>
+    # описание для холста - что, как и кем будем рисовать
+    canvas:
+        # задаем цвет
+        Color:
+            rgba: .5, .5, .5, .5
+        # задаем фигуру - эллипс
+        Ellipse:
+            size: self.size
+            pos: self.pos
