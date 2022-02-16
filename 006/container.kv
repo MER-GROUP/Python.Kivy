@@ -1,0 +1,33 @@
+# kivy 1.0
+# Описываем класс MainApp для файла 006 - simple_add_remove.py
+<Container>
+    # показать в главном окне программы
+    display: display
+    # добавить ячейку - строку
+    rows: 1
+    # Коробочный макет распологаем на сетке (в контейнере)
+    # В коробочном макете описываем поведение кнопок AddButton, SubtractButton
+    BoxLayout:
+        # ориентация макета вертикальная
+        # orientation: 'vertical'
+        # ориентация макета горизонтальная
+        orientation: 'horizontal'
+        # описание действия кнопки AddButton
+        AddButton:
+            # при нажатии на кнопку (on_release) 
+            # выполнить метод из класса AddButton.add_one() аналогично root.add_one()
+            on_release: root.add_one()
+        # описание действия кнопки SubtractButton
+        SubtractButton:
+            # при нажатии на кнопку (on_release) 
+            # выполнить метод из класса SubtractButton.subtract_one() аналогично root.add_one()
+            on_release: root.subtract_one()
+    # Этикетка
+    # Описание шрифтов на сетке (контейнере)
+    Label:
+        # определяем свойство id
+        id: display
+        # размер шрифта
+        font_size: dp(200)
+        # значение текста
+        text: '0'
