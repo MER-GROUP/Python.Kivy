@@ -1,6 +1,5 @@
 # *****************************************************************************************
 # импорт основного окна App
-from cgitb import text
 from kivy.app import App
 # импорт модуля Коробочный макет
 # в него будем пихать кнопки и др. GUI элементы
@@ -71,8 +70,8 @@ class MainApp(App):
         equils_button = Button(text='=',
                                 font_size=55,
                                 pos_hint={'center_x': 0.5, 'center_y': 0.5})
-        # кнопку связываем с методом
-        # equils_button.bind(on_press=self.)
+        # кнопку связываем с методом - выполнения действия рператоров
+        equils_button.bind(on_press=self.on_solution)
         # кнопку = кладем в основной коробочный макет
         main_layout.add_widget(equils_button)
 
@@ -80,7 +79,8 @@ class MainApp(App):
         # где мы расположили кнопки и поле для ввода текста
         return main_layout
 
-    # метод нажатия кнопок 
+    # метод нажатия кнопок
+    # вводятся цифры и операторы действия в поле для ввода текста TextInput
     # instance - является button самим объектом
     # instance - является копией объекта Button (копией переданного объекта)
     # из button.bind(on_press=self.on_button_press)
@@ -89,13 +89,44 @@ class MainApp(App):
         current = self.solution.text
         # берем значение из нажатой кнопки
         button_text = instance.text
-
+        
         # если нажата кнопка C
         # то очистить поле для ввода текста TextInput
         if 'C' == button_text:
             self.solution.text = ''
         else:
-            pass
+            # Не добавлять два оператора сразу друг за другом
+            # return - не обновлять деуствие (нажатие кнопки)
+            if current and (self.last_was_operator and button_text in self.operators):
+                return
+            # Первый символ не может быть оператором
+            # return - не обновлять деуствие (нажатие кнопки)
+            elif '' == current and (button_text in self.operators):
+                return
+            # иначе обновляем поле для ввода текста TextInput
+            else:
+                new_text = current + button_text
+                self.solution.text = new_text
+
+        # фиксируем последнее нажатие
+        self.last_button = button_text
+        # определяем было ли последнее нажатие оператором
+        self.last_was_operator = self.last_button in self.operators
+
+    # метод выполнения действия рператоров
+    # instance - является button самим объектом
+    # instance - является копией объекта Button (копией переданного объекта)
+    # из button.bind(on_press=self.on_button_press)
+    def on_solution(self, instance):
+        # берем значения из поле для ввода текста TextInput
+        text = self.solution.text
+        # если значение не пустое
+        # то выполнить действие с указанным оператором
+        # и вывести результат в поле для ввода текста TextInput
+        # eval - вычисляет текстовое выражение и возвращает результат выражения (no str)
+        if text:
+            solution = str(eval(self.solution.text))
+            self.solution.text = solution
 # *****************************************************************************************
 # если программа не модуль, то выполнить
 if __name__ == '__main__':
