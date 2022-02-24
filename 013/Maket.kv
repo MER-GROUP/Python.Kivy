@@ -1,4 +1,9 @@
+# версия kivi
 #:kivy 1.0
+# импортируем модуль Этикетка
+#: import Label kivy.uix.label.Label
+#: import Button kivy.uix.button.Button
+#: import Buttons Buttons.Buttons
 # Описываем класс class Maket(BoxLayout) для файла 013 - CalcKV.py
 <Maket>:
     # ----------------------------------------------------------------------
@@ -12,13 +17,16 @@
     # ----------------------------------------------------------------------
     # дизайн окна - расположение созданных классов (унаследованных)
     #
-    # class Solution(TextInput) - поле для ввода текста
+    # вставляем class Solution(TextInput) - поле для ввода текста
     Solution:
-    # class Buttons(Button) - кнопка
-    # on_kv_post - позволяет сделать цикл в KV файле
-    on_kv_post:
-        [self.add_widget(Buttons for i in range(9)]
+    # вставляем class Buttons(Button) - кнопка
     # Buttons:
+    BoxLayout:
+        # on_kv_post - позволяет сделать цикл в KV файле
+        on_kv_post:
+            # [self.add_widget(Label(text="Label " + str(i))) for i in range(5)]
+            # [self.add_widget(Button()) for i in range(5)]
+            [self.add_widget(Buttons()) for i in range(5)]
     # ----------------------------------------------------------------------
     # вызываем методы
     #
