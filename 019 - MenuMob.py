@@ -10,24 +10,10 @@ from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 # импорт модуля Строитель - загружает .kv файлы в проект
 from kivy.lang import Builder
-Builder.load_file('./018/BoxLayoutDecor.kv')
 # *****************************************************************************************
-# создаем основное окно программы, наследуя App - основные свойства окна
-class Programm(App):
-    # создаем стандартный конструктор Kivy: build(self)
-    def build(self):
-        # встраиваем дизайн и функционал основного окна
-        return BoxLayoutDecor()
-# *****************************************************************************************
-# декоратор - коробочный макет
-class BoxLayoutDecor(BoxLayout):
-    # доступ с переменным и свойствам класса в KV файлах
-    container = ObjectProperty(None)
-    # счетчик
-    i = int()
-
-    # метод - прокрутка экранов
-    # не используется
+# класс логика переходов в меню
+class Logictic():
+    # метод - прокрутка экранов (меню)
     def next_screen(self, screen):
         # определение имени KV файла
         filename = screen + '.kv'
@@ -35,22 +21,32 @@ class BoxLayoutDecor(BoxLayout):
         # причина: в нем могут быть данные из предыдущих вызовов
         # unload the content of the .kv file
         # reason: it could have data from previous calls
-        Builder.unload_file('./018/' + filename)
+        Builder.unload_file('./019/' + filename)
         # clear the container
         # очистите контейнер 
         # (переменная достура к свойствам класса RootWidget в файле root.kv)
         self.root.container.clear_widgets()
         # load the content of the .kv file
         # загрузить содержимое файла .kv
-        info = Builder.load_file('./018/' + filename)
+        info = Builder.load_file('./019/' + filename)
         # add the content of the .kv file to the container
         # добавьте содержимое файла .kv в контейнер
         self.root.container.add_widget(info)
-
-    # метод - увеличивает счетчик
-    def next_text(self):
-        self.container.text = str(self.i)
-        self.i += 1
+# *****************************************************************************************
+# класс декоратор - коробочный макет
+class BoxLayoutDecor(BoxLayout):
+    # доступ с переменным и свойствам класса в KV файлах
+    container = ObjectProperty(None)
+# *****************************************************************************************
+# создаем основное окно программы, 
+# наследуя App - основные свойства окна
+# наследуя Logictic - логика переходов в меню
+class Programm(App, Logictic):
+    # создаем стандартный конструктор Kivy: build(self)
+    def build(self):
+        # встраиваем дизайн и функционал основного окна
+        # встраиваем коробочный макет
+        return Builder.load_file('./019/BoxLayoutDecor.kv')
 # *****************************************************************************************
 # если программа не модуль, то выполнить
 if __name__ == '__main__':
