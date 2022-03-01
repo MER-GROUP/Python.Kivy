@@ -35,14 +35,14 @@ class BoxLayoutDecor(BoxLayout):
         # причина: в нем могут быть данные из предыдущих вызовов
         # unload the content of the .kv file
         # reason: it could have data from previous calls
-        Builder.unload_file('./017/' + filename)
+        Builder.unload_file('./018/' + filename)
         # clear the container
         # очистите контейнер 
         # (переменная достура к свойствам класса RootWidget в файле root.kv)
         self.root.container.clear_widgets()
         # load the content of the .kv file
         # загрузить содержимое файла .kv
-        info = Builder.load_file('./017/' + filename)
+        info = Builder.load_file('./018/' + filename)
         # add the content of the .kv file to the container
         # добавьте содержимое файла .kv в контейнер
         self.root.container.add_widget(info)
