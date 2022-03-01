@@ -1,5 +1,6 @@
 # *****************************************************************************************
 # импорт основного окна App
+from typing import Container
 from kivy.app import App
 # импорт модуля Коробочный макет
 # в него будем пихать кнопки и др. GUI элементы
@@ -10,6 +11,7 @@ from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 # импорт модуля Строитель - загружает .kv файлы в проект
 from kivy.lang import Builder
+Builder.load_file('./018/BoxLayoutDecor.kv')
 # *****************************************************************************************
 # создаем основное окно программы, наследуя App - основные свойства окна
 class Programm(App):
@@ -22,8 +24,11 @@ class Programm(App):
 class BoxLayoutDecor(BoxLayout):
     # доступ с переменным и свойствам класса в KV файлах
     container = ObjectProperty(None)
+    # счетчик
+    i = int()
 
     # метод - прокрутка экранов
+    # не используется
     def next_screen(self, screen):
         # определение имени KV файла
         filename = screen + '.kv'
@@ -42,6 +47,11 @@ class BoxLayoutDecor(BoxLayout):
         # add the content of the .kv file to the container
         # добавьте содержимое файла .kv в контейнер
         self.root.container.add_widget(info)
+
+    # метод - увеличивает счетчик
+    def next_text(self):
+        self.container.text = str(self.i)
+        self.i += 1
 # *****************************************************************************************
 # если программа не модуль, то выполнить
 if __name__ == '__main__':

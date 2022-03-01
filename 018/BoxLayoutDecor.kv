@@ -30,36 +30,48 @@
             orientation: 'horizontal'
             padding: 0
             spacing: 6
-            # нижний левый
-            # bottom-left
-            # по умолчанию привязка объектов идет к нижнему левому углу
             # коробочный макет
             BoxLayout:
                 # размер виджета
-                size_hint: 0.12, 0.12
                 # ориентация коробочного макета
-                orientation: 'vertical'
                 # расстояние от содержимого до границы
-                padding: 0
                 # расстояние между границами
-                spacing: 6
-                # опция калибровки
-                # option calibrate
-                # кнопка
+                # size_hint: 0.12, 0.12
+                orientation: 'vertical'
+                padding: 40
+                spacing: 50
+                # кнопки
                 Button:
-                    # наименование кнопки
-                    text: 'Start'
-                    # вызов метода при нажатии кнопки
-                    # показать следующий экран
-                    # вызвать экран в файле 1.kv
-                    # app - вызвать метод из программы
-                    ###on_release: app.next_screen('1')
+                    # размер виджета
+                    # содержимое текста
+                    size_hint: .8, .3
+                    text: 'кнопка 1'
+                Button:
+                    size_hint: .8, .3
+                    text: 'кнопка 2'
+                Button:
+                    size_hint: .8, .3
+                    text: 'кнопка 3'
+                Button:
+                    size_hint: .8, .3
+                    text: 'кнопка 4'
+                Button:
+                    size_hint: .8, .3
+                    text: 'кнопка 5'
             # коробочный макет
-            # create container (bottom-right)
-            # создать контейнер (внизу справа)
             BoxLayout:
-                # даем доступ к изменению свойств BoxLayout
-                id: container
+                orientation: 'vertical'
+                Label:
+                    # даем доступ к изменению свойств BoxLayout
+                    id: container
+                    text: 'НАЧАЛО'
+                BoxLayout:
+                    padding: 40
+                    spacing: 50
+                    Button:
+                        size_hint: .8, .3
+                        text: 'СЛЕДУЮЩЕЕ СЛОВО'
+                        on_press: root.next_text()
     # ----------------------------------------------------------------------
     # вызываем методы
     #
