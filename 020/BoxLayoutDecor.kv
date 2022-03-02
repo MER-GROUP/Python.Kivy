@@ -1,0 +1,102 @@
+# версия kivi
+#:kivy 1.8.0
+# Описываем класс class BoxLayoutDecor(BoxLayout) для файла 020 - BgColor.py
+<BoxLayoutDecor>:
+    # ----------------------------------------------------------------------
+    # параметры конструктора
+    # Эти свойства мы указываем в кострукторе при создании объекта
+    # если бы не использавли язык графической разметки KV - Kivy Language 
+    #
+    # создаем ссылку на объект
+    # тем самым получая доступ ко всем параметрам BoxLayout 3-го уровня в KV файле
+    # container: container
+    # ориентация коробочного макета
+    # расстояние от содержимого до границы
+    # расстояние между границами
+    orientation: 'horizontal'
+    padding: 40
+    spacing: 50
+    # ----------------------------------------------------------------------
+    # дизайн окна - расположение созданных классов (унаследованных)
+    # 
+    # определяем холс и переменную background_color
+    canvas:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    #
+    # коробочный макет
+    BoxLayout:
+        # определяем холс и переменную background_color (способ 1)
+        canvas:
+            Color:
+                rgba: self.background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        # ориентация коробочного макета
+        # расстояние от содержимого до границы
+        # расстояние между границами
+        # задаем цвет фона
+        orientation: 'vertical'
+        padding: 40
+        spacing: 50
+        background_color: (1, 0, 1, 1)
+        # кнопки
+        Button:
+            # цвет - кнопки при запуске
+            background_color: 'green'
+            # цвет - кнопка не нажата
+            background_normal: 'green'
+            # цвет - кнопка нажата
+            # background_down: 'green'
+        Button:
+            # толщина граница кнопки
+            border: 30,30,30,30
+        Button:
+            # текст кнопки
+            text: 'test'
+            # толщина граница кнопки и цвет
+            canvas.before:
+                Color:
+                    rgba: .5, .5, .5, 1
+                Line:
+                    width: 2
+                    rectangle: self.x, self.y, self.width, self.height
+    #
+    # коробочный макет
+    BoxLayout:
+        # определяем холс и цвет фона (способ 2)
+        canvas.before:
+            Color:
+                rgba: (1, 0, 0, 1)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        # ориентация коробочного макета
+        # расстояние от содержимого до границы
+        # расстояние между границами
+        orientation: 'vertical'
+        padding: 40
+        spacing: 50
+        # кнопки
+        Button:
+            # закругление углов кнопки
+            # цвет кнопки до и при нажатии
+            background_color: 0,0,0,0  # the last zero is the critical on, make invisible
+            canvas.before:
+                Color:
+                    rgba: (.4,.4,.4,1) if self.state=='normal' else (0,.7,.7,1)  # visual feedback of press
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    # radius: [50,]
+                    radius: [500,]
+        Button:
+        Button:
+    # ----------------------------------------------------------------------
+    # вызываем методы
+    #
+    # ----------------------------------------------------------------------
