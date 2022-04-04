@@ -1,0 +1,9 @@
+/__pycache__/
+/001 - for_fast_development/__pycache__/
+/002 - guide_kivy_python/__pycache__/
+/kivy_venv/
+/001 - for_fast_development/kivy_venv/
+/002 - guide_kivy_python/kivy_venv/
+/.kivy/
+/001 - for_fast_development/.kivy/
+/002 - guide_kivy_python/.kivy/
