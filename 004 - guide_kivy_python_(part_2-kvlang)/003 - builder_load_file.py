@@ -16,7 +16,10 @@ from os.path import dirname, join
 # Работа с директориями и файлами ОС
 from pathlib import Path
 # Класс Builder - закрузчик языка KV Lang
-from kivy.lang.builder import Builder
+# Вызов - вариант 1
+# from kivy.lang.builder import Builder
+# Вызов - вариант 2
+from kivy.lang import Builder
 # *****************************************************************************************
 # Создадим файл builder_app.py и загрузим нашу разметку example.kv 
 # с помощью метода load_file и присвоем переменной example_kv:
