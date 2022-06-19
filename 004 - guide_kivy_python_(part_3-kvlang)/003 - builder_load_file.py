@@ -17,13 +17,13 @@ from os.path import dirname, join
 from pathlib import Path
 # Класс Builder - закрузчик языка KV Lang
 # Вызов - вариант 1
-# from kivy.lang.builder import Builder
+from kivy.lang.builder import Builder
 # Вызов - вариант 2
-from kivy.lang import Builder
+# from kivy.lang import Builder
 # *****************************************************************************************
 # Создадим файл builder_app.py и загрузим нашу разметку example.kv 
 # с помощью метода load_file и присвоем переменной example_kv:
-example_kv = Builder.load_file(str(Path(join(dirname(__file__), './003 - buider_load_file.kv'))))
+example_kv = Builder.load_file(str(Path(join(dirname(__file__), './003 - builder_load_file.kv'))))
 # *****************************************************************************************
 class BuilderApp(App):
     # ---------------------------------------------------------------------------
