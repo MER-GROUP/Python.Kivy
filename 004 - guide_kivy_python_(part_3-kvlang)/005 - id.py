@@ -44,12 +44,14 @@ class TestId(BoxLayout):
     '''app widget'''
     # ---------------------------------------------------------------------------
     # vars
-    # text_input = ObjectProperty()
-    # label = ObjectProperty()
+    text_input = ObjectProperty()
+    label = ObjectProperty()
     # ---------------------------------------------------------------------------
     # methods
     def enter_text(self):
         self.label.text = self.text_input.text
+        # или (тогда ObjectProperty можно не объявлять)
+        # self.ids.label.text = self.ids.text_input.text
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
