@@ -1,0 +1,24 @@
+#:kivy 2.0.0
+
+# Для того чтобы использовать виджет из разметки Kv Design language, 
+# этому виджету можно присвоить id. Для этого напишите 
+# атрибут id:название у виджета. Далее создайте переменную 
+# и присвойте ему название id виджета.
+
+# Рассмотрим на примере. Создадим приложение где у нас будет 
+# макет BoxLayout с виджетами Text Input и Label. 
+# Мы будем вводить текст в Text Input и при нажатие 
+# клавиши Enter на клавиатуре написанный нами текст присвоится 
+# виджету Label. Создадим файл myapp.py и my.kv где будем писать разметку. 
+# Сама разметка:
+<TestId>:
+# TestId:
+    text_input: text_input
+    label: label
+    orientation: 'horizontal'
+    TextInput:
+        id: text_input
+        multiline: False
+        on_text_validate: root.enter_text()
+    Label:
+        id: label
