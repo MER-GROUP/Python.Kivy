@@ -39,7 +39,7 @@ from kivy.lang import Builder
 # тексту Label(переменная gramm_result ) присваиваемм значение в граммах
 class Convert(BoxLayout):
     # ---------------------------------------------------------------------------
-    '''app widget'''
+    '''root widget'''
     # ---------------------------------------------------------------------------
     # vars
     kg_input = ObjectProperty(None)
