@@ -1,5 +1,5 @@
 # *****************************************************************************************
-
+# Таймер
 # *****************************************************************************************
 # главное окно программы
 from kivy.app import App
@@ -7,12 +7,14 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 # свойства объекта (виджета)
 from kivy.properties import ObjectProperty
+# поток таймер
+from threading import Timer
 # *****************************************************************************************
 # конфигурация приложения kv
 from kivy.config import Config
 # задаем размеры окна статически
-Config.set('graphics', 'width', '400')
-Config.set('graphics', 'height', '60')
+Config.set('graphics', 'width', '200')
+Config.set('graphics', 'height', '300')
 # *****************************************************************************************
 # Работа с директориями и файлами ОС
 from os.path import dirname, join
@@ -20,22 +22,131 @@ from os.path import dirname, join
 from pathlib import Path
 # Класс Builder - закрузчик языка KV Lang
 from kivy.lang import Builder
-# Builder.load_file(str(Path(join(dirname(__file__), './convert.kv'))))
+# Builder.load_file(str(Path(join(dirname(__file__), './timer.kv'))))
 # *****************************************************************************************
-
+# Создадим таймер. Задавать время будем в виджете Text Input 
+# и при нажатии на клавишу Enter это время присвоится Label 
+# где будет отображаться время. Далее при нажатии на кнопку 
+# Start таймер будет запускаться, соответственно при нажатии 
+# кнопки Stop останавливаться. Вот такие виджеты нам понадобятся:
+# 1. Вертикальный макет BoxLayout(у нас будет класс TimerEx который 
+# будет наследоваться от класса BoxLayout)
+# 2. Виджет Text Input в котором мы будет писать время в секундах 
+# и при нажатии на клавишу Enter это время присвоится виджету Label 
+# где будет показываться время
+# 3. Виджет Label где будет отображаться время
+# 4. Кнопка Start которая будет запускать метод start_timer()
+# 5. Кнопка Stop которая будет запускать метод stop_timer()
+# Так же нам понадобится класс Timer из модуля threading
+# Создадим два файла timer.py для кода и timer.kv для разметки. 
+# Начнем с кода. Зададим размер окна 200х300 с помощью Config.set
 # *****************************************************************************************
+# Далее создадим класс TimerEx который будет наследоваться от 
+# класса BoxLayout. Объявим переменные всех виджетов и присвоим 
+# им ObjectProperty(None) которые так же будут в разметке. 
+# Так же объявим счетчик времени time_count и присвоим ему начальное 
+# значение 0. Далее объявим переменную t которая будет экземпляром 
+# класса Timer, но поначалу будет None
 
+# Далее в этом классе будет писать методы. Напишем метод set_time. 
+# В нем присвоим переменной time_count значение с text_input 
+# приведенное к формату int. Далее time_text(Label где отображается время) 
+# мы присвоим значение с time_count. Так же в этом методе мы будет включать 
+# кнопку start_btn так как в разметке она будет отключена. 
+# Это делается с помощью атрибута disabled. Если это атрибут 
+# равен True то кнопка отключена, а если False то включена. 
+# Этот метод set_time в разметке мы присвоим событию on_text_validate 
+# у TextInput
+
+# Далее напишем метод start_timer который будет выполняться при нажатии 
+# на кнопку Start(в разметке присвоим это метод событию on_press у кнопки). 
+# В нем мы создаем экзмепляр класса Timer для переменной t в котором первый 
+# параметр это время через которое запустится метод, а вторым сам метод. 
+# Метод countdown мы напишем позже. Далее будем заупускать таймер с помощью 
+# метода start() у переменной t. Выключаем кнопку start_btn с помощью 
+# атрибута disabled. Включаем кнопку stop_btn и так же выключаем text_input 
+# для того чтобы нельзя было изменять время при запуске таймера.
+
+# Теперь же напишем сам метод countdown. В начале будем проверять что если 
+# time_count равен нулю то:
+# 1. Отключаем кнопку stop_btn с помощью атрибута disabled
+# 2. Устанавливаем перменной time_count значение с text_input
+# 3. В переменную time_text(Label где отображается время) присваиваем значение 
+# с time_count
+# 4. Включаем кнопку start_btn с помощью атрибута disabled
+# 5. Включаем text_input с помощью атрибута disabled
+# 6. Присваиваем переменной t значение None чтобы таймер по окончанию 
+# снова не запустился
+# Далее пишем код в условии если time_count не равен нулю:
+# 1. Уменьшаем time_count на единицу
+# 2. Присваиваем time_text(Label где отображается время) значение time_count 
+# приведенную к типу строки
+# 3. Создаем экземпляр класса Timer для переменной t где пишем вторым 
+# параметром этот же метод countdown
+# 4. Запускаем Timer с помощью метода start()
+
+# Следующий метод stop_timer который будет выполняться при нажатии 
+# на кнопку Stop(в разметке присвоим этот метод событию on_press).
+# В нем мы напишем:
+# 1. Включаем text_input с помощью атрибута disabled
+# 2. Останавливаем таймер вызвав метод cancel() у переменной t
+# 3. Включаем кнопку start_btn с помощью атрибута disabled
+# 4. Выключаем кнопку Stop с помощью атрибута disabled
+# 5. Присваиваем переменной time_count значение с text_input приведенное 
+# к формату int
+# 6. Переменной time_text присваиваем значение с переменной time_count
 class Timer(BoxLayout):
     # ---------------------------------------------------------------------------
-    '''app widget'''
+    '''root widget'''
     # ---------------------------------------------------------------------------
     # vars
+    start_btn = ObjectProperty(None)
+    stop_btn = ObjectProperty(None)
+    text_input = ObjectProperty(None)
+    time_text = ObjectProperty(None)
+    time_count = 0
+    t = None
     # ---------------------------------------------------------------------------
     # methods
+    def set_time(self):
+        self.time_count = int(self.text_input.text)
+        self.time_text.text = str(self.time_count)
+        self.start_btn.disabled = False
+
+    def start_timer(self):
+        self.t = Timer(1, self.countdown)
+        self.t.start()
+        self.start_btn.disabled = True
+        self.stop_btn.disable = False
+        self.text_input.disable = True
+
+    def countdown(self):
+        if (0 == self.time_count):
+            self.stop_btn.disabled = True
+            self.time_count = int(self.text_input.text)
+            self.time_text.text = str(self.time_count)
+            self.start_btn.disabled = False
+            self.text_input.disabled = False
+            self.t = None
+        else:
+            self.time_count -= 1
+            self.time_text.text = str(self.time_count)
+            self.t = Timer(1, self.countdown)
+            self.t.start()
+
+    def stop_timer(self):
+        self.text_input.disabled = False
+        self.t.cancel()
+        self.start_btn.disabled = False
+        self.stop_btn.disabled = True
+        self.time_count = int(self.text_input.text)
+        self.time_text.text = str(self.time_count)
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
 # *****************************************************************************************
+# Далее пишем класс TimerApp который наследуется от класса App.
+# У него в методе build создадим экзмепляр класса TimerEx под названием timer
 class TimerApp(App):
     # ---------------------------------------------------------------------------
     '''app widget'''
