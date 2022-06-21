@@ -1,3 +1,44 @@
 #:kivy 2.0.0
+# Теперь рассмотрим разметку kg.kv
 
+# Сначало в треугольных скобках мы пишем название класса KgWeight 
+# который создали в коде. Далее мы пишем название переменных 
+# которые так же объявили в классе, которым мы присвоили ObjectProperty. 
+# В разметке мы присваиваем им id виджетов. Так как этот класс наследуется 
+# от BoxLayout присваиваем атрибуту orientation значение 'horizontal'. 
+# Далее в виджете TextInput пишем ему id:kg_input. Атрибут multiline 
+# ставим в False что бы у нас при нажатии на клавишу Enter вместо 
+# переноса на новую строку, заканчивался ввод. Далее атрибуту input_filter 
+# пишем значение 'float' для того чтобы мы могли вводить значение только 
+# в формате float. Задаем размер шрифта с пмошью атрибута font_size 
+# значение 40sp. Далее событию on_text_validate(срабатывает при нажатии Enter, 
+# но перед этим атрибут multiline нужно поставить в значение False ) 
+# присваиваем наш метод с класса KgWieght перед этим написав root и 
+# получается root.convert_to_gramm()
+
+# Следующий виджет Label который отображает '='. Ставим ему size_hint 
+# в значение (0.2,0.6). Размер шрифта font_size ставим 50sp. 
+# Позицию pos_hint по y ставим 0.2
+
+# Следующий виджет Label который будет отображать нам при нажатии на 
+# клавишу Enter количество грамм. Присваиваем ему id:gramm_result и 
+# размер шрифта font_size ставим 40sp
 <Convert>:
+    # vars
+    kg_input: kg_input
+    gramm_result: gramm_result
+    orientation: 'horizontal'
+    TextInput:
+        id: kg_input
+        multiline: False
+        input_filter: 'float'
+        font_size: '40sp'
+        on_text_validate: root.convert_to_gramm()
+    Label:
+        text: "="
+        size_hint: (0.2, 0.6)
+        font_size: '50sp'
+        pos_hint: {'y': 0.2}
+    Label:
+        id: gramm_result
+        font_size: '40sp'
