@@ -8,7 +8,7 @@ from kivy.uix.boxlayout import BoxLayout
 # свойства объекта (виджета)
 from kivy.properties import ObjectProperty
 # поток таймер
-from threading import Timer
+from threading import Timer as timer
 # *****************************************************************************************
 # конфигурация приложения kv
 from kivy.config import Config
@@ -114,11 +114,11 @@ class Timer(BoxLayout):
         self.start_btn.disabled = False
 
     def start_timer(self):
-        self.t = Timer(1, self.countdown)
+        self.t = timer(1, self.countdown)
         self.t.start()
         self.start_btn.disabled = True
-        self.stop_btn.disable = False
-        self.text_input.disable = True
+        self.stop_btn.disabled = False
+        self.text_input.disabled = True
 
     def countdown(self):
         if (0 == self.time_count):
@@ -131,7 +131,7 @@ class Timer(BoxLayout):
         else:
             self.time_count -= 1
             self.time_text.text = str(self.time_count)
-            self.t = Timer(1, self.countdown)
+            self.t = timer(1, self.countdown)
             self.t.start()
 
     def stop_timer(self):
