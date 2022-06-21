@@ -1,0 +1,60 @@
+#:kivy 2.0.0
+# Теперь посмотрим на разметку timer.kv
+
+# В треугольных скобках пишем название класса TimerEx как в коде. 
+# Далее пишем название переменных как в коде и присваиваем им id виджетов. 
+# Так как наш класс является наследником класса BoxLayout то у него есть 
+# атрибут orientation. Присваиваем этому атрибуту значение 'vertical' 
+# так как все виджеты будут расположены вертикально
+
+# Далее пишем атрибуты для виджета TextInput. Сначало присваиваем 
+# id:text_input. Далее атрибуту input_filter ставим значение 'int' 
+# для того чтобы он принимал только целые числа в качестве значения. 
+# Атрибут multiline(многострочность) присваиваем значение False для 
+# того чтобы при нажатие клавиши Enter небыло перехода на новую строку, 
+# а заканчивался ввод. Значение size_hint пишем (1,0.3) для того чтобы 
+# по длине этот виджет занимал меньше места. Событию 
+# on_text_validate(событие вызывается после ввода при нажатие клавиши Enter, 
+# но перед этим атрибуту multiline нужно присвоить значение False) 
+# присваиваем вызов метода set_time() перед этим написав root.
+
+# Далее рассмотрим Label где выводится текст с временем. 
+# Присваиваем id:time_text. Ставим размер шрифта font_size значение '50sp'. 
+# Начальный текст у Label пишем '0'
+
+# Дальше идет кнопка Start. Присваиваем id:start_btn. Далее присваиваем 
+# текст на кнопку 'Start'. Выключаем кнопку с помощью атрибута disabled 
+# поставив значение True. Событию on_press(нажатие на кнопку) мы присваиваем 
+# метод start_timer() перед этим написав root.
+
+# Дальше идет кнопка Stop. Присваиваем id:stop_btn. Далее присваиваем текст 
+# на кнопку 'Stop'. Выключаем кнопку с помощью атрибута disabled поставив 
+# значение True. Событию on_press(нажатие на кнопку) мы присваиваем 
+# метод stop_timer() перед этим написав root.
+<Timer>:
+    # vars
+    start_btn: start_btn
+    stop_btn: stop_btn
+    text_input: text_input
+    time_text: time_text
+    orientation: 'vertical'
+    TextInput:
+        id: text_input
+        input_filter: 'int'
+        multiline: False
+        size_hint: (1, 0.3)
+        on_text_validate: root.set_time()
+    Label:
+        id: time_text
+        font_size: '50sp'
+        text: '0'
+    Button:
+        id: start_btn
+        text: 'Start'
+        disabled: True
+        on_press: root.start_timer()
+    Button:
+        id: stop_btn
+        text: 'Stop'
+        disabled: True
+        on_press: root.stop_timer()
