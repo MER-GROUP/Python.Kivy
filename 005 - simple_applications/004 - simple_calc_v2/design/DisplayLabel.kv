@@ -5,6 +5,24 @@
 
 # Шрифт (цифры) дисплея калькулятора
 <DisplayLabel@Label>:
+    # расмер шрифта
     font_size: '50sp'
+
+    # цвет шрифта
     color: 'black'
+
+    # жирность шрифта
     # bold: True
+
+    # автоматически переносить/растягивать текст {
+    text_size: self.size
+    halign: 'right'
+    valign: 'middle'
+    # автоматически переносить/растягивать текст }
+
+    # пролистывание текста {
+    size_hint_y: None
+    height: self.texture_size[1]
+    text_size: self.width, None
+    padding: 10, 10
+    # пролистывание текста }

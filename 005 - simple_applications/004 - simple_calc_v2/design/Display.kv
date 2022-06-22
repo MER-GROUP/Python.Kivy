@@ -5,11 +5,16 @@
 
 # Дисплей калькулятора (циферблат)
 <Display@BoxLayout>:
+    # начальные параметры загрузки
     canvas.before:
         Color:
             rgba: hex('#FFFFFF') # White
         Rectangle:
             pos: self.pos
             size: self.size
+
+    # направление коробочного макета
+    orientation: 'vertical'
+
     # размер виджета
-    size_hint: 1, 0.3
+    size_hint: 1, 0.35
