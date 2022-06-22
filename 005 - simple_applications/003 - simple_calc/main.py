@@ -129,11 +129,12 @@ class Calc(BoxLayout):
     operand = None
     # ---------------------------------------------------------------------------
     # methods
-    def write_number(self, instance):
-    # def write_number(self, button):
+    # def write_number(self, instance):
+    def write_number(self, button):
         if not (self.operand == '='):
             # self.label.text = ''
-            self.label.text += instance.text
+            # self.label.text += instance.text
+            self.label.text += button.text
             if (self.first_number is None):
                 self.first_number = 0 
                 # self.first_number = int(self.label.text)
