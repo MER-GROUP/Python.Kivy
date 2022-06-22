@@ -14,7 +14,7 @@
         Display:
             BoxLayout:
                 orientation: 'vertical'
-                size_hint: 1, 0.2
+                size_hint: 1, 0.25
                 padding: [5,0,0,0]
                 spacing: 0
                 DisplayComment:
@@ -25,7 +25,12 @@
                 DisplayScroll:
                     DisplayLabel:
                         id: label_display
-                        text: ''              
+                        text: ''
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, 0.1
+        Button:
+            text: "история"
     GridLayout:
         cols: 4
         # padding: [0,2,0,0]
