@@ -5,12 +5,18 @@
     # vars
     label: label
     orientation: 'vertical'
-    Display:
-        DisplayScroll:
-            DisplayLabel:
-                id: label                
+    # padding: 2
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 1
+        size_hint: 1, 0.35
+        Display:
+            DisplayScroll:
+                DisplayLabel:
+                    id: label                
     GridLayout:
         cols: 4
+        # padding: [0,2,0,0]
         Button:
             text: '1'
             on_press: root.write_number(self)
