@@ -3,7 +3,8 @@
 # Дизайн калькулятора
 <Calc>:
     # vars
-    label: label
+    label_display_comment: label_display_comment
+    label_display: label_display
     orientation: 'vertical'
     # padding: 2
     BoxLayout:
@@ -13,74 +14,73 @@
         Display:
             BoxLayout:
                 orientation: 'vertical'
-                size_hint: 1, 0.2
+                size_hint: 1, 0.25
                 padding: [5,0,0,0]
                 spacing: 0
-                Label:
-                    id: label_2  
-                    text: 'test 5+5=10'
-                    # размер шрифта
-                    font_size: '12sp'
-                    # цвет шрифта
-                    color: 'gray'
-                    # автоматически переносить/растягивать текст {
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'top'
-                    # автоматически переносить/растягивать текст }
+                DisplayComment:
+                    id: label_display_comment
+                    text: 'test display_comment'
             BoxLayout:
                 orientation: 'vertical'
                 DisplayScroll:
                     DisplayLabel:
-                        id: label                
+                        id: label_display
+                        text: ''
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, 0.1
+        ButtonSupport:
+            text: "настройки"
+        ButtonSupport:
+            text: "история"
     GridLayout:
         cols: 4
         # padding: [0,2,0,0]
-        Button:
+        ButtonBase:
             text: '1'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '2'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '3'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '+'
             on_press: root.add()
-        Button:
+        ButtonBase:
             text: '4'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '5'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '6'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '-'
             on_press: root.subtract()
-        Button:
+        ButtonBase:
             text: '7'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '8'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '9'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '*'
             on_press: root.multiply()
-        Button:
+        ButtonBase:
             text: 'C'
             on_press: root.clear()
-        Button:
+        ButtonBase:
             text: '0'
             on_press: root.write_number(self)
-        Button:
+        ButtonBase:
             text: '='
             on_press: root.equal()
-        Button:
+        ButtonBase:
             text: '/'
             on_press: root.division()
