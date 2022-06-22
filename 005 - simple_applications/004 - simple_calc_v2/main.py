@@ -7,7 +7,7 @@ from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 # свойства объекта (виджета)
 from kivy.properties import ObjectProperty
-# лпределение ОС
+# определение ОС
 from kivy.utils import platform
 # *****************************************************************************************
 if not 'android' == platform:
@@ -15,7 +15,7 @@ if not 'android' == platform:
     from kivy.config import Config
     # задаем размеры окна статически
     Config.set('graphics', 'width', '300')
-    Config.set('graphics', 'height', '500')
+    Config.set('graphics', 'height', '300')
 # *****************************************************************************************
 # Работа с директориями и файлами ОС
 # listdir - показывает файлы в конкретной папке
@@ -143,6 +143,7 @@ class CalcApp(App):
     # ---------------------------------------------------------------------------
     '''app widget'''
     # ---------------------------------------------------------------------------
+    title = 'Simple Calc v2.0'
     def build(self):
         return Calc()
     # ---------------------------------------------------------------------------
