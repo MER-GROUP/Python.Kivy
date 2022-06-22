@@ -113,6 +113,12 @@ from kivy.lang import Builder
 # label(приведя его к числу с помощью int) и все это приводим к строчному 
 # типу с помошью str(деление на целые числа в Python это //)
 # 6.Присваиваем переменной operand знак '='
+
+# Следующий метод clear для очистки виджета Label, переменной first_number 
+# и переменной operand. Этот метод мы присвоим событию on_press на кнопку 
+# с текстом 'C' в разметке. Итак в этом методе все просто. Переменной 
+# first_number мы присваиваем значение None. Далее переменной operand 
+# присваиваем значение None. Переменной label присваиваем пустой текст ''
 class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
     '''root widget'''
@@ -124,6 +130,7 @@ class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
     # methods
     def write_number(self, instance):
+    # def write_number(self, button):
         if not (self.operand == '='):
             # self.label.text = ''
             self.label.text += instance.text
@@ -204,10 +211,17 @@ class Calc(BoxLayout):
             ):
             self.label.text = str(self.first_number // int(self.label.text))
         self.operand = '='
+
+    def clear(self):
+        self.first_number = None
+        self.operand = None
+        self.label.text = ''
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
 # *****************************************************************************************
+# Далее создаем класс CalcApp который наследуется от класса App и 
+# в методе build создаем экземпляр класса Calculator под названием calculator
 class CalcApp(App):
     # ---------------------------------------------------------------------------
     '''app widget'''
