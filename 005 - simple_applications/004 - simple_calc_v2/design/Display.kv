@@ -1,0 +1,15 @@
+#:kivy 2.0.0
+
+# импорт hex цветов
+#:import hex kivy.utils.get_color_from_hex
+
+# Дисплей калькулятора (циферблат)
+<Display@BoxLayout>:
+    canvas.before:
+        Color:
+            rgba: hex('#20b2aa') # LightSeaGreen
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    # размер виджета
+    size_hint: 1, 0.3
