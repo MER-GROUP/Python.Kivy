@@ -3,7 +3,8 @@
 # Дизайн калькулятора
 <Calc>:
     # vars
-    label: label
+    label_display_comment: label_display_comment
+    label_display: label_display
     orientation: 'vertical'
     # padding: 2
     BoxLayout:
@@ -16,23 +17,15 @@
                 size_hint: 1, 0.2
                 padding: [5,0,0,0]
                 spacing: 0
-                Label:
-                    id: label_2  
-                    text: 'test 5+5=10'
-                    # размер шрифта
-                    font_size: '12sp'
-                    # цвет шрифта
-                    color: 'gray'
-                    # автоматически переносить/растягивать текст {
-                    text_size: self.size
-                    halign: 'left'
-                    valign: 'top'
-                    # автоматически переносить/растягивать текст }
+                DisplayComment:
+                    id: label_display_comment
+                    text: 'test display_comment'
             BoxLayout:
                 orientation: 'vertical'
                 DisplayScroll:
                     DisplayLabel:
-                        id: label                
+                        id: label_display
+                        text: ''              
     GridLayout:
         cols: 4
         # padding: [0,2,0,0]

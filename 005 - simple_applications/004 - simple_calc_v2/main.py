@@ -16,6 +16,8 @@ if not 'android' == platform:
     # задаем размеры окна статически
     Config.set('graphics', 'width', '300')
     Config.set('graphics', 'height', '300')
+    # запрещаем изменение размеров окна
+    Config.set('graphics','resizable', False)
 # *****************************************************************************************
 # Работа с директориями и файлами ОС
 # listdir - показывает файлы в конкретной папке
@@ -41,7 +43,8 @@ class Calc(BoxLayout):
     '''root widget'''
     # ---------------------------------------------------------------------------
     # vars
-    label = ObjectProperty(None)
+    label_display = ObjectProperty(None)
+    label_display_comment = ObjectProperty(None)
     first_number = None
     operand = None
     # ---------------------------------------------------------------------------
@@ -49,12 +52,12 @@ class Calc(BoxLayout):
     # def write_number(self, instance):
     def write_number(self, button):
         if not (self.operand == '='):
-            # self.label.text = ''
-            # self.label.text += instance.text
-            self.label.text += button.text
+            # self.label_display.text = ''
+            # self.label_display.text += instance.text
+            self.label_display.text += button.text
             if (self.first_number is None):
                 self.first_number = 0 
-                # self.first_number = int(self.label.text)
+                # self.first_number = int(self.label_display.text)
 
     def add(self):
         if (self.first_number is None):
@@ -63,8 +66,8 @@ class Calc(BoxLayout):
             self.operand = None
         if (self.operand is not None):
             return
-        self.first_number = int(self.label.text)
-        self.label.text = ''
+        self.first_number = int(self.label_display.text)
+        self.label_display.text = ''
         self.operand = '+'
 
     def subtract(self):
@@ -74,8 +77,8 @@ class Calc(BoxLayout):
             self.operand = None
         if (self.operand is not None):
             return
-        self.first_number = int(self.label.text)
-        self.label.text = ''
+        self.first_number = int(self.label_display.text)
+        self.label_display.text = ''
         self.operand = '-'
 
     def multiply(self):
@@ -85,8 +88,8 @@ class Calc(BoxLayout):
             self.operand = None
         if (self.operand is not None):
             return
-        self.first_number = int(self.label.text)
-        self.label.text = ''
+        self.first_number = int(self.label_display.text)
+        self.label_display.text = ''
         self.operand = '*'
 
     def division(self):
@@ -96,8 +99,8 @@ class Calc(BoxLayout):
             self.operand = None
         if (self.operand is not None):
             return
-        self.first_number = int(self.label.text)
-        self.label.text = ''
+        self.first_number = int(self.label_display.text)
+        self.label_display.text = ''
         self.operand = '/'
 
     def equal(self):
@@ -108,32 +111,32 @@ class Calc(BoxLayout):
             and (self.operand is not None) 
             and (self.operand == '+')
             ):
-            self.label.text = str(self.first_number + int(self.label.text))
+            self.label_display.text = str(self.first_number + int(self.label_display.text))
         elif (
             (self.first_number is not None) 
             and (self.operand is not None) 
             and (self.operand == '-')
             ):
-            self.label.text = str(self.first_number - int(self.label.text))
+            self.label_display.text = str(self.first_number - int(self.label_display.text))
         elif (
             (self.first_number is not None) 
             and (self.operand is not None) 
             and (self.operand == '*')
             ):
-            self.label.text = str(self.first_number * int(self.label.text))
+            self.label_display.text = str(self.first_number * int(self.label_display.text))
         elif (
             (self.first_number is not None) 
             and (self.operand is not None) 
             and (self.operand == '/')
-            and not ('0' == self.label.text)
+            and not ('0' == self.label_display.text)
             ):
-            self.label.text = str(self.first_number // int(self.label.text))
+            self.label_display.text = str(self.first_number // int(self.label_display.text))
         self.operand = '='
 
     def clear(self):
         self.first_number = None
         self.operand = None
-        self.label.text = ''
+        self.label_display.text = ''
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
