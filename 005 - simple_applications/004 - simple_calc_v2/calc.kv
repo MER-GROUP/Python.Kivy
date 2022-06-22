@@ -11,9 +11,28 @@
         padding: 1
         size_hint: 1, 0.35
         Display:
-            DisplayScroll:
-                DisplayLabel:
-                    id: label                
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, 0.2
+                padding: [5,0,0,0]
+                spacing: 0
+                Label:
+                    id: label_2  
+                    text: 'test 5+5=10'
+                    # размер шрифта
+                    font_size: '12sp'
+                    # цвет шрифта
+                    color: 'gray'
+                    # автоматически переносить/растягивать текст {
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'top'
+                    # автоматически переносить/растягивать текст }
+            BoxLayout:
+                orientation: 'vertical'
+                DisplayScroll:
+                    DisplayLabel:
+                        id: label                
     GridLayout:
         cols: 4
         # padding: [0,2,0,0]
