@@ -58,6 +58,61 @@ from kivy.lang import Builder
 # мы присваиваем старое значение переменной label плюс 
 # instance.text(число с кнопки). Далее в этом же условии пишем условие 
 # что если переменная first_number равна None, то присвоим ей же значение 0
+
+# Следующие методы операций сложения(метод add), вычитания(метод subtract), 
+# умножения(метод multiply) и деления(метод division) будут похожи и 
+# присваиваться событию on_press к соответствующим кнопкам этих операций 
+# в разметке. Единственное что в этих методах переменная operand будет 
+# принимать знак взависимости от операции. Рассмотрим метод сложения add:
+# 1.Пишем условие если first_number равен None то выходим из метода с помощью 
+# ключевого слова return
+# 2.Пишем условие что если переменная operand равна знаку '=' то 
+# присваиваем этой переменной operand значение None
+# 3.Пишем условие что если operand не пустой и равен какому то знаку 
+# операции то выходим из метода с помощью ключевого слова return
+# 4. Присваеваем переменной first_number значение с виджета label 
+# приводя его к типу int
+# 5. Очищаем label присвоив ему пустой символ ''
+# 6.Присваиваем переменной operand знак '+'
+# В остальных методах операций такой же алгоритм за исключением только 
+# того что переменная operand бует соответствовать знаку операции. 
+# Например если метод substract(вычитание) то переменная operand 
+# будет равна знаку '-',если метод multiply(умножение) то переменная 
+# operand будет равна знаку '*' и если метод division(деление) то 
+# переменная operand будет равна знаку '/'
+
+# Далее идет метод equal(равно) который в разметке мы присвоим событию 
+# on_press кнопки с текстом '=' и этот метод будет выводить в Label 
+# результат операции. Итак пишем в этом методе:
+# 1.Условие если переменная operand равна знаку '=' или first_number 
+# равен None то мы выходим из метода с помошью ключевого слова return
+# 2.Пишем условие для сложения чисел. Если переменная first_number не 
+# равна None и переменная operand не равна None и переменная operand 
+# равна знаку '+' то в переменную label(напомню что это переменная 
+# виджета где отображаются числа) мы присваиваем сложение 
+# переменной first_number и значение с переменной 
+# label(приведя его к числу с помощью int) и все это приводим к 
+# строчному типу с помошью str
+# 3.Иначе если переменная first_number не равна None и переменная 
+# operand не равна None и переменная operand равна знаку '-' то в 
+# переменную label(напомню что это переменная виджета где отображаются числа) 
+# мы присваиваем вычитание переменной first_number и значение с 
+# переменной label(приведя его к числу с помощью int) и все это 
+# приводим к строчному типу с помошью str
+# 4.Иначе если переменная first_number не равна None и переменная 
+# operand не равна None и переменная operand равна знаку '*' то в 
+# переменную label(напомню что это переменная виджета где отображаются числа) 
+# мы присваиваем умножение переменной first_number и значение с 
+# переменной label(приведя его к числу с помощью int) и все это 
+# приводим к строчному типу с помошью str
+# 5.Иначе если переменная first_number не равна None и переменная 
+# operand не равна None и переменная operand равна знаку '/' и label.text 
+# не равен 0(потому что на ноль делить нельзя) то в переменную 
+# label(напомню что это переменная виджета где отображаются числа) 
+# мы присваиваем деление переменной first_number и значение с переменной 
+# label(приведя его к числу с помощью int) и все это приводим к строчному 
+# типу с помошью str(деление на целые числа в Python это //)
+# 6.Присваиваем переменной operand знак '='
 class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
     '''root widget'''
@@ -68,6 +123,87 @@ class Calc(BoxLayout):
     operand = None
     # ---------------------------------------------------------------------------
     # methods
+    def write_number(self, instance):
+        if not (self.operand == '='):
+            # self.label.text = ''
+            self.label.text += instance.text
+            if (self.first_number is None):
+                self.first_number = 0 
+                # self.first_number = int(self.label.text)
+
+    def add(self):
+        if (self.first_number is None):
+            return
+        if (self.operand == '='):
+            self.operand = None
+        if (self.operand is not None):
+            return
+        self.first_number = int(self.label.text)
+        self.label.text = ''
+        self.operand = '+'
+
+    def subtract(self):
+        if (self.first_number is None):
+            return
+        if (self.operand == '='):
+            self.operand = None
+        if (self.operand is not None):
+            return
+        self.first_number = int(self.label.text)
+        self.label.text = ''
+        self.operand = '-'
+
+    def multiply(self):
+        if (self.first_number is None):
+            return
+        if (self.operand == '='):
+            self.operand = None
+        if (self.operand is not None):
+            return
+        self.first_number = int(self.label.text)
+        self.label.text = ''
+        self.operand = '*'
+
+    def division(self):
+        if (self.first_number is None):
+            return
+        if (self.operand == '='):
+            self.operand = None
+        if (self.operand is not None):
+            return
+        self.first_number = int(self.label.text)
+        self.label.text = ''
+        self.operand = '/'
+
+    def equal(self):
+        if (self.operand == '=') or (self.first_number is None):
+            return
+        if (
+            (self.first_number is not None) 
+            and (self.operand is not None) 
+            and (self.operand == '+')
+            ):
+            self.label.text = str(self.first_number + int(self.label.text))
+        elif (
+            (self.first_number is not None) 
+            and (self.operand is not None) 
+            and (self.operand == '-')
+            ):
+            self.label.text = str(self.first_number - int(self.label.text))
+        elif (
+            (self.first_number is not None) 
+            and (self.operand is not None) 
+            and (self.operand == '*')
+            ):
+            self.label.text = str(self.first_number * int(self.label.text))
+        elif (
+            (self.first_number is not None) 
+            and (self.operand is not None) 
+            and (self.operand == '/')
+            and not ('0' == self.label.text)
+            ):
+            self.label.text = str(self.first_number // int(self.label.text))
+        self.operand = '='
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
