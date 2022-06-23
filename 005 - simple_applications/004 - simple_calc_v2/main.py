@@ -83,10 +83,10 @@ class Calc(BoxLayout):
         if (self.operand == '='):
             self.operand = None
         # if (self.operand is not None):
-        #     return
+        #     return        
+        self.label_display_comment.text += str(float(self.label_display.text))
         # self.first_number = float(self.label_display.text)
-        self.first_number += float(self.label_display.text)
-        self.label_display_comment.text += str(self.first_number)
+        self.first_number += float(self.label_display.text)       
         self.label_display.text = ''
         self.operand = '+'
         self.label_display_comment.text += str(self.operand)
