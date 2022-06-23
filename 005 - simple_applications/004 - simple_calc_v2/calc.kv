@@ -33,9 +33,10 @@
         size_hint: 1, 0.1
         ButtonSupport:
             text: "settings"
-            on_release: Factory.WindowSettings().open()
+            on_press: Factory.WindowSettings().open()
         ButtonSupport:
             text: "history"
+            on_press: Factory.WindowHistory().open()
         ButtonSupport:
             text: "info"
     GridLayout:
