@@ -1,4 +1,6 @@
 #:kivy 2.0.0
+# для вызова модальных окон
+#:import Factory kivy.factory.Factory
 
 # Дизайн калькулятора
 <Calc>:
@@ -31,6 +33,7 @@
         size_hint: 1, 0.1
         ButtonSupport:
             text: "settings"
+            on_release: Factory.WindowSettings().open()
         ButtonSupport:
             text: "history"
         ButtonSupport:
