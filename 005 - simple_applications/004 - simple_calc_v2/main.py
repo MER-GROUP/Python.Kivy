@@ -43,12 +43,14 @@ class Calc(BoxLayout):
     '''root widget'''
     # ---------------------------------------------------------------------------
     # vars
+    # ---------------------------------------------------------------------------
     label_display = ObjectProperty(None)
     label_display_comment = ObjectProperty(None)
     first_number = None
     operand = None
     # ---------------------------------------------------------------------------
     # methods
+    # ---------------------------------------------------------------------------
     # нажатие цифровых кнопок и кнопки 'точка'
     # если число float то вводить цифры
     # иначе ничего не делать
@@ -56,7 +58,7 @@ class Calc(BoxLayout):
     def write_number(self, button):
         if not (self.operand == '='):
             digit_begin = button.text
-            
+
             if (chr(183) == digit_begin):
                 digit_begin = '.'
 
@@ -70,7 +72,7 @@ class Calc(BoxLayout):
                         self.first_number = 0
             except (ValueError):
                 return
-
+    # ---------------------------------------------------------------------------
     def add(self):
         if (self.first_number is None):
             return
