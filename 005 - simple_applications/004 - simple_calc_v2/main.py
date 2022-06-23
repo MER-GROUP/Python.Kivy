@@ -49,21 +49,26 @@ class Calc(BoxLayout):
     operand = None
     # ---------------------------------------------------------------------------
     # methods
-    # нажатие цифровых кнопок
+    # нажатие цифровых кнопок и кнопки 'точка'
     # если число float то вводить цифры
     # иначе ничего не делать
     # def write_number(self, instance):
     def write_number(self, button):
         if not (self.operand == '='):
             digit_begin = button.text
+            
+            if (chr(183) == digit_begin):
+                digit_begin = '.'
+
             digit_end = self.label_display.text + digit_begin
-            if float(digit_end):
-                # self.label_display.text += instance.text
-                # self.label_display.text += button.text
-                self.label_display.text += digit_begin
-                if (self.first_number is None):
-                    self.first_number = 0
-            else:
+            try:
+                if float(digit_end):
+                    # self.label_display.text += instance.text
+                    # self.label_display.text += button.text
+                    self.label_display.text += digit_begin
+                    if (self.first_number is None):
+                        self.first_number = 0
+            except (ValueError):
                 return
 
     def add(self):
