@@ -49,15 +49,14 @@ class Calc(BoxLayout):
     operand = None
     # ---------------------------------------------------------------------------
     # methods
+    # нажатие цифровых кнопок
     # def write_number(self, instance):
     def write_number(self, button):
         if not (self.operand == '='):
-            # self.label_display.text = ''
             # self.label_display.text += instance.text
             self.label_display.text += button.text
             if (self.first_number is None):
-                self.first_number = 0 
-                # self.first_number = int(self.label_display.text)
+                self.first_number = 0
 
     def add(self):
         if (self.first_number is None):
