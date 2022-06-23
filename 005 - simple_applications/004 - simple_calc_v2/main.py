@@ -55,16 +55,23 @@ class Calc(BoxLayout):
     # если число float то вводить цифры
     # иначе ничего не делать
     # def write_number(self, instance):
+    # 1. очищаем дисплей если был нажат операнд
     def write_number(self, button):
         if not (self.operand == '='):
+            # 1
+            try:
+                if (self.operand in '+-*/'):
+                    self.label_display.text = ''
+            except (TypeError):
+                pass
+
             digit_begin = button.text
 
             if (chr(183) == digit_begin):
                 digit_begin = '.'
 
             digit_end = self.label_display.text + digit_begin
-            print('digit_begin =', digit_begin)###
-            print('digit_end =', digit_end)###
+
             try:
                 # if float(digit_end):
                 if float(digit_end) or (digit_begin in '0.'):
@@ -72,36 +79,111 @@ class Calc(BoxLayout):
                     # self.label_display.text += button.text
                     self.label_display.text += digit_begin
                     if (self.first_number is None):
-                        self.first_number = 0
+                        self.first_number = 'first'
+                    print('!!!self.first_number =', self.first_number)##########
             except (ValueError):
                 return
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     def add(self):
+        # если число не вводилась
         if (self.first_number is None):
             return
+        # если был нажат операнд =
+        # то абнуляем переменную operand
         if (self.operand == '='):
             self.operand = None
+        # если был нажат любой операнд
         # if (self.operand is not None):
-        #     return        
-        self.label_display_comment.text += str(float(self.label_display.text))
-        # self.first_number = float(self.label_display.text)
-        self.first_number += float(self.label_display.text)       
-        self.label_display.text = ''
+        #     return  
+        # если был нажат любой операнд
+        try:
+            if (self.label_display_comment.text[-1] not in '+-*/'):
+                return
+        except (IndexError):
+            pass
+
+        # если дисплей калькулятора пустой
+        # то ничего не делаем и историей label_display_comment
+        # иначе записываем историю label_display_comment
+        if ('' == self.label_display.text):
+            self.label_display_comment.text += ''
+        else:
+            self.label_display_comment.text += str(float(self.label_display.text))
+        
+        # если число введено в первый раз
+        # то обновляем перемееную first_number
+        # если дисплей пуст то ничего не делаем
+        # иначе производим действия с переменной first_number
+        if 'first' == self.first_number:
+            self.first_number = float(self.label_display.text)
+        elif '' == self.label_display.text:
+            pass
+        else:
+            self.first_number += float(self.label_display.text)  
+
+        # делаем дисплей пустым    
+        # self.label_display.text = ''
+        # присваиваем переменной operand действие '+'
         self.operand = '+'
-        self.label_display_comment.text += str(self.operand)
+
+        # если операнд операнд не нажимался 
+        # то обновить историю label_display_comment 
+        if self.label_display_comment.text[-1] not in '+-*/':
+            self.label_display_comment.text += str(self.operand)
+
+        print('!!!self.first_number =', self.first_number)########## 
     # ---------------------------------------------------------------------------
+    # операнд вычитания чисел
     def subtract(self):
+        # если число не вводилась
         if (self.first_number is None):
             return
+        # если был нажат операнд =
+        # то абнуляем переменную operand
         if (self.operand == '='):
             self.operand = None
-        if (self.operand is not None):
-            return
-        self.first_number = float(self.label_display.text)
+        # если был нажат любой операнд
+        # if (self.operand is not None):
+        #     return  
+        # если был нажат любой операнд
+        try:
+            if (self.label_display_comment.text[-1] not in '+-*/'):
+                return
+        except (IndexError):
+            pass
+
+        # если дисплей калькулятора пустой
+        # то ничего не делаем и историей label_display_comment
+        # иначе записываем историю label_display_comment
+        if ('' == self.label_display.text):
+            self.label_display_comment.text += ''
+        else:
+            self.label_display_comment.text += str(float(self.label_display.text))
+        
+        # если число введено в первый раз
+        # то обновляем перемееную first_number
+        # если дисплей пуст то ничего не делаем
+        # иначе производим действия с переменной first_number
+        if 'first' == self.first_number:
+            self.first_number = float(self.label_display.text)
+        elif '' == self.label_display.text:
+            pass
+        else:
+            self.first_number -= float(self.label_display.text)  
+
+        # делаем дисплей пустым    
         self.label_display.text = ''
+        # присваиваем переменной operand действие '+'
         self.operand = '-'
 
+        # если операнд операнд не нажимался 
+        # то обновить историю label_display_comment 
+        if self.label_display_comment.text[-1] not in '+-*/':
+            self.label_display_comment.text += str(self.operand)
+
+        print('!!!self.first_number =', self.first_number)########## 
+    # ---------------------------------------------------------------------------
     def multiply(self):
         if (self.first_number is None):
             return
@@ -133,8 +215,10 @@ class Calc(BoxLayout):
             and (self.operand is not None) 
             and (self.operand == '+')
             ):
+            print('!!!self.first_number =', self.first_number)##########
             self.label_display_comment.text += str(float(self.label_display.text))
             self.label_display.text = str(self.first_number + float(self.label_display.text))
+            # self.label_display.text = str(self.first_number)
             self.label_display_comment.text += '='
             self.label_display_comment.text += str(self.label_display.text)
         elif (
@@ -142,7 +226,12 @@ class Calc(BoxLayout):
             and (self.operand is not None) 
             and (self.operand == '-')
             ):
+            print('!!!self.first_number =', self.first_number)##########
+            self.label_display_comment.text += str(float(self.label_display.text))
             self.label_display.text = str(self.first_number - float(self.label_display.text))
+            # self.label_display.text = str(self.first_number)
+            self.label_display_comment.text += '='
+            self.label_display_comment.text += str(self.label_display.text)
         elif (
             (self.first_number is not None) 
             and (self.operand is not None) 
