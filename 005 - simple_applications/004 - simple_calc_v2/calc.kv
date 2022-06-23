@@ -1,4 +1,6 @@
 #:kivy 2.0.0
+# для вызова модальных окон
+#:import Factory kivy.factory.Factory
 
 # Дизайн калькулятора
 <Calc>:
@@ -19,7 +21,7 @@
                 spacing: 0
                 DisplayComment:
                     id: label_display_comment
-                    text: 'test display_comment'
+                    text: ''
             BoxLayout:
                 orientation: 'vertical'
                 DisplayScroll:
@@ -30,9 +32,14 @@
         orientation: 'horizontal'
         size_hint: 1, 0.1
         ButtonSupport:
-            text: "настройки"
+            text: "settings"
+            on_press: Factory.WindowSettings().open()
         ButtonSupport:
-            text: "история"
+            text: "history"
+            on_press: Factory.WindowHistory().open()
+        ButtonSupport:
+            text: "info"
+            on_press: Factory.WindowInfo().open()
     GridLayout:
         cols: 4
         # padding: [0,2,0,0]
@@ -73,14 +80,28 @@
             text: '*'
             on_press: root.multiply()
         ButtonBase:
-            text: 'C'
-            on_press: root.clear()
+            # text: '.'
+            text: chr(183)
+            on_press: root.write_number(self)
         ButtonBase:
             text: '0'
             on_press: root.write_number(self)
         ButtonBase:
+            text: '%'
+            # on_press: root.equal()
+        ButtonBase:
+            # text: '/'
+            text: chr(247)
+            on_press: root.division()
+        ButtonBase:
+            text: 'C'
+            on_press: root.clear()
+        ButtonBase:
+            text: 'M'
+            on_press: root.division()
+        ButtonBase:
+            text: '<'
+            # on_press: root.equal()
+        ButtonBase:
             text: '='
             on_press: root.equal()
-        ButtonBase:
-            text: '/'
-            on_press: root.division()
