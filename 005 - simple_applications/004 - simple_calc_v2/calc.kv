@@ -30,9 +30,11 @@
         orientation: 'horizontal'
         size_hint: 1, 0.1
         ButtonSupport:
-            text: "настройки"
+            text: "settings"
         ButtonSupport:
-            text: "история"
+            text: "history"
+        ButtonSupport:
+            text: "info"
     GridLayout:
         cols: 4
         # padding: [0,2,0,0]
@@ -73,14 +75,28 @@
             text: '*'
             on_press: root.multiply()
         ButtonBase:
-            text: 'C'
-            on_press: root.clear()
+            # text: '.'
+            text: chr(183)
+            # on_press: root.clear()
         ButtonBase:
             text: '0'
             on_press: root.write_number(self)
         ButtonBase:
+            text: '%'
+            # on_press: root.equal()
+        ButtonBase:
+            # text: '/'
+            text: chr(247)
+            on_press: root.division()
+        ButtonBase:
+            text: 'C'
+            on_press: root.clear()
+        ButtonBase:
+            text: 'M'
+            on_press: root.division()
+        ButtonBase:
+            text: '<'
+            # on_press: root.equal()
+        ButtonBase:
             text: '='
             on_press: root.equal()
-        ButtonBase:
-            text: '/'
-            on_press: root.division()
