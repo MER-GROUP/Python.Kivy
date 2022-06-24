@@ -174,11 +174,12 @@ class Calc(BoxLayout):
         self.first_number = float(self.label_display.text)
         self.label_display.text = ''
         self.operand = '/'
-
+    # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
     # 1. если operand равен '=' или first_number равен None то nothing
     # 2. если first_number не None и operand не None и operand равен 'w'
     # и previous_operand равен '+' то показать ответ сложения
+    # и записать в историю
     def equal(self):
         # test
         print('equal self.first_number =', self.first_number)##########
@@ -221,7 +222,7 @@ class Calc(BoxLayout):
 
         self.operand = self.previous_operand #
         self.operand = '=' #
-
+    # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
         self.label_display.text = ''
