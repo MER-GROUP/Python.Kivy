@@ -92,7 +92,7 @@ class Calc(BoxLayout):
 
             # test
             print('!!!self.first_number =', self.first_number)##########
-            print('!!!self.previous_number =', self.previous_number)##########
+            print('!!!self.temp_number =', self.temp_number)##########
             print('!!!self.result_number =', self.result_number)##########
             print('!!!self.operand =', self.operand)##########
     # ---------------------------------------------------------------------------
@@ -102,7 +102,7 @@ class Calc(BoxLayout):
         print('__calc self.operand =', self.operand)
         print('__calc self.previous_operand =', self.previous_operand)
         print('__calc self.first_number =', self.first_number)##########
-        print('__calc self.previous_number =', self.previous_number)##########
+        print('__calc self.temp_number =', self.temp_number)##########
         print('__calc self.result_number =', self.result_number)##########
         print('__calc self.operand =', self.operand)##########
 
@@ -110,7 +110,7 @@ class Calc(BoxLayout):
             if ('w' == self.operand) and (self.previous_operand is None):
                 self.result_number = float(self.first_number) ###
             elif ('w' == self.operand) and ('+' == self.previous_operand):
-                # self.result_number += float(self.previous_number)
+                # self.result_number += float(self.temp_number)
                 self.result_number += float(self.first_number) - self.temp_number
                 self.temp_number = float(self.first_number)
     # ---------------------------------------------------------------------------
@@ -139,7 +139,7 @@ class Calc(BoxLayout):
 
         # test
         print('+++self.first_number =', self.first_number)##########
-        print('+++self.previous_number =', self.previous_number)##########
+        print('+++self.temp_number =', self.temp_number)##########
         print('+++self.result_number =', self.result_number)##########
         print('+++self.operand =', self.operand)##########
     # ---------------------------------------------------------------------------
@@ -221,8 +221,7 @@ class Calc(BoxLayout):
     def clear(self):
         self.display_clear = False
         self.first_number = None
-        self.previous_number = None
-        temp_number = float()
+        self.temp_number = float()
         self.result_number = float()
         self.operand = None
         self.previous_operand = None
