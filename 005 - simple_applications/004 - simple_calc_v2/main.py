@@ -48,7 +48,7 @@ class Calc(BoxLayout):
     label_display_comment = ObjectProperty(None)
     display_clear = False
     first_number = None
-    previous_number = None
+    temp_number = float()
     result_number = float()
     operand = None
     previous_operand = None
@@ -111,19 +111,17 @@ class Calc(BoxLayout):
                 self.result_number = float(self.first_number) ###
             elif ('w' == self.operand) and ('+' == self.previous_operand):
                 # self.result_number += float(self.previous_number)
-                self.result_number += float(self.first_number)
+                self.result_number += float(self.first_number) - self.temp_number
+                self.temp_number = float(self.first_number)
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
+    # 1. если не было ввода цифр то nothing
+    # 2. обнулить temp_number
     def add(self):
-        if (self.first_number is None):
+        if (self.first_number is None): # 1
             return
-        if (self.operand == '='):
-            self.operand = None
-        # if (self.operand is not None):
-        #     return
 
-        # self.previous_number = self.first_number
-        # self.first_number = float()
+        temp_number = float() # 2
 
         # test
         print('+++ add')
@@ -224,6 +222,7 @@ class Calc(BoxLayout):
         self.display_clear = False
         self.first_number = None
         self.previous_number = None
+        temp_number = float()
         self.result_number = float()
         self.operand = None
         self.previous_operand = None
