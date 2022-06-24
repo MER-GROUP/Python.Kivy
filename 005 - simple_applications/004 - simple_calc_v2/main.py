@@ -183,20 +183,25 @@ class Calc(BoxLayout):
     # 3. если first_number не None и operand не None и operand равен '+'
     # то показать ответ сложения
     def equal(self):
+        # test
+        print('equal self.first_number =', self.first_number)##########
+        print('equal self.temp_number =', self.temp_number)##########
+        print('equal self.result_number =', self.result_number)##########
+        print('equal self.operand =', self.operand)##########
+        print('equal self.previous_operand =', self.previous_operand)##########
+
         if (self.operand == '=') or (self.first_number is None): # 1
             return
-        self.__calc() # 2
 
-        #
-        if (
+        if ( # +
             (self.first_number is not None) 
             and (self.operand is not None) 
-            and (self.operand == '+')
+            and (self.operand == 'w')
+            and (self.previous_operand == '+')
             ):
-            # self.label_display.text = str(self.first_number + float(self.label_display.text))
             self.label_display.text = str(self.result_number)
-            # self.label_display_comment += '='
-            # self.label_display_comment += str(self.result_number)
+            self.label_display_comment.text += str('=')
+            self.label_display_comment.text += str(self.result_number)
         elif (
             (self.first_number is not None) 
             and (self.operand is not None) 
@@ -216,6 +221,8 @@ class Calc(BoxLayout):
             and not ('0' == self.label_display.text)
             ):
             self.label_display.text = str(self.first_number // float(self.label_display.text))
+
+        self.operand = self.previous_operand
         self.operand = '='
 
     def clear(self):
