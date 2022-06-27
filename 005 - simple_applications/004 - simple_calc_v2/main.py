@@ -89,11 +89,12 @@ class Calc(BoxLayout):
             self.operand = 'w' # 6
             self.__calc() # 7
 
-            # test
-            print('!!!self.first_number =', self.first_number)##########
-            print('!!!self.temp_number =', self.temp_number)##########
-            print('!!!self.result_number =', self.result_number)##########
-            print('!!!self.operand =', self.operand)##########
+        # test
+        print('write self.first_number =', self.first_number)##########
+        print('write self.temp_number =', self.temp_number)##########
+        print('write self.result_number =', self.result_number)##########
+        print('write self.operand =', self.operand)##########
+        print('write self.previous_operand =', self.previous_operand)##########
     # ---------------------------------------------------------------------------
     # математические вычисления калькулятора
     # 1. если operand не None то продолжить
@@ -102,7 +103,19 @@ class Calc(BoxLayout):
     # то переменной result_number присвоить введенное число
     # 3. если operand равен 'w' и previous_operand равен '+'
     # то выполнить операцию сложения
+    # 4. если operand равен '<' и previous_operand равен None
+    # то обновить перменную result_number числом float
     def __calc(self):
+        if self.operand is not None: # 1
+            if ('w' == self.operand) and (self.previous_operand is None): # 2
+                self.result_number = float(self.first_number)
+            elif ('w' == self.operand) and ('+' == self.previous_operand): # 3
+                self.result_number += float(self.first_number) - self.temp_number
+                self.temp_number = float(self.first_number)
+            elif ('<' == self.operand) and (self.previous_operand is None): # 4
+                self.result_number = float(self.first_number)
+                print("('<' == self.operand) and (self.previous_operand is None)")
+
         # test
         print('__calc self.operand =', self.operand)
         print('__calc self.previous_operand =', self.previous_operand)
@@ -110,13 +123,6 @@ class Calc(BoxLayout):
         print('__calc self.temp_number =', self.temp_number)##########
         print('__calc self.result_number =', self.result_number)##########
         print('__calc self.operand =', self.operand)##########
-
-        if self.operand is not None: # 1
-            if ('w' == self.operand) and (self.previous_operand is None): # 2
-                self.result_number = float(self.first_number)
-            elif ('w' == self.operand) and ('+' == self.previous_operand): # 3
-                self.result_number += float(self.first_number) - self.temp_number
-                self.temp_number = float(self.first_number)
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     # 1. если не было ввода цифр то nothing
@@ -174,6 +180,36 @@ class Calc(BoxLayout):
         self.first_number = float(self.label_display.text)
         self.label_display.text = ''
         self.operand = '/'
+    # ---------------------------------------------------------------------------
+    # back - удаление цифр с конца
+    # 1. previous_operand равен None
+    # то удалить цимвол с конца числа
+    # и обновить историю label_display_comment
+    # также обновить operand
+    # выполнить математические вычисления калькулятора 
+    
+    # 2. previous_operand равен '='
+    # то удалить цимвол с конца числа
+    # и обновить историю label_display_comment
+    # выполнить математические вычисления калькулятора
+    def back(self):
+        if (self.previous_operand is None): # 1
+            self.label_display.text = self.label_display.text[: -1]
+            self.label_display_comment.text = self.label_display.text
+            self.first_number = self.label_display.text
+            self.operand = '<'
+            self.__calc()    
+        # elif ('=' == self.previous_operand): # 2
+        #     pass
+
+
+
+        # test
+        print('back self.first_number =', self.first_number)##########
+        print('back self.temp_number =', self.temp_number)##########
+        print('back self.result_number =', self.result_number)##########
+        print('back self.operand =', self.operand)##########
+        print('back self.previous_operand =', self.previous_operand)##########
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
     # 1. если operand равен '=' или first_number равен None то nothing
