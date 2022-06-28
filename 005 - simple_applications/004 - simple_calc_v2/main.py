@@ -140,7 +140,7 @@ class Calc(BoxLayout):
     def add(self):
         if (self.first_number is None): # 1
             return
-        if ('=' == self.operand) or ('w' == self.previous_operand): # 2
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 2
             self.label_display_comment.text = str(self.label_display_comment.text.split('=')[-1])
 
         self.temp_number = float() # 3
@@ -201,22 +201,16 @@ class Calc(BoxLayout):
     # также обновить operand
     # выполнить математические вычисления калькулятора 
     
-    # 2. operand равен '+' previous_operand равен '+'
-    # то удалить цимвол с конца числа
-
-    # и обновить историю label_display_comment
-    # выполнить математические вычисления калькулятора
     def back(self):
         if (self.previous_operand is None): # 1
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.label_display.text = str('0')
             self.first_number = self.label_display.text
-            self.operand = '<'
             self.__calc()    
-        elif ('+' == self.operand) and ('+' == self.previous_operand): # 2
-            self.label_display.text = self.label_display.text[: -1]
 
+        self.previous_operand = self.operand # 
+        self.operand = '<' # 
 
 
         # test
@@ -227,18 +221,30 @@ class Calc(BoxLayout):
         print('back self.previous_operand =', self.previous_operand)##########
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
-    # 1. если operand равен '=' или first_number равен None то nothing
-    # 2. если operand равен '=' и previous_operand равен 'w' то nothing
-    # 3. если first_number не None и operand не None и operand равен 'w'
+    # 1. если operand равен None и previous_operand равен None то nothing
+    # 2. если operand равен 'w' и previous_operand равен None то nothing
+    # 2. если operand равен 'w' и previous_operand равен 'w' то nothing
+    # 3. если operand равен '=' и first_number равен None то nothing
+    # 4. если operand равен '=' и previous_operand равен 'w' то nothing
+    # 5. если operand равен '+' и previous_operand равен '=' то nothing
+    # 6. если first_number не None и operand не None и operand равен 'w'
     # и previous_operand равен '+' то показать ответ сложения
     # и записать в историю
     def equal(self):
-        if ('=' == self.operand) or (self.first_number is None): # 1
+        if (self.operand is None) and (self.previous_operand is None): # 1
             return
-        if ('=' == self.operand) or ('w' == self.previous_operand): # 2
+        if ('w' == self.operand) and (self.previous_operand is None): # 2
+            return
+        if ('w' == self.operand) and ('w' == self.previous_operand): # 3
+            return
+        if ('=' == self.operand) and (self.first_number is None): # 4
+            return
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 5
+            return
+        if ('+' == self.operand) and ('=' == self.previous_operand): # 6
             return
 
-        if ( # 3
+        if ( # 7
             (self.first_number is not None) 
             and (self.operand is not None) 
             and (self.operand == 'w')
