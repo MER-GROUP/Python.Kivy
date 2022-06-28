@@ -92,11 +92,11 @@ class Calc(BoxLayout):
             self.__calc() # 8
 
         # test
+        print('write self.operand =', self.operand)##########
+        print('write self.previous_operand =', self.previous_operand)##########
         print('write self.first_number =', self.first_number)##########
         print('write self.temp_number =', self.temp_number)##########
         print('write self.result_number =', self.result_number)##########
-        print('write self.operand =', self.operand)##########
-        print('write self.previous_operand =', self.previous_operand)##########
     # ---------------------------------------------------------------------------
     # математические вычисления калькулятора
     # 1. если operand не None то продолжить
@@ -119,12 +119,11 @@ class Calc(BoxLayout):
                 print("('<' == self.operand) and (self.previous_operand is None)")
 
         # test
-        print('__calc self.operand =', self.operand)
-        print('__calc self.previous_operand =', self.previous_operand)
+        print('__calc self.operand =', self.operand)##########
+        print('__calc self.previous_operand =', self.previous_operand)##########
         print('__calc self.first_number =', self.first_number)##########
         print('__calc self.temp_number =', self.temp_number)##########
         print('__calc self.result_number =', self.result_number)##########
-        print('__calc self.operand =', self.operand)##########
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     # 1. если не было ввода цифр то nothing
@@ -153,11 +152,11 @@ class Calc(BoxLayout):
             self.label_display_comment.text += str(self.operand)
 
         # test
+        print('add self.operand =', self.operand)##########
+        print('add self.previous_operand =', self.previous_operand)##########
         print('add self.first_number =', self.first_number)##########
         print('add self.temp_number =', self.temp_number)##########
         print('add self.result_number =', self.result_number)##########
-        print('add self.operand =', self.operand)##########
-        print('add self.previous_operand =', self.previous_operand)##########
     # ---------------------------------------------------------------------------
     # операнд вычитания чисел
     def subtract(self):
@@ -211,13 +210,12 @@ class Calc(BoxLayout):
         self.previous_operand = self.operand # 
         self.operand = '<' # 
 
-
         # test
+        print('back self.operand =', self.operand)##########
+        print('back self.previous_operand =', self.previous_operand)##########
         print('back self.first_number =', self.first_number)##########
         print('back self.temp_number =', self.temp_number)##########
         print('back self.result_number =', self.result_number)##########
-        print('back self.operand =', self.operand)##########
-        print('back self.previous_operand =', self.previous_operand)##########
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
     # 1. если operand равен None и previous_operand равен None то nothing
@@ -279,11 +277,11 @@ class Calc(BoxLayout):
         self.operand = '=' # 
 
         # test
+        print('equal self.operand =', self.operand)##########
+        print('equal self.previous_operand =', self.previous_operand)##########
         print('equal self.first_number =', self.first_number)##########
         print('equal self.temp_number =', self.temp_number)##########
         print('equal self.result_number =', self.result_number)##########
-        print('equal self.operand =', self.operand)##########
-        print('equal self.previous_operand =', self.previous_operand)##########
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
