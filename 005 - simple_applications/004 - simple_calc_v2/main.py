@@ -210,6 +210,7 @@ class Calc(BoxLayout):
         if (self.previous_operand is None): # 1
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
+            self.label_display.text = str('0')
             self.first_number = self.label_display.text
             self.operand = '<'
             self.__calc()    
