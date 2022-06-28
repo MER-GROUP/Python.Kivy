@@ -134,7 +134,6 @@ class Calc(BoxLayout):
     # 4. метка display_clear - очистить дисплей когда начнешь ввод чисел 
     # 5. привоить переменной previous_operand знак operand
     # 6. привоить переменной operand знак '+'
-
     # 7. если operand равен '+' и previous_operand равен '+' то nothing
     # иначе записать историю в label_display_comment
     def add(self):
