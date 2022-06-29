@@ -120,7 +120,6 @@ class Calc(BoxLayout):
                 self.temp_number = float(self.first_number)
             elif ('<' == self.operand) and (self.previous_operand is None): # 5
                 self.result_number = float(self.first_number)
-                print("('<' == self.operand) and (self.previous_operand is None)")
 
         # test
         print('__calc self.operand =', self.operand)##########
@@ -221,7 +220,12 @@ class Calc(BoxLayout):
             self.label_display_comment.text = self.label_display.text
             self.label_display.text = str('0')
             self.first_number = self.label_display.text
-            self.__calc()    
+            self.__calc()
+        elif ('w' == self.operand) and ('w' == self.previous_operand): # 3
+            self.label_display.text = self.label_display.text[: -1]
+            self.label_display_comment.text = self.label_display.text
+            self.first_number = self.label_display.text
+            self.__calc()
 
         self.previous_operand = self.operand # 
         self.operand = '<' # 
