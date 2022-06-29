@@ -242,6 +242,7 @@ class Calc(BoxLayout):
     # 6. если operand равен '+' и previous_operand равен '=' то nothing
     # 7. если operand равен '+' и previous_operand равен 'w' то nothing
     # 8. если operand равен '+' и previous_operand равен '<' то nothing
+    # 8. если operand равен '+' и previous_operand равен '+' то nothing
     # 9. если first_number не None и operand не None и operand равен 'w'
     # и previous_operand равен '+' то показать ответ сложения
     # и записать в историю
@@ -262,8 +263,10 @@ class Calc(BoxLayout):
             return
         if ('+' == self.operand) and ('<' == self.previous_operand): # 8
             return
+        if ('+' == self.operand) and ('+' == self.previous_operand): # 9
+            return
 
-        if ( # 9
+        if ( # 10
             (self.first_number is not None) 
             and (self.operand is not None) 
             and (self.operand == 'w')
