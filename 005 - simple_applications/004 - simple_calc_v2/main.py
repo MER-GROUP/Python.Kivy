@@ -62,8 +62,9 @@ class Calc(BoxLayout):
     # 1. если operand не равен '='
     # 2. очищаем дисплей если был нажат operand
     # 3. если введена '.' то digit_begin присваиваем '.'
-    # 4. проверка на ввод float числа
-    # 5. записываем цифры в label_display_comment
+    # или введен первый знак '-' то преобразовать в '-0'
+    # 4. проверка на ввод float числа c учетом если первый знак '-'
+    # 5. записываем цифры в label_display_comment c учетом если первый знак '-'
     # 6. привоить переменной previous_operand знак operand
     # 7. помечаем operand равным 'w' - был ввод чисел
     # 8. выполнить математические вычисления калькулятора
@@ -74,21 +75,35 @@ class Calc(BoxLayout):
                 self.label_display.text = ''
                 self.display_clear = False
 
-            digit_begin = button.text # 3333
+            digit_begin = button.text # 3
             if (chr(183) == digit_begin):
                 digit_begin = '.'
-            # if ('-' == digit_begin):
-            #     digit_begin = '-0'
+            if ('-' == digit_begin):
+                digit_begin = '-0'
 
             digit_end = self.label_display.text + digit_begin # 4
+            if ('-0' == digit_end[: -1]) and ('-0.' != digit_end):
+                digit_end = '-' + digit_end[-1]
             try: 
                 if float(digit_end) or (digit_begin in '0.'):
+                    if '-0' ==self.label_display.text:
+                        self.label_display.text = digit_end
+                    else:
+                        self.label_display.text += digit_begin
+                    self.first_number = digit_end
+                elif 0 == float(digit_end):
                     self.label_display.text += digit_begin
-                    self.first_number = self.label_display.text
+                    self.first_number = digit_end
             except (ValueError):
                 return
 
-            self.label_display_comment.text += str(self.first_number)[-1] # 5
+            if ('-0' == digit_end): # 5
+                self.label_display_comment.text = digit_end 
+            elif ('-' == digit_end[0]) and (2 == len(digit_end)):
+                self.label_display_comment.text = digit_end 
+            else:
+                self.label_display_comment.text += str(self.first_number)[-1]
+
             self.previous_operand = self.operand # 6
             self.operand = 'w' # 7
             self.__calc() # 8
