@@ -133,7 +133,8 @@ class Calc(BoxLayout):
     # 1. если не было ввода цифр то nothing
     # 2. если operand равен '+' и previous_operand равен 'w' то nothing
     # 3. если operand равен '<' и previous_operand равен 'w'
-    # и first_number равен '0' то nothing
+    # и first_number равен '0' 
+    # то обновить историю label_display_comment c дисплея калькулятора
     # 4. если operand равен '=' и previous_operand равен 'w'
     # то начать новую историю label_display_comment c ответа калькулятора
     # 5. обнулить temp_number
