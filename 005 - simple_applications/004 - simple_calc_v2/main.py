@@ -74,9 +74,11 @@ class Calc(BoxLayout):
                 self.label_display.text = ''
                 self.display_clear = False
 
-            digit_begin = button.text # 3
+            digit_begin = button.text # 3333
             if (chr(183) == digit_begin):
                 digit_begin = '.'
+            # if ('-' == digit_begin):
+            #     digit_begin = '-0'
 
             digit_end = self.label_display.text + digit_begin # 4
             try: 
