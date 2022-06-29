@@ -242,8 +242,8 @@ class Calc(BoxLayout):
     # 6. если operand равен '+' и previous_operand равен '=' то nothing
     # 7. если operand равен '+' и previous_operand равен 'w' то nothing
     # 8. если operand равен '+' и previous_operand равен '<' то nothing
-    # 8. если operand равен '+' и previous_operand равен '+' то nothing
-    # 9. если first_number не None и operand не None и operand равен 'w'
+    # 9. если operand равен '+' и previous_operand равен '+' то nothing
+    # 10. если first_number не None и operand не None и operand равен 'w'
     # и previous_operand равен '+' то показать ответ сложения
     # и записать в историю
     def equal(self):
