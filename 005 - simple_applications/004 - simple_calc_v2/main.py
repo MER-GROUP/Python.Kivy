@@ -131,26 +131,29 @@ class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     # 1. если не было ввода цифр то nothing
-    # 2. если operand равен '=' и previous_operand равен 'w'
+    # 2. если operand равен '+' и previous_operand равен 'w' то nothing
+    # 3. если operand равен '=' и previous_operand равен 'w'
     # то начать новую историю label_display_comment c ответа калькулятора
-    # 3. обнулить temp_number
-    # 4. метка display_clear - очистить дисплей когда начнешь ввод чисел 
-    # 5. привоить переменной previous_operand знак operand
-    # 6. привоить переменной operand знак '+'
-    # 7. если operand равен '+' и previous_operand равен '+' то nothing
+    # 4. обнулить temp_number
+    # 5. метка display_clear - очистить дисплей когда начнешь ввод чисел 
+    # 6. привоить переменной previous_operand знак operand
+    # 7. привоить переменной operand знак '+'
+    # 8. если operand равен '+' и previous_operand равен '+' то nothing
     # иначе записать историю в label_display_comment
     def add(self):
         if (self.first_number is None): # 1
             return
-        if ('=' == self.operand) and ('w' == self.previous_operand): # 2
+        if ('+' == self.operand) and ('w' == self.previous_operand): # 2
+            return
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 3
             self.label_display_comment.text = str(self.label_display_comment.text.split('=')[-1])
 
-        self.temp_number = float() # 3
-        self.display_clear = True # 4         
-        self.previous_operand = self.operand # 5
-        self.operand = '+' # 6
+        self.temp_number = float() # 4
+        self.display_clear = True # 5        
+        self.previous_operand = self.operand # 6
+        self.operand = '+' # 7
 
-        if ('+' == self.operand) and ('+' == self.previous_operand): # 7
+        if ('+' == self.operand) and ('+' == self.previous_operand): # 8
             return
         else:
             self.label_display_comment.text += str(self.operand)
