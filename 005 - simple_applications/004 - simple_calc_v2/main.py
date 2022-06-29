@@ -102,19 +102,23 @@ class Calc(BoxLayout):
     # 1. если operand не None то продолжить
     # 2. если operand равен 'w' и previous_operand равен None
     # (вводились только числа float)
+    # 3. если operand равен 'w' и previous_operand равен 'w'
+    # (вводились только числа float)
     # то переменной result_number присвоить введенное число
-    # 3. если operand равен 'w' и previous_operand равен '+'
+    # 4. если operand равен 'w' и previous_operand равен '+'
     # то выполнить операцию сложения
-    # 4. если operand равен '<' и previous_operand равен None
+    # 5. если operand равен '<' и previous_operand равен None
     # то обновить перменную result_number числом float
     def __calc(self):
         if self.operand is not None: # 1
             if ('w' == self.operand) and (self.previous_operand is None): # 2
                 self.result_number = float(self.first_number)
-            elif ('w' == self.operand) and ('+' == self.previous_operand): # 3
+            elif ('w' == self.operand) and ('w' == self.previous_operand): # 3
+                self.result_number = float(self.first_number)
+            elif ('w' == self.operand) and ('+' == self.previous_operand): # 4
                 self.result_number += float(self.first_number) - self.temp_number
                 self.temp_number = float(self.first_number)
-            elif ('<' == self.operand) and (self.previous_operand is None): # 4
+            elif ('<' == self.operand) and (self.previous_operand is None): # 5
                 self.result_number = float(self.first_number)
                 print("('<' == self.operand) and (self.previous_operand is None)")
 
