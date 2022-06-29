@@ -236,12 +236,13 @@ class Calc(BoxLayout):
     # операнд равно (результат действий калькулятора)
     # 1. если operand равен None и previous_operand равен None то nothing
     # 2. если operand равен 'w' и previous_operand равен None то nothing
-    # 2. если operand равен 'w' и previous_operand равен 'w' то nothing
-    # 3. если operand равен '=' и first_number равен None то nothing
-    # 4. если operand равен '=' и previous_operand равен 'w' то nothing
-    # 5. если operand равен '+' и previous_operand равен '=' то nothing
-    # 6. если operand равен '+' и previous_operand равен 'w' то nothing
-    # 7. если first_number не None и operand не None и operand равен 'w'
+    # 3. если operand равен 'w' и previous_operand равен 'w' то nothing
+    # 4. если operand равен '=' и first_number равен None то nothing
+    # 5. если operand равен '=' и previous_operand равен 'w' то nothing
+    # 6. если operand равен '+' и previous_operand равен '=' то nothing
+    # 7. если operand равен '+' и previous_operand равен 'w' то nothing
+    # 8. если operand равен '+' и previous_operand равен '<' то nothing
+    # 9. если first_number не None и operand не None и operand равен 'w'
     # и previous_operand равен '+' то показать ответ сложения
     # и записать в историю
     def equal(self):
@@ -259,8 +260,10 @@ class Calc(BoxLayout):
             return
         if ('+' == self.operand) and ('w' == self.previous_operand): # 7
             return
+        if ('+' == self.operand) and ('<' == self.previous_operand): # 8
+            return
 
-        if ( # 8
+        if ( # 9
             (self.first_number is not None) 
             and (self.operand is not None) 
             and (self.operand == 'w')
