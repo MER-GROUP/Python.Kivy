@@ -250,22 +250,25 @@ class Calc(BoxLayout):
     # операнд равно (результат действий калькулятора)
     # 1. если operand равен None и previous_operand равен None то nothing
     # 2. если operand равен 'w' и previous_operand равен None то nothing
-    # 3. если operand равен 'w' и previous_operand равен 'w' то nothing
+    # 3. если operand равен 'w' и previous_operand равен 'w'
+    # и temp_number равен 0 то nothing
     # 4. если operand равен '=' и first_number равен None то nothing
     # 5. если operand равен '=' и previous_operand равен 'w' то nothing
     # 6. если operand равен '+' и previous_operand равен '=' то nothing
     # 7. если operand равен '+' и previous_operand равен 'w' то nothing
     # 8. если operand равен '+' и previous_operand равен '<' то nothing
     # 9. если operand равен '+' и previous_operand равен '+' то nothing
-    # 10. если first_number не None и operand не None и operand равен 'w'
-    # и previous_operand равен '+' то показать ответ сложения
-    # и записать в историю
+    # 10. показать ответ и обновить историю label_display_comment
+    # 11. привоить переменной previous_operand знак operand
+    # 12. привоить переменной operand знак '='
     def equal(self):
         if (self.operand is None) and (self.previous_operand is None): # 1
             return
         if ('w' == self.operand) and (self.previous_operand is None): # 2
             return
-        if ('w' == self.operand) and ('w' == self.previous_operand): # 3
+        if (('w' == self.operand) # 3
+            and ('w' == self.previous_operand)
+            and (0 == self.temp_number)):
             return
         if ('=' == self.operand) and (self.first_number is None): # 4
             return
@@ -280,37 +283,12 @@ class Calc(BoxLayout):
         if ('+' == self.operand) and ('+' == self.previous_operand): # 9
             return
 
-        if ( # 10
-            (self.first_number is not None) 
-            and (self.operand is not None) 
-            and (self.operand == 'w')
-            and (self.previous_operand == '+')
-            ):
-            self.label_display.text = str(self.result_number)
-            self.label_display_comment.text += str('=')
-            self.label_display_comment.text += str(self.result_number)
-        elif (
-            (self.first_number is not None) 
-            and (self.operand is not None) 
-            and (self.operand == '-')
-            ):
-            self.label_display.text = str(self.first_number - float(self.label_display.text))
-        elif (
-            (self.first_number is not None) 
-            and (self.operand is not None) 
-            and (self.operand == '*')
-            ):
-            self.label_display.text = str(self.first_number * float(self.label_display.text))
-        elif (
-            (self.first_number is not None) 
-            and (self.operand is not None) 
-            and (self.operand == '/')
-            and not ('0' == self.label_display.text)
-            ):
-            self.label_display.text = str(self.first_number // float(self.label_display.text))
+        self.label_display.text = str(self.result_number) # 10
+        self.label_display_comment.text += str('=')
+        self.label_display_comment.text += str(self.result_number)
 
-        self.previous_operand = self.operand # 
-        self.operand = '=' # 
+        self.previous_operand = self.operand # 11
+        self.operand = '=' # 12
 
         # test
         print('equal self.operand =', self.operand)##########
