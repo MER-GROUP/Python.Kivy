@@ -200,14 +200,18 @@ class Calc(BoxLayout):
         self.operand = '/'
     # ---------------------------------------------------------------------------
     # back - удаление цифр с конца
-    # 1. previous_operand равен None
+    # 1. если operand равен '<' и previous_operand равен 'w'
+    # и first_number равен '0' то nothing
+    # 2. если previous_operand равен None
     # то удалить цимвол с конца числа
     # и обновить историю label_display_comment
     # также обновить operand
     # выполнить математические вычисления калькулятора 
     
     def back(self):
-        if (self.previous_operand is None): # 1
+        if ('<' == self.operand) and ('w' == self.previous_operand) and ('0' == self.first_number): # 1
+            return
+        if (self.previous_operand is None): # 2
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.label_display.text = str('0')
