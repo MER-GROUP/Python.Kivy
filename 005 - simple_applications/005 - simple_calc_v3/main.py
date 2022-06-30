@@ -59,7 +59,7 @@ class Calc(BoxLayout):
     # 1. если дисплей не очищен то очистить
     # (указывать в операндах self.display_clear = True)
     # 2. проверка числа на float
-    # (проверки если были первыми введены знаки '-', '.', '0')
+    # (проверки если были первыми введены знаки '-', '.', '0', '00', '01' и тд.)
     # 3. проверка числа на float через исключение
     # 4. записываем проверенное число на дисплей калькулятора
     # 5. записываем в переменную write_number итоговое введенное проверенное число
@@ -76,10 +76,17 @@ class Calc(BoxLayout):
             digit_begin = '-0'
         elif ((2 == len(self.label_display.text))
             and ('-0' == self.label_display.text)
+            and (chr(183) != digit_begin)
             ):
             digit_begin = '-' + digit_begin
             self.label_display.text = ''
-        elif (('0' == digit_begin) 
+        elif ((2 == len(self.label_display.text))
+            and ('-0' == self.label_display.text)
+            and (chr(183) == digit_begin)
+            ):
+            digit_begin = '-0.'
+            self.label_display.text = digit_begin
+        elif ((('0' == digit_begin) or (chr(183) != digit_begin))
             and ('' != self.label_display.text)
             and (1 == len(self.label_display.text)) 
             and ('0' == self.label_display.text[0])
@@ -97,6 +104,9 @@ class Calc(BoxLayout):
             else:
                 pass          
         except (ValueError):
+            # test
+            print('------------------------------------------------')
+            print('!!!!!!!!!!!!!!!!!! ИСКЛЮЧЕНИЕ !!!!!!!!!!!!!!!!!!')
             return
 
         self.label_display.text += digit_begin # 4
@@ -112,6 +122,14 @@ class Calc(BoxLayout):
     
         self.previous_operand = self.operand # 7
         self.operand = 'w' # 8
+
+        # test
+        print('------------------------------------------------')
+        print(' write write_number =', self.write_number)
+        print(' write temp_number =', self.temp_number)
+        print(' write result_number =', self.result_number)
+        print(' write operand =', self.operand)
+        print(' write previous_operand =', self.previous_operand)
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     def add(self):
@@ -134,9 +152,29 @@ class Calc(BoxLayout):
         self.operand = '/'
     # ---------------------------------------------------------------------------
     # операнд удаление чисел 
+    # 1. удалить крайнюю цифру из числа
+    # 2. записываем в переменную previous_operand предыдущий операнд
+    # 3. записываем в переменную operand текущий операнд
     def back(self):
-        self.previous_operand = self.operand
-        self.operand = 'b'
+        if ('' != self.label_display.text): # 
+            self.label_display.text = self.label_display.text[: -1]
+            self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
+            self.label_display_comment.text = self.label_display_comment.text[: -1]
+        elif (self.label_display.text is None):
+            self.label_display.text = ''
+        else:
+            return
+
+        self.previous_operand = self.operand # 2
+        self.operand = 'b' # 3
+
+        # test
+        print('------------------------------------------------')
+        print(' back write_number =', self.write_number)
+        print(' back temp_number =', self.temp_number)
+        print(' back result_number =', self.result_number)
+        print(' back operand =', self.operand)
+        print(' back previous_operand =', self.previous_operand)
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
     def equal(self):
@@ -153,6 +191,14 @@ class Calc(BoxLayout):
         self.result_number = float()
         self.operand = None
         self.previous_operand = None
+
+        # test
+        print('------------------------------------------------')
+        print(' clear write_number =', self.write_number)
+        print(' clear temp_number =', self.temp_number)
+        print(' clear result_number =', self.result_number)
+        print(' clear operand =', self.operand)
+        print(' clear previous_operand =', self.previous_operand)
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
