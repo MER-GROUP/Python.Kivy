@@ -145,8 +145,14 @@ class Calc(BoxLayout):
             elif ('w' == self.operand) and ('+' == self.previous_operand): # 5
                 self.result_number += float(self.first_number) - self.temp_number
                 self.temp_number = float(self.first_number)
-            elif ('<' == self.operand) and (self.previous_operand is None): # 6
+            elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6
                 self.result_number = float(self.first_number)
+            # elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6666
+            #     self.result_number = float(self.first_number)
+            # elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6666
+            #     self.result_number = float(self.first_number)
+            # elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6666
+            #     self.result_number = float(self.first_number)
 
         # test
         print('__calc self.operand =', self.operand)##########
@@ -233,51 +239,54 @@ class Calc(BoxLayout):
     # back - удаление цифр с конца
     # 1. если operand равен '<' и previous_operand равен 'w'
     # и first_number равен '0' то nothing
-    # 2. если previous_operand равен None
+    # 2. если operand равен None и previous_operand равен None то nothing
+    # 3. если previous_operand равен None
     # то удалить cимвол с конца числа
     # на дисплей калькулятора записать цифру 0
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора 
-    # 3. если operand равен 'w' и previous_operand равен 'w' и temp_number равен 0
+    # 4. если operand равен 'w' и previous_operand равен 'w' и temp_number равен 0
     # то удалить cимвол с конца числа
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора 
-    # 4. если operand равен 'w' и previous_operand равен '<' и temp_number равен 0
+    # 5. если operand равен 'w' и previous_operand равен '<' и temp_number равен 0
     # то удалить cимвол с конца числа
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора  
-    # 5. если operand равен '<' и previous_operand равен 'w' и temp_number равен 0
+    # 6. если operand равен '<' и previous_operand равен 'w' и temp_number равен 0
     # то удалить cимвол с конца числа
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора  
-    # 6. привоить переменной previous_operand знак operand
-    # 7. привоить переменной operand знак '<'
+    # 7. привоить переменной previous_operand знак operand
+    # 8. привоить переменной operand знак '<'
     
     def back(self):
         if ('<' == self.operand) and ('w' == self.previous_operand) and ('0' == self.first_number): # 1
             return
+        if (self.operand is None) and (self.previous_operand is None): # 2
+            return
 
-        if (self.previous_operand is None): # 2
+        if (self.previous_operand is None): # 3
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.label_display.text = str('0')
             self.first_number = self.label_display.text
             self.__calc()
-        elif (('w' == self.operand) # 3
+        elif (('w' == self.operand) # 4
             and ('w' == self.previous_operand) 
             and (0 == self.temp_number)): 
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.first_number = self.label_display.text
             self.__calc()
-        elif (('w' == self.operand) # 4
+        elif (('w' == self.operand) # 5
             and ('<' == self.previous_operand) 
             and (0 == self.temp_number)): 
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.first_number = self.label_display.text
             self.__calc()
-        elif (('<' == self.operand) # 5
+        elif (('<' == self.operand) # 6
             and ('w' == self.previous_operand) 
             and (0 == self.temp_number)): 
             self.label_display.text = self.label_display.text[: -1]
@@ -285,8 +294,8 @@ class Calc(BoxLayout):
             self.first_number = self.label_display.text
             self.__calc()
 
-        self.previous_operand = self.operand # 6
-        self.operand = '<' # 7
+        self.previous_operand = self.operand # 7
+        self.operand = '<' # 8
 
         # test
         print('back self.operand =', self.operand)##########
