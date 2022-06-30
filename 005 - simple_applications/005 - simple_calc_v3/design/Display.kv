@@ -1,0 +1,20 @@
+#:kivy 2.0.0
+
+# импорт hex цветов
+#:import hex kivy.utils.get_color_from_hex
+
+# Дисплей калькулятора (циферблат)
+<Display@BoxLayout>:
+    # начальные параметры загрузки
+    canvas.before:
+        Color:
+            rgba: hex('#FFFFFF') # White
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # направление коробочного макета
+    orientation: 'vertical'
+
+    # размер виджета
+    # size_hint: 1, 0.35
