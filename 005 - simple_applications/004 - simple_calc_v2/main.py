@@ -131,6 +131,8 @@ class Calc(BoxLayout):
     # то обновить перменную result_number числом first_number
     # 7. если operand равен 'w' и previous_operand равен '<'
     # то обновить перменную result_number числом first_number
+    # 8. если operand равен '<' и previous_operand равен '<'
+    # то обновить перменную result_number числом first_number
     def __calc(self):
         if self.operand is not None: # 1
             if ('w' == self.operand) and (self.previous_operand is None): # 2
@@ -150,6 +152,8 @@ class Calc(BoxLayout):
             elif ('<' == self.operand) and ('w' == self.previous_operand): # 6
                 self.result_number = float(self.first_number)
             elif ('w' == self.operand) and ('<' == self.previous_operand): # 7
+                self.result_number = float(self.first_number)
+            elif ('<' == self.operand) and ('<' == self.previous_operand): # 8
                 self.result_number = float(self.first_number)
 
         # test
@@ -254,9 +258,23 @@ class Calc(BoxLayout):
     # 6. если operand равен '<' и previous_operand равен 'w' и temp_number равен 0
     # то удалить cимвол с конца числа
     # и обновить историю label_display_comment
+    # выполнить математические вычисления калькулятора    
+    # 7. если operand равен '<' и previous_operand равен '<' и temp_number равен 0
+    # и len(self.label_display.text равен 2
+    # и self.label_display.text[0] равен '-' то удалить cимволы и записать число 0
+    # и обновить историю label_display_comment    
+    # 8. если operand равен '<' и previous_operand равен '<' и temp_number равен 0
+    # и len(self.label_display.text > 1 то удалить cимвол с конца числа
+    # и обновить историю label_display_comment
+    # выполнить математические вычисления калькулятора      
+    # 9. если operand равен '<' и previous_operand равен '<' и temp_number равен 0
+    # и len(self.label_display.text = 1 то удалить cимвол и записать число 0
+    # на дисплей калькулятора (label_display) 
+    # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора  
-    # 7. привоить переменной previous_operand знак operand
-    # 8. привоить переменной operand знак '<'
+
+    # 10. привоить переменной previous_operand знак operand
+    # 11. привоить переменной operand знак '<'
     
     def back(self):
         if ('<' == self.operand) and ('w' == self.previous_operand) and ('0' == self.first_number): # 1
@@ -291,9 +309,34 @@ class Calc(BoxLayout):
             self.label_display_comment.text = self.label_display.text
             self.first_number = self.label_display.text
             self.__calc()
+        elif (('<' == self.operand) # 7
+            and ('<' == self.previous_operand) 
+            and (0 == self.temp_number)
+            and (2 == len(self.label_display.text))
+            and ('-' == self.label_display.text[0])): 
+            self.label_display.text = '0'
+            self.label_display_comment.text = self.label_display.text
+            self.first_number = self.label_display.text
+            self.__calc()
+        elif (('<' == self.operand) # 8
+            and ('<' == self.previous_operand) 
+            and (0 == self.temp_number)
+            and (1 < len(self.label_display.text))): 
+            self.label_display.text = self.label_display.text[: -1]
+            self.label_display_comment.text = self.label_display.text
+            self.first_number = self.label_display.text
+            self.__calc()
+        elif (('<' == self.operand) # 9
+            and ('<' == self.previous_operand) 
+            and (0 == self.temp_number)
+            and (1 == len(self.label_display.text))): 
+            self.label_display.text = '0'
+            self.label_display_comment.text = self.label_display.text
+            self.first_number = self.label_display.text
+            self.__calc()
 
-        self.previous_operand = self.operand # 7
-        self.operand = '<' # 8
+        self.previous_operand = self.operand # 10
+        self.operand = '<' # 11
 
         # test
         print('back self.operand =', self.operand)##########
