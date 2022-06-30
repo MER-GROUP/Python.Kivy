@@ -238,22 +238,18 @@ class Calc(BoxLayout):
     # на дисплей калькулятора записать цифру 0
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора 
-    # 3. если operand равен 'w' и previous_operand равен 'w' то nothing
+    # 3. если operand равен 'w' и previous_operand равен 'w' и temp_number равен 0
     # то удалить cимвол с конца числа
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора 
-    # 4. если operand равен 'w' и previous_operand равен '<' то nothing
+    # 4. если operand равен 'w' и previous_operand равен '<' и temp_number равен 0
     # то удалить cимвол с конца числа
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора  
-    # 4. если operand равен 'w' и previous_operand равен '<' то nothing
+    # 5. если operand равен '<' и previous_operand равен 'w' и temp_number равен 0
     # то удалить cимвол с конца числа
     # и обновить историю label_display_comment
     # выполнить математические вычисления калькулятора  
-    # 5. если operand равен '<' и previous_operand равен 'w' то nothing
-    # то удалить cимвол с конца числа
-    # и обновить историю label_display_comment
-    # выполнить математические вычисления калькулятора 
     # 6. привоить переменной previous_operand знак operand
     # 7. привоить переменной operand знак '<'
     
@@ -267,17 +263,23 @@ class Calc(BoxLayout):
             self.label_display.text = str('0')
             self.first_number = self.label_display.text
             self.__calc()
-        elif ('w' == self.operand) and ('w' == self.previous_operand): # 3
+        elif (('w' == self.operand) # 3
+            and ('w' == self.previous_operand) 
+            and (0 == self.temp_number)): 
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.first_number = self.label_display.text
             self.__calc()
-        elif ('w' == self.operand) and ('<' == self.previous_operand): # 4
+        elif (('w' == self.operand) # 4
+            and ('<' == self.previous_operand) 
+            and (0 == self.temp_number)): 
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.first_number = self.label_display.text
             self.__calc()
-        elif ('<' == self.operand) and ('w' == self.previous_operand): # 5
+        elif (('<' == self.operand) # 5
+            and ('w' == self.previous_operand) 
+            and (0 == self.temp_number)): 
             self.label_display.text = self.label_display.text[: -1]
             self.label_display_comment.text = self.label_display.text
             self.first_number = self.label_display.text
