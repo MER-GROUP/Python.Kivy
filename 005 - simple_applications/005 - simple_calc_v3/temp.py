@@ -20,3 +20,8 @@ if -0.0 == 0:
     print(True)
 else:
     print(False)
+print('---------------------------')
+print("float('0.'): " ,float('0.'))
+print('---------------------------')
+a = ''
+print('a =' , a)

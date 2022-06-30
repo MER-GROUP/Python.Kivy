@@ -47,7 +47,7 @@ class Calc(BoxLayout):
     label_display = ObjectProperty(None)
     label_display_comment = ObjectProperty(None)
     display_clear = False
-    first_number = None
+    write_number = None
     temp_number = float()
     result_number = float()
     operand = None
@@ -56,39 +56,99 @@ class Calc(BoxLayout):
     # methods
     # ---------------------------------------------------------------------------
     # нажатие цифровых кнопок и кнопки 'точка'
-    def write_number(self, button): 
-        pass
+    # 1. если дисплей не очищен то очистить
+    # (указывать в операндах self.display_clear = True)
+    # 2. проверка числа на float
+    # (проверки если были первыми введены знаки '-', '.', '0')
+    # 3. проверка числа на float через исключение
+    # 4. записываем проверенное число на дисплей калькулятора
+    # 5. записываем в переменную write_number итоговое введенное проверенное число
+    # 6. записываем историю ввода чисел в переменную label_display_comment
+    # 7. записываем в переменную previous_operand предыдущий операнд
+    # 8. записываем в переменную operand текущий операнд
+    def write_digit(self, button): 
+        if self.display_clear: # 1
+            self.label_display.text = ''
+            self.display_clear = False
+
+        digit_begin = button.text # 2
+        if ('-' == digit_begin) and ('' == self.label_display.text):
+            digit_begin = '-0'
+        elif ((2 == len(self.label_display.text))
+            and ('-0' == self.label_display.text)
+            ):
+            digit_begin = '-' + digit_begin
+            self.label_display.text = ''
+        elif (('0' == digit_begin) 
+            and ('' != self.label_display.text)
+            and (1 == len(self.label_display.text)) 
+            and ('0' == self.label_display.text[0])
+            ):
+            return
+        elif (chr(183) == digit_begin) and (0 == len(self.label_display.text)):
+            digit_begin = '0.'
+        elif (chr(183) == digit_begin):
+            digit_begin = '.'
+
+        digit_end = self.label_display.text + digit_begin # 3
+        try: 
+            if float(digit_end):
+                pass 
+            else:
+                pass          
+        except (ValueError):
+            return
+
+        self.label_display.text += digit_begin # 4
+        self.write_number = digit_end # 5
+
+        if (('' != self.label_display.text) # 6
+            and (('-' == self.label_display.text[0]) or ('0.' == self.label_display.text))
+            and (2 == len(self.label_display.text))
+            ):
+            self.label_display_comment.text = str(self.write_number)
+        else:
+            self.label_display_comment.text += str(self.write_number)[-1]
+    
+        self.previous_operand = self.operand # 7
+        self.operand = 'w' # 8
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     def add(self):
-        pass
+        self.previous_operand = self.operand
+        self.operand = '+'
     # ---------------------------------------------------------------------------
     # операнд вычитания чисел
     def subtract(self):
-        pass
+        self.previous_operand = self.operand
+        self.operand = '-'
     # ---------------------------------------------------------------------------
     # операнд умножения чисел
     def multiply(self):
-        pass
+        self.previous_operand = self.operand
+        self.operand = '*'
     # ---------------------------------------------------------------------------
     # операнд деления чисел
     def division(self):
-        pass
+        self.previous_operand = self.operand
+        self.operand = '/'
     # ---------------------------------------------------------------------------
     # операнд удаление чисел 
     def back(self):
-        pass
+        self.previous_operand = self.operand
+        self.operand = 'b'
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
     def equal(self):
-        pass
+        self.previous_operand = self.operand
+        self.operand = '='
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
         self.label_display.text = ''
         self.label_display_comment.text = ''
         self.display_clear = False
-        self.first_number = None
+        self.write_number = None
         self.temp_number = float()
         self.result_number = float()
         self.operand = None
@@ -102,7 +162,7 @@ class CalcApp(App):
     # ---------------------------------------------------------------------------
     '''app widget'''
     # ---------------------------------------------------------------------------
-    title = 'Simple Calc v2.0'
+    title = 'Simple Calc v3.0'
     def build(self):
         return Calc()
     # ---------------------------------------------------------------------------
