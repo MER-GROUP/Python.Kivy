@@ -127,8 +127,10 @@ class Calc(BoxLayout):
     # то переменной result_number присвоить введенное число с использованием переменной temp_number
     # 5. если operand равен 'w' и previous_operand равен '+'
     # то выполнить операцию сложения
-    # 6. если operand равен '<' и previous_operand равен None
-    # то обновить перменную result_number числом float
+    # 6. если operand равен '<' и previous_operand равен 'w'
+    # то обновить перменную result_number числом first_number
+    # 7. если operand равен 'w' и previous_operand равен '<'
+    # то обновить перменную result_number числом first_number
     def __calc(self):
         if self.operand is not None: # 1
             if ('w' == self.operand) and (self.previous_operand is None): # 2
@@ -145,14 +147,10 @@ class Calc(BoxLayout):
             elif ('w' == self.operand) and ('+' == self.previous_operand): # 5
                 self.result_number += float(self.first_number) - self.temp_number
                 self.temp_number = float(self.first_number)
-            elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6
+            elif ('<' == self.operand) and ('w' == self.previous_operand): # 6
                 self.result_number = float(self.first_number)
-            # elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6666
-            #     self.result_number = float(self.first_number)
-            # elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6666
-            #     self.result_number = float(self.first_number)
-            # elif ('<' == self.operand) and (self.previous_operand is None) or (): # 6666
-            #     self.result_number = float(self.first_number)
+            elif ('w' == self.operand) and ('<' == self.previous_operand): # 7
+                self.result_number = float(self.first_number)
 
         # test
         print('__calc self.operand =', self.operand)##########
