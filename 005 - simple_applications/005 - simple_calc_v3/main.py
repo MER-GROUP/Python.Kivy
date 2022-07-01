@@ -37,6 +37,10 @@ for file in listdir(kv_path):
     kv_path_file = str(Path(join(kv_path, file)))
     Builder.load_file(kv_path_file)
 # *****************************************************************************************
+# собственные модули
+# Parse - разбор текстовых строк
+from Parse import Parse
+# *****************************************************************************************
 # Действия программы
 class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
@@ -52,6 +56,7 @@ class Calc(BoxLayout):
     result_number = float()
     operand = None
     previous_operand = None
+    calc_arr = list()
     # ---------------------------------------------------------------------------
     # methods
     # ---------------------------------------------------------------------------
@@ -76,12 +81,23 @@ class Calc(BoxLayout):
             digit_begin = '-0'
         elif ((2 == len(self.label_display.text))
             and ('-0' == self.label_display.text)
+            and ('0' == digit_begin)
+            ):
+            return
+        elif ((2 == len(self.label_display.text))
+            and ('-0' == self.label_display.text)
             and (chr(183) != digit_begin)
             ):
             digit_begin = '-' + digit_begin
             self.label_display.text = ''
         elif ((2 == len(self.label_display.text))
             and ('-0' == self.label_display.text)
+            and (chr(183) == digit_begin)
+            ):
+            digit_begin = '-0.'
+            self.label_display.text = digit_begin
+        elif ((1 == len(self.label_display.text))
+            and ('-' == self.label_display.text)
             and (chr(183) == digit_begin)
             ):
             digit_begin = '-0.'
@@ -97,7 +113,10 @@ class Calc(BoxLayout):
         elif (chr(183) == digit_begin):
             digit_begin = '.'
 
-        digit_end = self.label_display.text + digit_begin # 3
+        if ('-0.' == digit_begin): # 3
+            digit_end = self.label_display.text
+        else:
+            digit_end = self.label_display.text + digit_begin 
         try: 
             if float(digit_end):
                 pass 
@@ -106,17 +125,35 @@ class Calc(BoxLayout):
         except (ValueError):
             # test
             print('------------------------------------------------')
-            print('!!!!!!!!!!!!!!!!!! ИСКЛЮЧЕНИЕ !!!!!!!!!!!!!!!!!!')
+            print('!!!!!!!!!!!!!!!!!!! EXCEPTION !!!!!!!!!!!!!!!!!!')
+            print(f'!!!!!!!!!!!!digit_end = {digit_end}!!!!!!!!!!!!')
             return
 
-        self.label_display.text += digit_begin # 4
+        if ('-0.' == digit_begin): # 4
+            self.label_display.text = digit_begin
+        else:
+            self.label_display.text += digit_begin 
         self.write_number = digit_end # 5
 
         if (('' != self.label_display.text) # 6
-            and (('-' == self.label_display.text[0]) or ('0.' == self.label_display.text))
+            and (('-' == self.label_display.text[0]) 
+                or ('0.' == self.label_display.text))
             and (2 == len(self.label_display.text))
             ):
-            self.label_display_comment.text = str(self.write_number)
+            if (2 < len(self.label_display_comment.text)):
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += str(self.write_number)
+            else:
+                self.label_display_comment.text = str(self.write_number)
+        elif (('' != self.label_display.text)
+            and ('-0.' == self.label_display.text)
+            and (3 == len(self.label_display.text))
+            ):
+            if (2 < len(self.label_display_comment.text)):
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += str(self.write_number)
+            else:
+                self.label_display_comment.text = str(self.write_number)
         else:
             self.label_display_comment.text += str(self.write_number)[-1]
     
@@ -130,33 +167,98 @@ class Calc(BoxLayout):
         print(' write result_number =', self.result_number)
         print(' write operand =', self.operand)
         print(' write previous_operand =', self.previous_operand)
+        print(' write calc_arr =', self.calc_arr)
+        print(' write digit_end =', digit_end)
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
+    # 1. условия проверки нажятия кнопки '+'
+    # 2. пометить переменную display_clear в True
+    # (при следующем вводе цифр очистить дисплей калькулятора)
+    # 3. записываем в переменную previous_operand предыдущий операнд
+    # 4. записываем в переменную operand текущий операнд
+    # 5. записываем историю в label_display_comment
+    # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     def add(self):
-        self.previous_operand = self.operand
-        self.operand = '+'
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1
+            pass
+        elif ('=' == self.operand) and ('+' == self.previous_operand):
+            return
+        elif ('w' != self.operand):
+            return
+
+        self.display_clear = True # 2
+
+        self.previous_operand = self.operand # 3
+        self.operand = '+' # 4
+
+        self.label_display_comment.text += str(self.operand) # 5
+
+        self.calc_arr.append(self.write_number) # 6
+        self.calc_arr.append(self.operand)
+
+        # test
+        print('------------------------------------------------')
+        print(' add write_number =', self.write_number)
+        print(' add temp_number =', self.temp_number)
+        print(' add result_number =', self.result_number)
+        print(' add operand =', self.operand)
+        print(' add previous_operand =', self.previous_operand)
+        print(' add calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд вычитания чисел
     def subtract(self):
         self.previous_operand = self.operand
         self.operand = '-'
+
+        # test
+        print('------------------------------------------------')
+        print(' subtract write_number =', self.write_number)
+        print(' subtract temp_number =', self.temp_number)
+        print(' subtract result_number =', self.result_number)
+        print(' subtract operand =', self.operand)
+        print(' subtract previous_operand =', self.previous_operand)
+        print(' subtract calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд умножения чисел
     def multiply(self):
         self.previous_operand = self.operand
         self.operand = '*'
+
+        # test
+        print('------------------------------------------------')
+        print(' multiply write_number =', self.write_number)
+        print(' multiply temp_number =', self.temp_number)
+        print(' multiply result_number =', self.result_number)
+        print(' multiply operand =', self.operand)
+        print(' multiply previous_operand =', self.previous_operand)
+        print(' multiply calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд деления чисел
     def division(self):
         self.previous_operand = self.operand
         self.operand = '/'
+
+        # test
+        print('------------------------------------------------')
+        print(' division write_number =', self.write_number)
+        print(' division temp_number =', self.temp_number)
+        print(' division result_number =', self.result_number)
+        print(' division operand =', self.operand)
+        print(' division previous_operand =', self.previous_operand)
+        print(' division calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд удаление чисел 
     # 1. удалить крайнюю цифру из числа
     # 2. записываем в переменную previous_operand предыдущий операнд
     # 3. записываем в переменную operand текущий операнд
     def back(self):
-        if ('' != self.label_display.text): # 
+        if (('' != self.label_display_comment.text) # 1
+            and (self.label_display_comment.text[-1] in '-+*/%')
+            and (1 < len(self.label_display_comment.text))
+            ): 
+            self.label_display.text = self.label_display.text[: -1]
+            self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
+        elif ('' != self.label_display.text):
             self.label_display.text = self.label_display.text[: -1]
             self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
             self.label_display_comment.text = self.label_display_comment.text[: -1]
@@ -175,11 +277,21 @@ class Calc(BoxLayout):
         print(' back result_number =', self.result_number)
         print(' back operand =', self.operand)
         print(' back previous_operand =', self.previous_operand)
+        print(' back calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
     def equal(self):
         self.previous_operand = self.operand
         self.operand = '='
+
+        # test
+        print('------------------------------------------------')
+        print(' equal write_number =', self.write_number)
+        print(' equal temp_number =', self.temp_number)
+        print(' equal result_number =', self.result_number)
+        print(' equal operand =', self.operand)
+        print(' equal previous_operand =', self.previous_operand)
+        print(' equal calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
@@ -191,6 +303,7 @@ class Calc(BoxLayout):
         self.result_number = float()
         self.operand = None
         self.previous_operand = None
+        self.calc_arr = list()
 
         # test
         print('------------------------------------------------')
@@ -199,6 +312,7 @@ class Calc(BoxLayout):
         print(' clear result_number =', self.result_number)
         print(' clear operand =', self.operand)
         print(' clear previous_operand =', self.previous_operand)
+        print(' clear calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
