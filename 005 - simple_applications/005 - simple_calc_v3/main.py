@@ -37,6 +37,10 @@ for file in listdir(kv_path):
     kv_path_file = str(Path(join(kv_path, file)))
     Builder.load_file(kv_path_file)
 # *****************************************************************************************
+# собственные модули
+# Parse - разбор текстовых строк
+from Parse import Parse
+# *****************************************************************************************
 # Действия программы
 class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
@@ -130,14 +134,20 @@ class Calc(BoxLayout):
                 or ('0.' == self.label_display.text))
             and (2 == len(self.label_display.text))
             ):
-            print('IF 111111') #########12121212121211212!!!!!!!!!!!! написать парсинг
-            self.label_display_comment.text = str(self.write_number)
+            if (2 < len(self.label_display_comment.text)):
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += str(self.write_number)
+            else:
+                self.label_display_comment.text = str(self.write_number)
         elif (('' != self.label_display.text)
             and ('-0.' == self.label_display.text)
             and (3 == len(self.label_display.text))
             ):
-            print('IF 222222') #########12121212121212121!!!!!!!!!!!! написать парсинг
-            self.label_display_comment.text = str(self.write_number)
+            if (2 < len(self.label_display_comment.text)):
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += str(self.write_number)
+            else:
+                self.label_display_comment.text = str(self.write_number)
         else:
             self.label_display_comment.text += str(self.write_number)[-1]
     
