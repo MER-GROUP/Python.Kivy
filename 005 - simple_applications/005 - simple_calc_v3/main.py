@@ -165,24 +165,29 @@ class Calc(BoxLayout):
         print(' write digit_end =', digit_end)
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
-    # 1. пометить переменную display_clear в True
+    # 1. условия проверки нажятия кнопки '+'
+    # 2. пометить переменную display_clear в True
     # (при следующем вводе цифр очистить дисплей калькулятора)
-
-    # ?. записываем в переменную previous_operand предыдущий операнд
-    # ?. записываем в переменную operand текущий операнд
-
-    # ?. записываем историю в label_display_comment
-
-    # ?. записать в список (массив) итоговую переменную write_number и примененный operand
+    # 3. записываем в переменную previous_operand предыдущий операнд
+    # 4. записываем в переменную operand текущий операнд
+    # 5. записываем историю в label_display_comment
+    # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     def add(self):
-        self.display_clear = True # 1
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1
+            pass
+        elif ('=' == self.operand) and ('+' == self.previous_operand):
+            return
+        elif ('w' != self.operand):
+            return
 
-        self.previous_operand = self.operand # ?
-        self.operand = '+' # ?
+        self.display_clear = True # 2
 
-        self.label_display_comment.text += str(self.operand) # ?
+        self.previous_operand = self.operand # 3
+        self.operand = '+' # 4
 
-        self.calc_arr.append(self.write_number) # ?
+        self.label_display_comment.text += str(self.operand) # 5
+
+        self.calc_arr.append(self.write_number) # 6
         self.calc_arr.append(self.operand)
 
         # test
@@ -198,16 +203,43 @@ class Calc(BoxLayout):
     def subtract(self):
         self.previous_operand = self.operand
         self.operand = '-'
+
+        # test
+        print('------------------------------------------------')
+        print(' subtract write_number =', self.write_number)
+        print(' subtract temp_number =', self.temp_number)
+        print(' subtract result_number =', self.result_number)
+        print(' subtract operand =', self.operand)
+        print(' subtract previous_operand =', self.previous_operand)
+        print(' subtract calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд умножения чисел
     def multiply(self):
         self.previous_operand = self.operand
         self.operand = '*'
+
+        # test
+        print('------------------------------------------------')
+        print(' multiply write_number =', self.write_number)
+        print(' multiply temp_number =', self.temp_number)
+        print(' multiply result_number =', self.result_number)
+        print(' multiply operand =', self.operand)
+        print(' multiply previous_operand =', self.previous_operand)
+        print(' multiply calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд деления чисел
     def division(self):
         self.previous_operand = self.operand
         self.operand = '/'
+
+        # test
+        print('------------------------------------------------')
+        print(' division write_number =', self.write_number)
+        print(' division temp_number =', self.temp_number)
+        print(' division result_number =', self.result_number)
+        print(' division operand =', self.operand)
+        print(' division previous_operand =', self.previous_operand)
+        print(' division calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд удаление чисел 
     # 1. удалить крайнюю цифру из числа
@@ -242,6 +274,15 @@ class Calc(BoxLayout):
     def equal(self):
         self.previous_operand = self.operand
         self.operand = '='
+
+        # test
+        print('------------------------------------------------')
+        print(' equal write_number =', self.write_number)
+        print(' equal temp_number =', self.temp_number)
+        print(' equal result_number =', self.result_number)
+        print(' equal operand =', self.operand)
+        print(' equal previous_operand =', self.previous_operand)
+        print(' equal calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
