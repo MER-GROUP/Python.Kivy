@@ -294,7 +294,7 @@ class Calc(BoxLayout):
         self.result_number = float()
         self.operand = None
         self.previous_operand = None
-        calc_arr = list()
+        self.calc_arr = list()
 
         # test
         print('------------------------------------------------')
