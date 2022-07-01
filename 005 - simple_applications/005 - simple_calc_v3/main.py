@@ -214,7 +214,10 @@ class Calc(BoxLayout):
     # 2. записываем в переменную previous_operand предыдущий операнд
     # 3. записываем в переменную operand текущий операнд
     def back(self):
-        if ('' != self.label_display.text): # 
+        if ('' != self.label_display_comment.text) and self.label_display_comment.text[-1] in '-+*/%': # 1
+            self.label_display.text = self.label_display.text[: -1]
+            self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
+        elif ('' != self.label_display.text):
             self.label_display.text = self.label_display.text[: -1]
             self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
             self.label_display_comment.text = self.label_display_comment.text[: -1]
