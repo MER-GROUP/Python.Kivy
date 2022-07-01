@@ -96,6 +96,12 @@ class Calc(BoxLayout):
             ):
             digit_begin = '-0.'
             self.label_display.text = digit_begin
+        elif ((1 == len(self.label_display.text))
+            and ('-' == self.label_display.text)
+            and (chr(183) == digit_begin)
+            ):
+            digit_begin = '-0.'
+            self.label_display.text = digit_begin
         elif ((('0' == digit_begin) or (chr(183) != digit_begin))
             and ('' != self.label_display.text)
             and (1 == len(self.label_display.text)) 
@@ -246,7 +252,10 @@ class Calc(BoxLayout):
     # 2. записываем в переменную previous_operand предыдущий операнд
     # 3. записываем в переменную operand текущий операнд
     def back(self):
-        if ('' != self.label_display_comment.text) and self.label_display_comment.text[-1] in '-+*/%': # 1
+        if (('' != self.label_display_comment.text) # 1
+            and (self.label_display_comment.text[-1] in '-+*/%')
+            and (1 < len(self.label_display_comment.text))
+            ): 
             self.label_display.text = self.label_display.text[: -1]
             self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
         elif ('' != self.label_display.text):
