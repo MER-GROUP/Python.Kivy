@@ -67,7 +67,8 @@
         ButtonBase:
             text: '-'
             # on_press: root.subtract()
-            on_press: root.subtract() if len(label_display.text) else root.write_digit(self)
+            # on_press: root.subtract() if (len(label_display.text)) else root.write_digit(self)
+            on_press: root.subtract() if (len(label_display_comment.text)) else root.write_digit(self)
         ButtonBase:
             text: '7'
             on_press: root.write_digit(self)
