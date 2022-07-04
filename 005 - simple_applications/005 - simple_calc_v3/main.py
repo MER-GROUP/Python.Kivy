@@ -83,6 +83,8 @@ class Calc(BoxLayout):
             and ('-0' == self.label_display.text)
             and ('0' == digit_begin)
             ):
+            # test ##############################
+            print('!!!!!!! RETURN 1 !!!!!!!')####
             return
         elif ((2 == len(self.label_display.text))
             and ('-0' == self.label_display.text)
@@ -102,11 +104,18 @@ class Calc(BoxLayout):
             ):
             digit_begin = '-0.'
             self.label_display.text = digit_begin
+        elif ((1 == len(self.label_display.text))
+            and ('0' == self.label_display.text)
+            and (digit_begin in '123456789')
+            ):
+            pass
         elif ((('0' == digit_begin) or (chr(183) != digit_begin))
             and ('' != self.label_display.text)
             and (1 == len(self.label_display.text)) 
             and ('0' == self.label_display.text[0])
             ):
+            # test ##############################
+            print('!!!!!!! RETURN 2 !!!!!!!')####
             return
         elif (chr(183) == digit_begin) and (0 == len(self.label_display.text)):
             digit_begin = '0.'
@@ -131,6 +140,13 @@ class Calc(BoxLayout):
 
         if ('-0.' == digit_begin): # 4
             self.label_display.text = digit_begin
+        elif ((digit_begin in '123456789') 
+            and (1 == len(self.label_display.text))
+            and ('0' == self.label_display.text)
+            ):
+            self.label_display.text = digit_begin
+            digit_end = self.label_display.text
+            self.label_display_comment.text = self.label_display_comment.text[: -1]
         else:
             self.label_display.text += digit_begin 
         self.write_number = digit_end # 5
@@ -206,9 +222,30 @@ class Calc(BoxLayout):
         print(' add calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд вычитания чисел
+    # 1. условия проверки нажятия кнопки '-'
+    # 2. пометить переменную display_clear в True
+    # (при следующем вводе цифр очистить дисплей калькулятора)
+    # 3. записываем в переменную previous_operand предыдущий операнд
+    # 4. записываем в переменную operand текущий операнд
+    # 5. записываем историю в label_display_comment
+    # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     def subtract(self):
-        self.previous_operand = self.operand
-        self.operand = '-'
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1
+            pass
+        elif ('=' == self.operand) and ('-' == self.previous_operand):
+            return
+        elif ('w' != self.operand):
+            return
+
+        self.display_clear = True # 2
+
+        self.previous_operand = self.operand # 3
+        self.operand = '-' # 4
+
+        self.label_display_comment.text += str(self.operand) # 5
+
+        self.calc_arr.append(self.write_number) # 6
+        self.calc_arr.append(self.operand)
 
         # test
         print('------------------------------------------------')
