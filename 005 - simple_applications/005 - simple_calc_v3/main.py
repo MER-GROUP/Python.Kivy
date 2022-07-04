@@ -312,7 +312,7 @@ class Calc(BoxLayout):
             pass
         elif (('w' == self.operand) 
             and (('/' == self.previous_operand) or ('w' == self.previous_operand))  
-            and (0 == float(self.label_display.text))
+            and (self.zero)
             ):
             self.zero = True
             return
