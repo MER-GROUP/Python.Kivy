@@ -364,7 +364,7 @@ class Calc(BoxLayout):
             return
 
         self.previous_operand = self.operand # 3
-        self.operand = 'b' # 4
+        self.operand = '<' # 4
 
         # test
         print('------------------------------------------------')
