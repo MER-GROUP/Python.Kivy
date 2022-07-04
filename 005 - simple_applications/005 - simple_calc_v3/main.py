@@ -51,6 +51,7 @@ class Calc(BoxLayout):
     label_display = ObjectProperty(None)
     label_display_comment = ObjectProperty(None)
     display_clear = False
+    zero = False
     write_number = None
     temp_number = float()
     result_number = float()
@@ -71,6 +72,8 @@ class Calc(BoxLayout):
     # 6. записываем историю ввода чисел в переменную label_display_comment
     # 7. записываем в переменную previous_operand предыдущий операнд
     # 8. записываем в переменную operand текущий операнд
+    # 9. определяем в переменную zero истину если итоговое число '0'
+    # и ложь если итоговое число не '0'
     def write_digit(self, button): 
         if self.display_clear: # 1
             self.label_display.text = ''
@@ -175,6 +178,11 @@ class Calc(BoxLayout):
     
         self.previous_operand = self.operand # 7
         self.operand = 'w' # 8
+
+        if (0 == float(self.label_display.text)): # 9
+            self.zero = True
+        else:
+            self.zero = False
 
         # test
         print('------------------------------------------------')
@@ -292,9 +300,36 @@ class Calc(BoxLayout):
         print(' multiply calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд деления чисел
+    # 1. условия проверки нажятия кнопки '/'
+    # 2. пометить переменную display_clear в True
+    # (при следующем вводе цифр очистить дисплей калькулятора)
+    # 3. записываем в переменную previous_operand предыдущий операнд
+    # 4. записываем в переменную operand текущий операнд
+    # 5. записываем историю в label_display_comment
+    # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     def division(self):
-        self.previous_operand = self.operand
-        self.operand = '/'
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1 !!! проверку деления на 0 !!!
+            pass
+        elif (('w' == self.operand) 
+            and (('/' == self.previous_operand) or ('w' == self.previous_operand))  
+            and (0 == float(self.label_display.text))
+            ):
+            self.zero = True
+            return
+        elif ('=' == self.operand) and ('/' == self.previous_operand):
+            return
+        elif ('w' != self.operand):
+            return
+
+        self.display_clear = True # 2
+
+        self.previous_operand = self.operand # 3
+        self.operand = '/' # 4
+
+        self.label_display_comment.text += str(self.operand) # 5
+
+        self.calc_arr.append(self.write_number) # 6
+        self.calc_arr.append(self.operand)
 
         # test
         print('------------------------------------------------')
@@ -306,11 +341,14 @@ class Calc(BoxLayout):
         print(' division calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд удаление чисел 
-    # 1. удалить крайнюю цифру из числа
-    # 2. записываем в переменную previous_operand предыдущий операнд
-    # 3. записываем в переменную operand текущий операнд
+    # 1. пометить что идет правильное деление (делить на ноль нельзя)
+    # 2. удалить крайнюю цифру из числа
+    # 3. записываем в переменную previous_operand предыдущий операнд
+    # 4. записываем в переменную operand текущий операнд
     def back(self):
-        if (('' != self.label_display_comment.text) # 1
+        self.zero = False # 1
+
+        if (('' != self.label_display_comment.text) # 2
             and (self.label_display_comment.text[-1] in '-+*/%')
             and (1 < len(self.label_display_comment.text))
             ): 
@@ -325,8 +363,8 @@ class Calc(BoxLayout):
         else:
             return
 
-        self.previous_operand = self.operand # 2
-        self.operand = 'b' # 3
+        self.previous_operand = self.operand # 3
+        self.operand = 'b' # 4
 
         # test
         print('------------------------------------------------')
@@ -356,6 +394,7 @@ class Calc(BoxLayout):
         self.label_display.text = ''
         self.label_display_comment.text = ''
         self.display_clear = False
+        self.zero = False
         self.write_number = None
         self.temp_number = float()
         self.result_number = float()
