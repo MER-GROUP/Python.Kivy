@@ -257,9 +257,30 @@ class Calc(BoxLayout):
         print(' subtract calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
     # операнд умножения чисел
+    # 1. условия проверки нажятия кнопки '*'
+    # 2. пометить переменную display_clear в True
+    # (при следующем вводе цифр очистить дисплей калькулятора)
+    # 3. записываем в переменную previous_operand предыдущий операнд
+    # 4. записываем в переменную operand текущий операнд
+    # 5. записываем историю в label_display_comment
+    # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     def multiply(self):
-        self.previous_operand = self.operand
-        self.operand = '*'
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1
+            pass
+        elif ('=' == self.operand) and ('*' == self.previous_operand):
+            return
+        elif ('w' != self.operand):
+            return
+
+        self.display_clear = True # 2
+
+        self.previous_operand = self.operand # 3
+        self.operand = '*' # 4
+
+        self.label_display_comment.text += str(self.operand) # 5
+
+        self.calc_arr.append(self.write_number) # 6
+        self.calc_arr.append(self.operand)
 
         # test
         print('------------------------------------------------')
