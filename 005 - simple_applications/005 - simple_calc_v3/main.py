@@ -346,6 +346,7 @@ class Calc(BoxLayout):
         elif (('w' == self.operand) 
             and (('/' == self.previous_operand) or ('w' == self.previous_operand))  
             and (self.zero)
+            and (0 < len(self.calc_arr))
             ):
             self.zero = True
             return
