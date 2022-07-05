@@ -20,7 +20,7 @@ class Parse:
     # ---------------------------------------------------------------------------
     # разделение строки по разделителям '+-*/%'
     def split(self, line: str) -> list[str]:
-        return re.split('+|-|*|/|%', line)
+        return re.split('\+|\-|\*|\/|\%', line)
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
@@ -41,4 +41,11 @@ if __name__ == '__main__':
     print(Parse().back_to_operand(test_4))
     print(Parse().back_to_operand(test_5))
     print(Parse().back_to_operand(test_6))
+
+    print(Parse().split(test_1))
+    print(Parse().split(test_2))
+    print(Parse().split(test_3))
+    print(Parse().split(test_4))
+    print(Parse().split(test_5))
+    print(Parse().split(test_6))
 # *****************************************************************************************
