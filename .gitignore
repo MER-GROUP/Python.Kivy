@@ -1,9 +1,33 @@
 /__pycache__/
 /001 - for_fast_development/__pycache__/
-/002 - guide_kivy_python/__pycache__/
+/002 - guide_kivy_python_(part_1-base)/__pycache__/
+/003 - guide_kivy_python_(part_2-widgets)/__pycache__/
+/004 - guide_kivy_python_(part_3-kvlang)/__pycache__/
+/005 - simple_applications/__pycache__/
+/005 - simple_applications/001 - convert_kg_to_gr/__pycache__/
+/005 - simple_applications/002 - timer/__pycache__/
+/005 - simple_applications/003 - simple_calc/__pycache__/
+/005 - simple_applications/004 - simple_calc_v2/__pycache__/
+/005 - simple_applications/005 - simple_calc_v3/__pycache__/
 /kivy_venv/
 /001 - for_fast_development/kivy_venv/
-/002 - guide_kivy_python/kivy_venv/
+/002 - guide_kivy_python_(part_1-base)/kivy_venv/
+/003 - guide_kivy_python_(part_2-widgets)/kivy_venv/
+/004 - guide_kivy_python_(part_3-kvlang)/kivy_venv/
+/005 - simple_applications/kivy_venv/
+/005 - simple_applications/001 - convert_kg_to_gr/kivy_venv/
+/005 - simple_applications/002 - timer/kivy_venv/
+/005 - simple_applications/003 - simple_calc/kivy_venv/
+/005 - simple_applications/004 - simple_calc_v2/kivy_venv/
+/005 - simple_applications/005 - simple_calc_v3/kivy_venv/
 /.kivy/
 /001 - for_fast_development/.kivy/
-/002 - guide_kivy_python/.kivy/
+/002 - guide_kivy_python_(part_1-base)/.kivy/
+/003 - guide_kivy_python_(part_2-widgets)/.kivy/
+/004 - guide_kivy_python_(part_3-kvlang)/.kivy/
+/005 - simple_applications/.kivy/
+/005 - simple_applications/001 - convert_kg_to_gr/.kivy/
+/005 - simple_applications/002 - timer/.kivy/
+/005 - simple_applications/003 - simple_calc/.kivy/
+/005 - simple_applications/004 - simple_calc_v2/.kivy/
+/005 - simple_applications/005 - simple_calc_v3/.kivy/
