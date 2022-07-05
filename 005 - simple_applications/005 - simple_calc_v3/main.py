@@ -211,6 +211,8 @@ class Calc(BoxLayout):
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
                 self.label_display_comment.text += self.label_display.text
+        elif ('/' == self.calc_arr[-1]) and (0 == float(self.label_display.text.split('-+*/%')[-1])):
+            return
         elif ('=' == self.operand) and ('+' == self.previous_operand):
             return
         elif ('w' != self.operand):
@@ -252,6 +254,8 @@ class Calc(BoxLayout):
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
                 self.label_display_comment.text += self.label_display.text
+        elif ('/' == self.calc_arr[-1]) and (0 == float(self.label_display.text.split('-+*/%')[-1])):
+            return
         elif ('=' == self.operand) and ('-' == self.previous_operand):
             return
         elif ('w' != self.operand):
@@ -293,6 +297,8 @@ class Calc(BoxLayout):
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
                 self.label_display_comment.text += self.label_display.text
+        elif ('/' == self.calc_arr[-1]) and (0 == float(self.label_display.text.split('-+*/%')[-1])):
+            return
         elif ('=' == self.operand) and ('*' == self.previous_operand):
             return
         elif ('w' != self.operand):
