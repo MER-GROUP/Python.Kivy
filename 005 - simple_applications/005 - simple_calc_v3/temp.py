@@ -28,3 +28,18 @@ print('a =' , a)
 print('---------------------------')
 print("float('-0.'): " ,float('-0.'))
 print('---------------------------')
+import re
+my_st = "Я\nучу; язык,программирования\nPython"
+print(re.split(';|,|\n', my_st)[-1])
+print('---------------------------')
+import re
+my_st = "Я учу язык программирования Python"
+print(re.split(';|,|\n', my_st)[-1])
+print('---------------------------')
+class Parse:
+    def split(self, line: str) -> list[str]:
+        import re
+        return re.split('\+|\-|\*|\/|\%', line)
+
+print(Parse().split('1212+67676-787878+8989898'))
+print('---------------------------')
