@@ -341,13 +341,10 @@ class Calc(BoxLayout):
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     def division(self):
-        if ('=' == self.operand) and ('w' == self.previous_operand): # 1 !!! проверку деления на 0 когда использовал операнд < !!! in !!!
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1 !!! проверку деления на 0 когда использовал операнд <
             pass      
         elif ((('w' == self.operand) or ('<' == self.operand)) 
-            and (('/' == self.previous_operand) 
-                or ('w' == self.previous_operand)
-                or ('<' == self.previous_operand)
-                )  
+            and (self.previous_operand in '/w<')  
             and (self.zero)
             and (0 < len(self.calc_arr))
             ):
