@@ -342,6 +342,8 @@ class Calc(BoxLayout):
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     def division(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1 !!! проверку деления на 0 когда использовал операнд <
+            pass
+        elif (('w' == self.operand) and (self.previous_operand is None)):
             pass      
         elif ((('w' == self.operand) or ('<' == self.operand)) 
             and (self.previous_operand in '/w<')  
