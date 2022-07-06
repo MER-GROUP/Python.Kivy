@@ -76,11 +76,7 @@ class Calc(BoxLayout):
     # 9. определяем в переменную zero истину если итоговое число '0'
     # и ложь если итоговое число не '0'
     def write_digit(self, button): 
-        if self.display_clear: # 1
-        # if ((self.display_clear) # 1 ввести переменную back
-        #     and (self.operand not in '<') 
-        #     and (self.previous_operand not in '-+*/%')
-        #     ): 
+        if self.display_clear and not self.push_back : # 1
             self.label_display.text = ''
             self.display_clear = False
 
@@ -178,7 +174,15 @@ class Calc(BoxLayout):
                 self.label_display_comment.text += str(self.write_number)
             else:
                 self.label_display_comment.text = str(self.write_number)
+        elif ((self.push_back) 
+            and ('' != self.label_display.text)
+            ):
+            self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+            self.label_display_comment.text += str(self.write_number)
         else:
+            # test ##################################################
+            print('------------------------------------------------')
+            print('!!!!!!!!!!!!!!!!!!!!!HISTORY!!!!!!!!!!!!!!!!!!!!')
             self.label_display_comment.text += str(self.write_number)[-1]
     
         self.previous_operand = self.operand # 7
