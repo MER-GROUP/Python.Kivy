@@ -207,6 +207,7 @@ class Calc(BoxLayout):
     # 4. записываем в переменную operand текущий операнд
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
+    # 7. пометить что кнопка back ('<') была не нажата
     def add(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -236,6 +237,8 @@ class Calc(BoxLayout):
         self.calc_arr.append(self.write_number) # 6
         self.calc_arr.append(self.operand)
 
+        self.push_back = False # 7
+
         # test
         print('------------------------------------------------')
         print(' add write_number =', self.write_number)
@@ -253,6 +256,7 @@ class Calc(BoxLayout):
     # 4. записываем в переменную operand текущий операнд
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
+    # 7. пометить что кнопка back ('<') была не нажата
     def subtract(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -282,6 +286,8 @@ class Calc(BoxLayout):
         self.calc_arr.append(self.write_number) # 6
         self.calc_arr.append(self.operand)
 
+        self.push_back = False # 7
+
         # test
         print('------------------------------------------------')
         print(' subtract write_number =', self.write_number)
@@ -299,6 +305,7 @@ class Calc(BoxLayout):
     # 4. записываем в переменную operand текущий операнд
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
+    # 7. пометить что кнопка back ('<') была не нажата
     def multiply(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -328,6 +335,8 @@ class Calc(BoxLayout):
         self.calc_arr.append(self.write_number) # 6
         self.calc_arr.append(self.operand)
 
+        self.push_back = False # 7
+
         # test
         print('------------------------------------------------')
         print(' multiply write_number =', self.write_number)
@@ -345,6 +354,7 @@ class Calc(BoxLayout):
     # 4. записываем в переменную operand текущий операнд
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
+    # 7. пометить что кнопка back ('<') была не нажата
     def division(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1 !!! проверку деления на 0 когда использовал операнд <
             pass
@@ -378,6 +388,8 @@ class Calc(BoxLayout):
         self.calc_arr.append(self.write_number) # 6
         self.calc_arr.append(self.operand)
 
+        self.push_back = False # 7
+
         # test
         print('------------------------------------------------')
         print(' division write_number =', self.write_number)
@@ -392,7 +404,8 @@ class Calc(BoxLayout):
     # 2. записываем в переменную previous_operand предыдущий операнд
     # 3. записываем в переменную operand текущий операнд
     # 4. пометить что идет правильное деление (делить на ноль нельзя)
-    # 5. пометить что кнопка back ('<') была нажата
+    # 5. пометить что кнопка back ('<') была нажата True
+    # (в методах для операндов поставить False)
     def back(self):
         if (('' != self.label_display_comment.text) # 1
             and (self.label_display_comment.text[-1] in '-+*/%')
