@@ -404,7 +404,7 @@ class Calc(BoxLayout):
         self.previous_operand = self.operand # 2
         self.operand = '<' # 3
 
-        if (0 == float(self.label_display.text)): # 4
+        if ('' != self.label_display.text) and (0 == float(self.label_display.text)): # 4
             self.zero = True
         else:
             self.zero = False
