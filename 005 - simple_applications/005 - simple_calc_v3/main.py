@@ -215,17 +215,17 @@ class Calc(BoxLayout):
     def add(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
+        elif ((0 < len(self.calc_arr)) 
+            and ('/' == self.calc_arr[-1])
+            and ((self.write_number is None) or (0 == float(self.write_number)))
+            ):
+            return
         elif (('<' == self.operand)
             and (self.previous_operand in 'w<-+*/%')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
-                self.label_display_comment.text += self.label_display.text
-        # elif ((0 < len(self.calc_arr)) 
-        #     and ('/' == self.calc_arr[-1])
-        #     and (0 == float(Parse().split(self.label_display_comment.text)[-1]))
-        #     ):
-        #     return
+                self.label_display_comment.text += self.label_display.text       
         elif ('=' == self.operand) and ('+' == self.previous_operand):
             return
         elif ('w' != self.operand):
@@ -264,17 +264,17 @@ class Calc(BoxLayout):
     def subtract(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
+        elif ((0 < len(self.calc_arr)) 
+            and ('/' == self.calc_arr[-1])
+            and ((self.write_number is None) or (0 == float(self.write_number)))
+            ):
+            return
         elif (('<' == self.operand)
             and (self.previous_operand in 'w<-+*/%')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
                 self.label_display_comment.text += self.label_display.text
-        # elif ((0 < len(self.calc_arr)) 
-        #     and ('/' == self.calc_arr[-1])
-        #     and (0 == float(Parse().split(self.label_display_comment.text)[-1]))
-        #     ):
-        #     return
         elif ('=' == self.operand) and ('-' == self.previous_operand):
             return
         elif ('w' != self.operand):
@@ -313,17 +313,17 @@ class Calc(BoxLayout):
     def multiply(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
+        elif ((0 < len(self.calc_arr)) 
+            and ('/' == self.calc_arr[-1])
+            and ((self.write_number is None) or (0 == float(self.write_number)))
+            ):
+            return
         elif (('<' == self.operand)
             and (self.previous_operand in 'w<-+*/%')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
                 self.label_display_comment.text += self.label_display.text
-        # elif ((0 < len(self.calc_arr)) 
-        #     and ('/' == self.calc_arr[-1])
-        #     and (0 == float(Parse().split(self.label_display_comment.text)[-1]))
-        #     ):
-        #     return
         elif ('=' == self.operand) and ('*' == self.previous_operand):
             return
         elif ('w' != self.operand):
