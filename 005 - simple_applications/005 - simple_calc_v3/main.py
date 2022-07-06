@@ -403,6 +403,55 @@ class Calc(BoxLayout):
         print(' division previous_operand =', self.previous_operand)
         print(' division calc_arr =', self.calc_arr)
     # ---------------------------------------------------------------------------
+    # операнд процент от числа
+    # 1. условия проверки нажятия кнопки '%'
+    # 2. пометить переменную display_clear в True
+    # (при следующем вводе цифр очистить дисплей калькулятора)
+    # 3. записываем в переменную previous_operand предыдущий операнд
+    # 4. записываем в переменную operand текущий операнд
+    # 5. записываем историю в label_display_comment
+    # 6. записать в список (массив) итоговую переменную write_number и примененный operand
+    # 7. пометить что кнопка back ('<') была не нажата
+    def percent(self):
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1
+            pass
+        elif ((0 < len(self.calc_arr)) 
+            and ('/' == self.calc_arr[-1])
+            and ((self.write_number is None) or (0 == float(self.write_number)))
+            ):
+            return
+        elif (('<' == self.operand)
+            and (self.previous_operand in 'w<-+*/%')
+            and (self.write_number is not None)
+            ):
+            if (self.label_display_comment.text[-1] in '-+*/%'):
+                self.label_display_comment.text += self.label_display.text
+        elif ('=' == self.operand) and ('*' == self.previous_operand):
+            return
+        elif ('w' != self.operand):
+            return
+
+        self.display_clear = True # 2
+
+        self.previous_operand = self.operand # 3
+        self.operand = '%' # 4
+
+        self.label_display_comment.text += str(self.operand) # 5
+
+        self.calc_arr.append(self.write_number) # 6
+        self.calc_arr.append(self.operand)
+
+        self.push_back = False # 7
+
+        # test
+        print('------------------------------------------------')
+        print(' percent write_number =', self.write_number)
+        print(' percent temp_number =', self.temp_number)
+        print(' percent result_number =', self.result_number)
+        print(' percent operand =', self.operand)
+        print(' percent previous_operand =', self.previous_operand)
+        print(' percent calc_arr =', self.calc_arr)
+    # ---------------------------------------------------------------------------
     # операнд удаление чисел     
     # 1. удалить крайнюю цифру из числа
     # 2. записываем в переменную previous_operand предыдущий операнд
