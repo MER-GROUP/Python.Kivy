@@ -360,7 +360,7 @@ class Calc(BoxLayout):
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     # 7. пометить что кнопка back ('<') была не нажата
     def division(self):
-        if ('=' == self.operand) and ('w' == self.previous_operand): # 1 !!! проверку деления на 0 когда использовал операнд <
+        if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
         elif (('w' == self.operand) and (self.previous_operand is None)):
             pass      
