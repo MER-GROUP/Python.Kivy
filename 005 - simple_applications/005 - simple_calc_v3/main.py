@@ -51,6 +51,7 @@ class Calc(BoxLayout):
     label_display = ObjectProperty(None)
     label_display_comment = ObjectProperty(None)
     display_clear = False
+    push_back = False
     zero = False
     write_number = None
     temp_number = float()
@@ -76,6 +77,10 @@ class Calc(BoxLayout):
     # и ложь если итоговое число не '0'
     def write_digit(self, button): 
         if self.display_clear: # 1
+        # if ((self.display_clear) # 1 ввести переменную back
+        #     and (self.operand not in '<') 
+        #     and (self.previous_operand not in '-+*/%')
+        #     ): 
             self.label_display.text = ''
             self.display_clear = False
 
@@ -387,6 +392,7 @@ class Calc(BoxLayout):
     # 2. записываем в переменную previous_operand предыдущий операнд
     # 3. записываем в переменную operand текущий операнд
     # 4. пометить что идет правильное деление (делить на ноль нельзя)
+    # 5. пометить что кнопка back ('<') была нажата
     def back(self):
         if (('' != self.label_display_comment.text) # 1
             and (self.label_display_comment.text[-1] in '-+*/%')
@@ -410,6 +416,8 @@ class Calc(BoxLayout):
             self.zero = True
         else:
             self.zero = False
+
+        self.push_back = True # 5
 
         # test
         print('------------------------------------------------')
@@ -439,6 +447,7 @@ class Calc(BoxLayout):
         self.label_display.text = ''
         self.label_display_comment.text = ''
         self.display_clear = False
+        self.push_back = False
         self.zero = False
         self.write_number = None
         self.temp_number = float()
