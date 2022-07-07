@@ -16,7 +16,7 @@
         Display:
             BoxLayout:
                 orientation: 'vertical'
-                size_hint: 1, 0.25
+                size_hint: 1, 0.30
                 padding: [5,0,0,0]
                 spacing: 0
                 DisplayComment:
@@ -24,10 +24,19 @@
                     text: ''
             BoxLayout:
                 orientation: 'vertical'
+                # padding: [0,0,0,0]
                 DisplayScroll:
                     DisplayLabel:
                         id: label_display
                         text: ''
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint: 1, 0.40
+                padding: [5,0,0,0]
+                spacing: 0
+                DisplayMemory:
+                    id: label_display_memory
+                    text: 'memory 12345'
     BoxLayout:
         orientation: 'horizontal'
         size_hint: 1, 0.1

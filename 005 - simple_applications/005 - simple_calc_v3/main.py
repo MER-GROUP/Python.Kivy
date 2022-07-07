@@ -469,7 +469,7 @@ class Calc(BoxLayout):
         print(' percent zero =', self.zero)
         print(' percent push_back =', self.push_back)
     # ---------------------------------------------------------------------------
-    # операнд сохранения числа в память числа
+    # операнд сохранения числа в память калькулятора
     def memory(self):
         # self.previous_operand = self.operand # ?
         # self.operand = 'm' # ?
