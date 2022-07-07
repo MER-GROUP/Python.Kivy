@@ -471,14 +471,22 @@ class Calc(BoxLayout):
         print(' percent push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд сохранения числа в память калькулятора
+    # 1. сохранить в память калькулятора число
+    # иначе извлечь из памяти калькулятора число на дисплей калькулятора
     def memory(self):
-        # self.previous_operand = self.operand # ?
-        # self.operand = 'm' # ?
-
-        if ('' == self.label_display_memory.text) and ('' != self.label_display.text):
+        if ('' == self.label_display_memory.text) and ('' != self.label_display.text): # 1
             self.label_display_memory.text = self.label_display.text
         else:
-            self.label_display_memory.text = ''
+            if (1 < len(Parse().split(self.label_display_comment.text))):
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += self.label_display_memory.text
+            else:
+                self.label_display_comment.text = self.label_display_memory.text
+            self.label_display.text = self.label_display_memory.text
+            self.write_number = self.label_display_memory.text
+            self.operand = 'w'
+            self.push_back = True
+            self.label_display_memory.text = ''    
 
         # test
         print('------------------------------------------------')
