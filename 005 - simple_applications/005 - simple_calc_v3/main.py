@@ -50,6 +50,7 @@ class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
     label_display = ObjectProperty(None)
     label_display_comment = ObjectProperty(None)
+    label_display_memory = ObjectProperty(None)
     display_clear = False
     push_back = False
     zero = False
@@ -474,6 +475,11 @@ class Calc(BoxLayout):
         # self.previous_operand = self.operand # ?
         # self.operand = 'm' # ?
 
+        if ('' == self.label_display_memory.text) and ('' != self.label_display.text):
+            self.label_display_memory.text = self.label_display.text
+        else:
+            self.label_display_memory.text = ''
+
         # test
         print('------------------------------------------------')
         print(' memory write_number =', self.write_number)
@@ -549,6 +555,7 @@ class Calc(BoxLayout):
     def clear(self):
         self.label_display.text = ''
         self.label_display_comment.text = ''
+        # self.label_display_memory.text = ''
         self.display_clear = False
         self.push_back = False
         self.zero = False
