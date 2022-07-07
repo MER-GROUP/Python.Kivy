@@ -50,6 +50,7 @@ class Calc(BoxLayout):
     # ---------------------------------------------------------------------------
     label_display = ObjectProperty(None)
     label_display_comment = ObjectProperty(None)
+    label_display_memory = ObjectProperty(None)
     display_clear = False
     push_back = False
     zero = False
@@ -202,6 +203,8 @@ class Calc(BoxLayout):
         print(' write previous_operand =', self.previous_operand)
         print(' write calc_arr =', self.calc_arr)
         print(' write digit_end =', digit_end)
+        print(' write zero =', self.zero)
+        print(' write push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     # 1. условия проверки нажятия кнопки '+'
@@ -251,6 +254,8 @@ class Calc(BoxLayout):
         print(' add operand =', self.operand)
         print(' add previous_operand =', self.previous_operand)
         print(' add calc_arr =', self.calc_arr)
+        print(' add zero =', self.zero)
+        print(' add push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд вычитания чисел
     # 1. условия проверки нажятия кнопки '-'
@@ -300,6 +305,8 @@ class Calc(BoxLayout):
         print(' subtract operand =', self.operand)
         print(' subtract previous_operand =', self.previous_operand)
         print(' subtract calc_arr =', self.calc_arr)
+        print(' subtract zero =', self.zero)
+        print(' subtract push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд умножения чисел
     # 1. условия проверки нажятия кнопки '*'
@@ -349,6 +356,8 @@ class Calc(BoxLayout):
         print(' multiply operand =', self.operand)
         print(' multiply previous_operand =', self.previous_operand)
         print(' multiply calc_arr =', self.calc_arr)
+        print(' multiply zero =', self.zero)
+        print(' multiply push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд деления чисел
     # 1. условия проверки нажятия кнопки '/'
@@ -363,14 +372,19 @@ class Calc(BoxLayout):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
         elif (('w' == self.operand) and (self.previous_operand is None)):
-            pass      
-        elif ((('w' == self.operand) or ('<' == self.operand)) 
-            and (self.previous_operand in '/w<')  
-            and (self.zero)
-            and (0 < len(self.calc_arr))
+            pass
+        elif ((0 < len(self.calc_arr)) 
+            and ('/' == self.calc_arr[-1])
+            and ((self.write_number is None) or (0 == float(self.write_number)))
             ):
-            self.zero = True
-            return
+            return  
+        # elif ((('w' == self.operand) or ('<' == self.operand)) 
+        #     and (self.previous_operand in '/w<')  
+        #     and (self.zero)
+        #     and (0 < len(self.calc_arr))
+        #     ):
+        #     self.zero = True
+        #     return
         elif (('<' == self.operand)
             and (self.previous_operand in 'w<-+*/%')
             and (self.write_number is not None)
@@ -402,6 +416,8 @@ class Calc(BoxLayout):
         print(' division operand =', self.operand)
         print(' division previous_operand =', self.previous_operand)
         print(' division calc_arr =', self.calc_arr)
+        print(' division zero =', self.zero)
+        print(' division push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд процент от числа
     # 1. условия проверки нажятия кнопки '%'
@@ -451,6 +467,37 @@ class Calc(BoxLayout):
         print(' percent operand =', self.operand)
         print(' percent previous_operand =', self.previous_operand)
         print(' percent calc_arr =', self.calc_arr)
+        print(' percent zero =', self.zero)
+        print(' percent push_back =', self.push_back)
+    # ---------------------------------------------------------------------------
+    # операнд сохранения числа в память калькулятора
+    # 1. сохранить в память калькулятора число
+    # иначе извлечь из памяти калькулятора число на дисплей калькулятора
+    def memory(self):
+        if ('' == self.label_display_memory.text) and ('' != self.label_display.text): # 1
+            self.label_display_memory.text = self.label_display.text
+        else:
+            if (1 < len(Parse().split(self.label_display_comment.text))):
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += self.label_display_memory.text
+            else:
+                self.label_display_comment.text = self.label_display_memory.text
+            self.label_display.text = self.label_display_memory.text
+            self.write_number = self.label_display_memory.text
+            self.operand = 'w'
+            self.push_back = True
+            self.label_display_memory.text = ''    
+
+        # test
+        print('------------------------------------------------')
+        print(' memory write_number =', self.write_number)
+        print(' memory temp_number =', self.temp_number)
+        print(' memory result_number =', self.result_number)
+        print(' memory operand =', self.operand)
+        print(' memory previous_operand =', self.previous_operand)
+        print(' memory calc_arr =', self.calc_arr)
+        print(' memory zero =', self.zero)
+        print(' memory push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд удаление чисел     
     # 1. удалить крайнюю цифру из числа
@@ -493,11 +540,15 @@ class Calc(BoxLayout):
         print(' back operand =', self.operand)
         print(' back previous_operand =', self.previous_operand)
         print(' back calc_arr =', self.calc_arr)
+        print(' back zero =', self.zero)
+        print(' back push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
+    # ?. записываем в переменную previous_operand предыдущий операнд
+    # ?. записываем в переменную operand текущий операнд
     def equal(self):
-        self.previous_operand = self.operand
-        self.operand = '='
+        self.previous_operand = self.operand # ?
+        self.operand = '=' # ?
 
         # test
         print('------------------------------------------------')
@@ -507,11 +558,14 @@ class Calc(BoxLayout):
         print(' equal operand =', self.operand)
         print(' equal previous_operand =', self.previous_operand)
         print(' equal calc_arr =', self.calc_arr)
+        print(' equal zero =', self.zero)
+        print(' equal push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
         self.label_display.text = ''
         self.label_display_comment.text = ''
+        # self.label_display_memory.text = ''
         self.display_clear = False
         self.push_back = False
         self.zero = False
@@ -530,6 +584,8 @@ class Calc(BoxLayout):
         print(' clear operand =', self.operand)
         print(' clear previous_operand =', self.previous_operand)
         print(' clear calc_arr =', self.calc_arr)
+        print(' clear zero =', self.zero)
+        print(' clear push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------

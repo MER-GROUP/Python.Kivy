@@ -1,0 +1,21 @@
+#:kivy 2.0.0
+
+# импорт hex цветов
+#:import hex kivy.utils.get_color_from_hex
+
+# Сохраненная память на дисплее калькулятора
+<DisplayMemory@Label>:
+    # размер шрифта
+    font_size: '12sp'
+
+    # цвет шрифта
+    color: 'gray'
+
+    # жирность шрифта
+    # bold: True
+
+    # автоматически переносить/растягивать текст {
+    text_size: self.size
+    halign: 'left'
+    valign: 'top'
+    # автоматически переносить/растягивать текст }
