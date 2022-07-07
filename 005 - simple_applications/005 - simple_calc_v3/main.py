@@ -202,6 +202,8 @@ class Calc(BoxLayout):
         print(' write previous_operand =', self.previous_operand)
         print(' write calc_arr =', self.calc_arr)
         print(' write digit_end =', digit_end)
+        print(' write zero =', self.zero)
+        print(' write push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд сложения чисел
     # 1. условия проверки нажятия кнопки '+'
@@ -251,6 +253,8 @@ class Calc(BoxLayout):
         print(' add operand =', self.operand)
         print(' add previous_operand =', self.previous_operand)
         print(' add calc_arr =', self.calc_arr)
+        print(' add zero =', self.zero)
+        print(' add push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд вычитания чисел
     # 1. условия проверки нажятия кнопки '-'
@@ -300,6 +304,8 @@ class Calc(BoxLayout):
         print(' subtract operand =', self.operand)
         print(' subtract previous_operand =', self.previous_operand)
         print(' subtract calc_arr =', self.calc_arr)
+        print(' subtract zero =', self.zero)
+        print(' subtract push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд умножения чисел
     # 1. условия проверки нажятия кнопки '*'
@@ -349,6 +355,8 @@ class Calc(BoxLayout):
         print(' multiply operand =', self.operand)
         print(' multiply previous_operand =', self.previous_operand)
         print(' multiply calc_arr =', self.calc_arr)
+        print(' multiply zero =', self.zero)
+        print(' multiply push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд деления чисел
     # 1. условия проверки нажятия кнопки '/'
@@ -402,6 +410,8 @@ class Calc(BoxLayout):
         print(' division operand =', self.operand)
         print(' division previous_operand =', self.previous_operand)
         print(' division calc_arr =', self.calc_arr)
+        print(' division zero =', self.zero)
+        print(' division push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд процент от числа
     # 1. условия проверки нажятия кнопки '%'
@@ -451,6 +461,8 @@ class Calc(BoxLayout):
         print(' percent operand =', self.operand)
         print(' percent previous_operand =', self.previous_operand)
         print(' percent calc_arr =', self.calc_arr)
+        print(' percent zero =', self.zero)
+        print(' percent push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд удаление чисел     
     # 1. удалить крайнюю цифру из числа
@@ -493,6 +505,8 @@ class Calc(BoxLayout):
         print(' back operand =', self.operand)
         print(' back previous_operand =', self.previous_operand)
         print(' back calc_arr =', self.calc_arr)
+        print(' back zero =', self.zero)
+        print(' back push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
     def equal(self):
@@ -507,6 +521,8 @@ class Calc(BoxLayout):
         print(' equal operand =', self.operand)
         print(' equal previous_operand =', self.previous_operand)
         print(' equal calc_arr =', self.calc_arr)
+        print(' equal zero =', self.zero)
+        print(' equal push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
@@ -530,6 +546,8 @@ class Calc(BoxLayout):
         print(' clear operand =', self.operand)
         print(' clear previous_operand =', self.previous_operand)
         print(' clear calc_arr =', self.calc_arr)
+        print(' clear zero =', self.zero)
+        print(' clear push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
