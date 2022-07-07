@@ -544,9 +544,11 @@ class Calc(BoxLayout):
         print(' back push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
+    # ?. записываем в переменную previous_operand предыдущий операнд
+    # ?. записываем в переменную operand текущий операнд
     def equal(self):
-        self.previous_operand = self.operand
-        self.operand = '='
+        self.previous_operand = self.operand # ?
+        self.operand = '=' # ?
 
         # test
         print('------------------------------------------------')
