@@ -371,14 +371,19 @@ class Calc(BoxLayout):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
         elif (('w' == self.operand) and (self.previous_operand is None)):
-            pass      
-        elif ((('w' == self.operand) or ('<' == self.operand)) 
-            and (self.previous_operand in '/w<')  
-            and (self.zero)
-            and (0 < len(self.calc_arr))
+            pass
+        elif ((0 < len(self.calc_arr)) 
+            and ('/' == self.calc_arr[-1])
+            and ((self.write_number is None) or (0 == float(self.write_number)))
             ):
-            self.zero = True
-            return
+            return  
+        # elif ((('w' == self.operand) or ('<' == self.operand)) 
+        #     and (self.previous_operand in '/w<')  
+        #     and (self.zero)
+        #     and (0 < len(self.calc_arr))
+        #     ):
+        #     self.zero = True
+        #     return
         elif (('<' == self.operand)
             and (self.previous_operand in 'w<-+*/%')
             and (self.write_number is not None)
