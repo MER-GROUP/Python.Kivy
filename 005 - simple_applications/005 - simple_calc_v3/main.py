@@ -469,6 +469,22 @@ class Calc(BoxLayout):
         print(' percent zero =', self.zero)
         print(' percent push_back =', self.push_back)
     # ---------------------------------------------------------------------------
+    # операнд сохранения числа в память числа
+    def memory(self):
+        # self.previous_operand = self.operand # ?
+        # self.operand = 'm' # ?
+
+        # test
+        print('------------------------------------------------')
+        print(' memory write_number =', self.write_number)
+        print(' memory temp_number =', self.temp_number)
+        print(' memory result_number =', self.result_number)
+        print(' memory operand =', self.operand)
+        print(' memory previous_operand =', self.previous_operand)
+        print(' memory calc_arr =', self.calc_arr)
+        print(' memory zero =', self.zero)
+        print(' memory push_back =', self.push_back)
+    # ---------------------------------------------------------------------------
     # операнд удаление чисел     
     # 1. удалить крайнюю цифру из числа
     # 2. записываем в переменную previous_operand предыдущий операнд
