@@ -544,19 +544,38 @@ class Calc(BoxLayout):
         print(' back push_back =', self.push_back)
     # ---------------------------------------------------------------------------
     # операнд равно (результат действий калькулятора)
-    # 1. условия проверки нажятия кнопки '='
-    # 2. записать в список (массив) итоговую переменную write_number и примененный operand
-    # 3. записываем в переменную previous_operand предыдущий операнд
-    # 4. записываем в переменную operand текущий операнд
+    # 1. условия проверки нажятия кнопки '='   
+    # 2. записываем в переменную previous_operand предыдущий операнд
+    # 3. записываем в переменную operand текущий операнд
+    # 4. записать в список (массив) итоговую переменную write_number и примененный operand
+    # 5. выполнить вычисления выражения
     def equal(self):
         if ('=' == self.operand): # 1
             return
 
-        self.calc_arr.append(self.write_number) # 2
+        self.previous_operand = self.operand # 2
+        self.operand = '=' # 3
+
+        self.calc_arr.append(self.write_number) # 4
         self.calc_arr.append(self.operand)
 
-        self.previous_operand = self.operand # 3
-        self.operand = '=' # 4
+        res = str() # 5
+        for i in self.calc_arr: 
+            if (i in '-+*/%'):
+                res += i
+            elif ('=' == i):
+                break
+            else:
+                res += i
+                if (('' != res) 
+                    and (2 == len(Parse().split(res)))
+                    and ('%' == Parse().back_to_operand(res)[-1])
+                    ):
+                    procent, digit = Parse().split(res)
+                    res = procent + '*' + digit + '/' + '100'
+                    res = str(eval(res))
+                else:
+                    res = str(eval(res))
 
         # test
         print('------------------------------------------------')
@@ -568,6 +587,7 @@ class Calc(BoxLayout):
         print(' equal calc_arr =', self.calc_arr)
         print(' equal zero =', self.zero)
         print(' equal push_back =', self.push_back)
+        print(' equal res =', res)
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
