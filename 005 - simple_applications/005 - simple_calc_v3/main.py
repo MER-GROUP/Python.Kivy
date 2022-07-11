@@ -589,7 +589,7 @@ class Calc(BoxLayout):
         print(' equal calc_arr =', self.calc_arr)
         print(' equal zero =', self.zero)
         print(' equal push_back =', self.push_back)
-        print(' res =', res)
+        print(' equal res =', res)
     # ---------------------------------------------------------------------------
     # обнудить все переменные при нажатии кнопки 'C'
     def clear(self):
