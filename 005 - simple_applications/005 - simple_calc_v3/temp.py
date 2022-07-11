@@ -43,3 +43,10 @@ class Parse:
 
 print(Parse().split('1212+67676-787878+8989898'))
 print('---------------------------')
+res = '50 % 10'
+res = eval(res)
+print('res =', res)
+print('type(res) =', type(res))
+print('---------------------------')
+print('123456789'[-2])
+print('---------------------------')
