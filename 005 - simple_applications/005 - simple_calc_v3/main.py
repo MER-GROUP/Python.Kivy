@@ -561,9 +561,7 @@ class Calc(BoxLayout):
 
         res = str() # 5
         for i in self.calc_arr: 
-            if (i in '-+*/'):
-                res += i
-            elif ('%' == i):
+            if (i in '-+*/%'):
                 res += i
             elif ('=' == i):
                 break
