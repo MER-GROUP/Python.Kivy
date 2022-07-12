@@ -510,6 +510,8 @@ class Calc(BoxLayout):
     # 4. пометить что идет правильное деление (делить на ноль нельзя)
     # 5. пометить что кнопка back ('<') была нажата True
     # (в методах для операндов поставить False)
+    # 6. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
     def back(self):
         if (('' != self.label_display_comment.text) # 1
             and (self.label_display_comment.text[-1] in '-+*/%')
