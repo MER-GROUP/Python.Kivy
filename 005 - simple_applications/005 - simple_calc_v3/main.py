@@ -549,7 +549,11 @@ class Calc(BoxLayout):
     # 3. записываем в переменную operand текущий операнд
     # 4. записать в список (массив) итоговую переменную write_number и примененный operand
     # 5. выполнить вычисления выражения
-    # 6. результат вычесления вывести на дисплей калькулятора
+    # 6. результат вычесления вывести на дисплей калькулятора (label_display)
+    # 7. добавляем в историю label_display_comment текущий операнд
+    # 8. результат вычесления добавить в историю калькулятора (label_display_comment)
+    # 9. записываем в переменную write_number результат вычесления
+    # 10. очищаем массив данных калькулятора calc_arr
     def equal(self):
         if ('=' == self.operand): # 1
             return
@@ -579,6 +583,10 @@ class Calc(BoxLayout):
                     res = str(eval(res))
 
         self.label_display.text = res # 6
+        self.label_display_comment.text += str(self.operand) # 7
+        self.label_display_comment.text += res # 8
+        self.write_number = res # 9
+        self.calc_arr.clear() # 10
 
         # test
         print('------------------------------------------------')
