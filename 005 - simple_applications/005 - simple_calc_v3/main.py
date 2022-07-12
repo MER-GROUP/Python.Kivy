@@ -53,6 +53,7 @@ class Calc(BoxLayout):
     label_display_memory = ObjectProperty(None)
     display_clear = False
     push_back = False
+    push_equal = False
     zero = False
     write_number = None
     temp_number = float()
@@ -76,6 +77,8 @@ class Calc(BoxLayout):
     # 8. записываем в переменную operand текущий операнд
     # 9. определяем в переменную zero истину если итоговое число '0'
     # и ложь если итоговое число не '0'
+    # 10. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
     def write_digit(self, button): 
         if self.display_clear and not self.push_back : # 1
             self.label_display.text = ''
@@ -178,8 +181,11 @@ class Calc(BoxLayout):
         elif ((self.push_back) 
             and ('' != self.label_display.text)
             ):
-            self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
-            self.label_display_comment.text += str(self.write_number)
+            if (0 == len(self.calc_arr)):
+                self.label_display_comment.text = str(self.write_number)
+            else:
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += str(self.write_number)
         else:
             # test ##################################################
             print('------------------------------------------------')
@@ -193,6 +199,10 @@ class Calc(BoxLayout):
             self.zero = True
         else:
             self.zero = False
+
+        if (self.push_equal): # 10
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
 
         # test
         print('------------------------------------------------')
@@ -215,6 +225,9 @@ class Calc(BoxLayout):
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     # 7. пометить что кнопка back ('<') была не нажата
+    # 8. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
+    # и текущий операнд
     def add(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -224,7 +237,8 @@ class Calc(BoxLayout):
             ):
             return
         elif (('<' == self.operand)
-            and (self.previous_operand in 'w<-+*/%')
+            # and (self.previous_operand in 'w<-+*/%')
+            and (self.previous_operand in 'w<-+*/%=')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
@@ -246,6 +260,11 @@ class Calc(BoxLayout):
 
         self.push_back = False # 7
 
+        if (self.push_equal): # 8
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
+            self.label_display_comment.text += str(self.operand)
+
         # test
         print('------------------------------------------------')
         print(' add write_number =', self.write_number)
@@ -266,6 +285,9 @@ class Calc(BoxLayout):
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     # 7. пометить что кнопка back ('<') была не нажата
+    # 8. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
+    # и текущий операнд
     def subtract(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -275,7 +297,8 @@ class Calc(BoxLayout):
             ):
             return
         elif (('<' == self.operand)
-            and (self.previous_operand in 'w<-+*/%')
+            # and (self.previous_operand in 'w<-+*/%')
+            and (self.previous_operand in 'w<-+*/%=')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
@@ -297,6 +320,11 @@ class Calc(BoxLayout):
 
         self.push_back = False # 7
 
+        if (self.push_equal): # 8
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
+            self.label_display_comment.text += str(self.operand)
+
         # test
         print('------------------------------------------------')
         print(' subtract write_number =', self.write_number)
@@ -317,6 +345,9 @@ class Calc(BoxLayout):
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     # 7. пометить что кнопка back ('<') была не нажата
+    # 8. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
+    # и текущий операнд
     def multiply(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -326,7 +357,8 @@ class Calc(BoxLayout):
             ):
             return
         elif (('<' == self.operand)
-            and (self.previous_operand in 'w<-+*/%')
+            # and (self.previous_operand in 'w<-+*/%')
+            and (self.previous_operand in 'w<-+*/%=')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
@@ -348,6 +380,11 @@ class Calc(BoxLayout):
 
         self.push_back = False # 7
 
+        if (self.push_equal): # 8
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
+            self.label_display_comment.text += str(self.operand)
+
         # test
         print('------------------------------------------------')
         print(' multiply write_number =', self.write_number)
@@ -368,6 +405,9 @@ class Calc(BoxLayout):
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     # 7. пометить что кнопка back ('<') была не нажата
+    # 8. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
+    # и текущий операнд
     def division(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -386,7 +426,8 @@ class Calc(BoxLayout):
         #     self.zero = True
         #     return
         elif (('<' == self.operand)
-            and (self.previous_operand in 'w<-+*/%')
+            # and (self.previous_operand in 'w<-+*/%')
+            and (self.previous_operand in 'w<-+*/%=')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
@@ -408,6 +449,11 @@ class Calc(BoxLayout):
 
         self.push_back = False # 7
 
+        if (self.push_equal): # 8
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
+            self.label_display_comment.text += str(self.operand)
+
         # test
         print('------------------------------------------------')
         print(' division write_number =', self.write_number)
@@ -428,6 +474,9 @@ class Calc(BoxLayout):
     # 5. записываем историю в label_display_comment
     # 6. записать в список (массив) итоговую переменную write_number и примененный operand
     # 7. пометить что кнопка back ('<') была не нажата
+    # 8. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
+    # и текущий операнд
     def percent(self):
         if ('=' == self.operand) and ('w' == self.previous_operand): # 1
             pass
@@ -437,7 +486,8 @@ class Calc(BoxLayout):
             ):
             return
         elif (('<' == self.operand)
-            and (self.previous_operand in 'w<-+*/%')
+            # and (self.previous_operand in 'w<-+*/%')
+            and (self.previous_operand in 'w<-+*/%=')
             and (self.write_number is not None)
             ):
             if (self.label_display_comment.text[-1] in '-+*/%'):
@@ -458,6 +508,11 @@ class Calc(BoxLayout):
         self.calc_arr.append(self.operand)
 
         self.push_back = False # 7
+
+        if (self.push_equal): # 8
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
+            self.label_display_comment.text += str(self.operand)
 
         # test
         print('------------------------------------------------')
@@ -506,13 +561,24 @@ class Calc(BoxLayout):
     # 4. пометить что идет правильное деление (делить на ноль нельзя)
     # 5. пометить что кнопка back ('<') была нажата True
     # (в методах для операндов поставить False)
+    # 6. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
+    # далее очистить и записать в историю label_display_comment ответ результата вычесления
     def back(self):
-        if (('' != self.label_display_comment.text) # 1
+        if ('' == self.label_display.text): # 1
+            return
+        elif (self.label_display_comment.text[-1] in '-+*/%') and ('' == self.label_display.text):
+            return
+        elif (self.label_display_comment.text[-1] in '-+*/%') and (1 == len(self.label_display.text)):
+            self.label_display.text = ''
+            self.write_number = None
+        elif (('' != self.label_display_comment.text) 
             and (self.label_display_comment.text[-1] in '-+*/%')
             and (1 < len(self.label_display_comment.text))
             ): 
             self.label_display.text = self.label_display.text[: -1]
             self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
+            self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+            self.label_display_comment.text += self.write_number   
         elif ('' != self.label_display.text):
             self.label_display.text = self.label_display.text[: -1]
             self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
@@ -532,6 +598,10 @@ class Calc(BoxLayout):
 
         self.push_back = True # 5
 
+        if (self.push_equal): # 6
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
+
         # test
         print('------------------------------------------------')
         print(' back write_number =', self.write_number)
@@ -549,8 +619,27 @@ class Calc(BoxLayout):
     # 3. записываем в переменную operand текущий операнд
     # 4. записать в список (массив) итоговую переменную write_number и примененный operand
     # 5. выполнить вычисления выражения
+    # 6. результат вычесления вывести на дисплей калькулятора (label_display)
+    # 7. добавляем в историю label_display_comment текущий операнд
+    # 8. результат вычесления добавить в историю калькулятора (label_display_comment)
+    # 9. записываем в переменную write_number результат вычесления
+    # 10. очищаем массив данных калькулятора calc_arr
+    # 11. помечаем что кнопка equal была нажата (push_equal = True)
     def equal(self):
-        if ('=' == self.operand): # 1
+        if (self.write_number is None) and (self.operand is None): # 1
+            return
+        elif (0 == len(self.calc_arr)):
+            return
+        elif (self.operand in '-+*/%='):
+            return
+        elif (self.label_display_comment.text[-1] in '-+*/%'):
+            return
+        elif (self.push_equal):
+            return
+        elif ((0 < len(self.calc_arr)) 
+            and ('/' == self.calc_arr[-1])
+            and ((self.write_number is None) or (0 == float(self.write_number)))
+            ):
             return
 
         self.previous_operand = self.operand # 2
@@ -577,6 +666,13 @@ class Calc(BoxLayout):
                 else:
                     res = str(eval(res))
 
+        self.label_display.text = res # 6
+        self.label_display_comment.text += str(self.operand) # 7
+        self.label_display_comment.text += res # 8
+        self.write_number = res # 9
+        self.calc_arr.clear() # 10
+        self.push_equal = True # 11
+
         # test
         print('------------------------------------------------')
         print(' equal write_number =', self.write_number)
@@ -596,6 +692,7 @@ class Calc(BoxLayout):
         # self.label_display_memory.text = ''
         self.display_clear = False
         self.push_back = False
+        self.push_equal = False
         self.zero = False
         self.write_number = None
         self.temp_number = float()
