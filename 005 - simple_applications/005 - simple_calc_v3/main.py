@@ -619,7 +619,9 @@ class Calc(BoxLayout):
     # 10. очищаем массив данных калькулятора calc_arr
     # 11. помечаем что кнопка equal была нажата (push_equal = True)
     def equal(self):
-        if (self.operand in '-+*/%='): # 1
+        if (self.write_number is None) and (self.operand is None): # 1
+            return
+        elif (self.operand in '-+*/%='):
             return
         elif (self.push_equal):
             return
