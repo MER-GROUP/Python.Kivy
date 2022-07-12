@@ -178,8 +178,11 @@ class Calc(BoxLayout):
         elif ((self.push_back) 
             and ('' != self.label_display.text)
             ):
-            self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
-            self.label_display_comment.text += str(self.write_number)
+            if (0 == len(self.calc_arr)):
+                self.label_display_comment.text = str(self.write_number)
+            else:
+                self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
+                self.label_display_comment.text += str(self.write_number)
         else:
             # test ##################################################
             print('------------------------------------------------')
