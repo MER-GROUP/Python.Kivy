@@ -7,8 +7,6 @@
 /005 - simple_applications/001 - convert_kg_to_gr/__pycache__/
 /005 - simple_applications/002 - timer/__pycache__/
 /005 - simple_applications/003 - simple_calc/__pycache__/
-/005 - simple_applications/004 - simple_calc_v2/__pycache__/
-/005 - simple_applications/005 - simple_calc_v3/__pycache__/
 /kivy_venv/
 /001 - for_fast_development/kivy_venv/
 /002 - guide_kivy_python_(part_1-base)/kivy_venv/
@@ -18,8 +16,6 @@
 /005 - simple_applications/001 - convert_kg_to_gr/kivy_venv/
 /005 - simple_applications/002 - timer/kivy_venv/
 /005 - simple_applications/003 - simple_calc/kivy_venv/
-/005 - simple_applications/004 - simple_calc_v2/kivy_venv/
-/005 - simple_applications/005 - simple_calc_v3/kivy_venv/
 /.kivy/
 /001 - for_fast_development/.kivy/
 /002 - guide_kivy_python_(part_1-base)/.kivy/
@@ -29,5 +25,3 @@
 /005 - simple_applications/001 - convert_kg_to_gr/.kivy/
 /005 - simple_applications/002 - timer/.kivy/
 /005 - simple_applications/003 - simple_calc/.kivy/
-/005 - simple_applications/004 - simple_calc_v2/.kivy/
-/005 - simple_applications/005 - simple_calc_v3/.kivy/
