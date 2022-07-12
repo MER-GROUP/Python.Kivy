@@ -625,7 +625,11 @@ class Calc(BoxLayout):
     def equal(self):
         if (self.write_number is None) and (self.operand is None): # 1
             return
+        elif (0 == len(self.calc_arr)):
+            return
         elif (self.operand in '-+*/%='):
+            return
+        elif (self.label_display_comment.text[-1] in '-+*/%'):
             return
         elif (self.push_equal):
             return
