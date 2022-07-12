@@ -564,6 +564,8 @@ class Calc(BoxLayout):
     def equal(self):
         if ('=' == self.operand): # 1
             return
+        elif (self.push_equal):
+            return
 
         self.previous_operand = self.operand # 2
         self.operand = '=' # 3
