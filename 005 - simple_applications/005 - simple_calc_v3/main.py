@@ -538,6 +538,10 @@ class Calc(BoxLayout):
 
         self.push_back = True # 5
 
+        if (self.push_equal): # 6
+            self.push_equal = False
+            self.label_display_comment.text = self.write_number
+
         # test
         print('------------------------------------------------')
         print(' back write_number =', self.write_number)
@@ -562,7 +566,7 @@ class Calc(BoxLayout):
     # 10. очищаем массив данных калькулятора calc_arr
     # 11. помечаем что кнопка equal была нажата (push_equal = True)
     def equal(self):
-        if ('=' == self.operand): # 1
+        if (self.operand in '-+*/%='): # 1
             return
         elif (self.push_equal):
             return
