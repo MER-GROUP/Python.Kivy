@@ -53,6 +53,7 @@ class Calc(BoxLayout):
     label_display_memory = ObjectProperty(None)
     display_clear = False
     push_back = False
+    push_equal = False
     zero = False
     write_number = None
     temp_number = float()
@@ -559,6 +560,7 @@ class Calc(BoxLayout):
     # 8. результат вычесления добавить в историю калькулятора (label_display_comment)
     # 9. записываем в переменную write_number результат вычесления
     # 10. очищаем массив данных калькулятора calc_arr
+    # 11. помечаем что кнопка equal была нажата (push_equal = True)
     def equal(self):
         if ('=' == self.operand): # 1
             return
@@ -592,6 +594,7 @@ class Calc(BoxLayout):
         self.label_display_comment.text += res # 8
         self.write_number = res # 9
         self.calc_arr.clear() # 10
+        self.push_equal = True # 11
 
         # test
         print('------------------------------------------------')
@@ -612,6 +615,7 @@ class Calc(BoxLayout):
         # self.label_display_memory.text = ''
         self.display_clear = False
         self.push_back = False
+        self.push_equal = False
         self.zero = False
         self.write_number = None
         self.temp_number = float()
