@@ -564,14 +564,18 @@ class Calc(BoxLayout):
     # 6. если кнопка equal была нажата то пометить что она не была нажата (push_equal = False)
     # далее очистить и записать в историю label_display_comment ответ результата вычесления
     def back(self):
-        if (('' != self.label_display_comment.text) # 1
+        if ('' == self.label_display.text):
+            return
+        elif (self.label_display_comment.text[-1] in '-+*/%') and ('' == self.label_display.text):
+            return
+        elif (('' != self.label_display_comment.text) # 1
             and (self.label_display_comment.text[-1] in '-+*/%')
             and (1 < len(self.label_display_comment.text))
             ): 
             self.label_display.text = self.label_display.text[: -1]
             self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
             self.label_display_comment.text = Parse().back_to_operand(self.label_display_comment.text)
-            self.label_display_comment.text += self.write_number
+            self.label_display_comment.text += self.write_number   
         elif ('' != self.label_display.text):
             self.label_display.text = self.label_display.text[: -1]
             self.write_number = None if 0 == len(self.label_display.text) else self.label_display.text
