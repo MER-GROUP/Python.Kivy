@@ -167,7 +167,31 @@ class AudioPlayer(BoxLayout):
     seconds = int()
     # ---------------------------------------------------------------------------
     # methods
-    pass
+    # ---------------------------------------------------------------------------
+    def load_music(self):
+        if not (None == self.timer):
+            self.timer.cancel()
+
+        self.music_file = easygui.fileopenbox(filetypes=['*.mp3'])
+
+        if not (None == self.sound):
+            self.stop_music()
+            self.seconds = int()
+            self.time.text = '00:00'
+
+        if (None == self.music_file):
+            self.filename.text = 'No loading song'
+            self.all_time.text = '00:00'
+            if not (None == self.timer):
+                self.timer.cancel()
+            self.play.disabled = True
+            return
+
+        self.sound = SoundLoader.load(self.music_file)
+        audio = MP3(self.music_file)
+        m, s = divmod(audio.info.length + 1, 60)
+        t = '%02d:%02d' % (m, s)
+        self.all_time.text = t
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
