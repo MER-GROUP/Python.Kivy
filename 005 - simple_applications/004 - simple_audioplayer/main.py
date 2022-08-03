@@ -192,6 +192,13 @@ class AudioPlayer(BoxLayout):
         m, s = divmod(audio.info.length + 1, 60)
         t = '%02d:%02d' % (m, s)
         self.all_time.text = t
+        self.slider.max = int(audio.info.length)
+        self.slider.value = int()
+        self.sound.seek(0)
+        self.sound.stop()
+        self.play.disabled = False
+        self.timer = Timer(1, self.position)
+        self.filename.text = self.sound.source
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
