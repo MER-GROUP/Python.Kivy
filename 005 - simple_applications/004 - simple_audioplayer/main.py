@@ -149,6 +149,14 @@ Window.size = (400, 400)
 # 15. Переменной filename присвоем текст пути к файлу. 
 #     Для этого пишем self.filename.text = self.sound.source
 # *****************************************************************************************
+# Далее пишем метод play_music который присвоем событию on_press кнопки Play. 
+# Итак пишем:
+# 1.Отключаем кнопку play с помощью атрибута disabled ставим True
+# 2.Включаем кнопку pause с помощью атрибута disabled ставим False
+# 3.Включаем кнопку stop с помощью атрибута disabled ставим False
+# 4.Запускаем проигрывания трека. Пишем self.sound.play()
+# 5.Запускаем timer. Пишем self.timer.start()
+# *****************************************************************************************
 class AudioPlayer(BoxLayout):
     # ---------------------------------------------------------------------------
     '''root widget'''
@@ -199,6 +207,13 @@ class AudioPlayer(BoxLayout):
         self.play.disabled = False
         self.timer = Timer(1, self.position)
         self.filename.text = self.sound.source
+    # ---------------------------------------------------------------------------
+    def play_music(self):
+        self.play.disabled = True
+        self.pause.disabled = False
+        self.stop.disabled = False
+        self.sound.play()
+        self.timer.start()
     # ---------------------------------------------------------------------------
     pass
     # ---------------------------------------------------------------------------
