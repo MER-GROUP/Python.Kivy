@@ -74,7 +74,7 @@ from os.path import dirname, join
 from pathlib import Path
 # Класс Builder - закрузчик языка KV Lang
 from kivy.lang import Builder
-# Builder.load_file(str(Path(join(dirname(__file__), './calc.kv'))))
+# Builder.load_file(str(Path(join(dirname(__file__), './AudioPlayer.kv'))))
 # *****************************************************************************************
 # сторонние модули
 # вызов виджетов из tkinder
@@ -255,7 +255,16 @@ class AudioPlayer(BoxLayout):
         if not (None == self.timer):
             self.timer.cancel()
 
-        self.music_file = easygui.fileopenbox(filetypes=['*.mp3'])
+        try:
+            self.music_file = easygui.fileopenbox(filetypes=['*.mp3'])
+        except (TypeError):
+            self.music_file = None
+
+
+        # test ###########################################################+
+        print(f'!!! self.music_file = {self.music_file}') ################+
+        print(f'!!! type(self.music_file) = {type(self.music_file)})') ###+
+
 
         if not (None == self.sound):
             self.stop_music()
@@ -271,6 +280,13 @@ class AudioPlayer(BoxLayout):
             return
 
         self.sound = SoundLoader.load(self.music_file)
+
+
+        # test #################################################
+        print(f'!!! self.sound = {self.sound}') ################
+        print(f'!!! type(self.sound) = {type(self.sound)})') ###
+
+
         audio = MP3(self.music_file)
         m, s = divmod(audio.info.length + 1, 60)
         t = '%02d:%02d' % (m, s)
@@ -366,8 +382,8 @@ class AudioPlayerApp(App):
     # ---------------------------------------------------------------------------
     def build(self):
         Window.bind(on_close=self.on_request_close)
-        player = AudioPlayer()
-        return player
+        self.player = AudioPlayer()
+        return self.player
     # ---------------------------------------------------------------------------
     def on_request_close(self, *args):
         self.player.sound.stop()

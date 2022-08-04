@@ -1,0 +1,10 @@
+#:kivy 2.0.0
+
+<MyFloatLayout>:
+    Button:
+        bold:True
+        size_hint:.8,.3
+        text:'Play Song'
+        background_color:1,0,1,1
+        pos_hint: {'right':1, 'y':0}
+        on_release: root.play_music()
