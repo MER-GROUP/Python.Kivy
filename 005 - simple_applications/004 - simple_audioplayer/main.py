@@ -366,8 +366,8 @@ class AudioPlayerApp(App):
     # ---------------------------------------------------------------------------
     def build(self):
         Window.bind(on_close=self.on_request_close)
-        player = AudioPlayer()
-        return player
+        self.player = AudioPlayer()
+        return self.player
     # ---------------------------------------------------------------------------
     def on_request_close(self, *args):
         self.player.sound.stop()
