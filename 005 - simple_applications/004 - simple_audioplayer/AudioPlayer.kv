@@ -1,2 +1,19 @@
 #:kivy 2.0.0
 
+<AudioPlayer>:
+    # vars
+    slider: slider
+    filename: filename
+    play: play
+    pause: pause
+    stop: stop
+    time: time
+    all_time: all_time
+
+    # settings
+    orientation: 'vertical'
+
+    #design
+    Button:
+        text: "Load"
+        on_prees: root.load_music()
