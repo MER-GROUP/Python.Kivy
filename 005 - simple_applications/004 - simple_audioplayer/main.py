@@ -74,7 +74,7 @@ from os.path import dirname, join
 from pathlib import Path
 # Класс Builder - закрузчик языка KV Lang
 from kivy.lang import Builder
-# Builder.load_file(str(Path(join(dirname(__file__), './calc.kv'))))
+# Builder.load_file(str(Path(join(dirname(__file__), './AudioPlayer.kv'))))
 # *****************************************************************************************
 # сторонние модули
 # вызов виджетов из tkinder
