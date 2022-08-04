@@ -21,3 +21,43 @@
         id: filename
         text: "No song loaded"
         font_size: '15sp'
+    Slider:
+        id: slider
+        on_touch_move: root.music_position()
+        on_touch_up: root.music_position()
+        size_hint: (1, 0.1)
+
+    # group
+    BoxLayout:
+        orientation: 'horizontal'
+        Label:
+            id: time
+            text: "00:00"
+            font_size: '50sp'
+        Label:
+            text: "/"
+            font_size: '50sp'
+            size_hint: (0.01, 1)
+        Label:
+            id: all_time
+            text: "00:00"
+            font_size: '50sp'
+
+    # group
+    BoxLayout:
+        orientation: 'horizontal'
+        Button:
+            id: play
+            text: 'Play'
+            disabled: 'True'
+            on_press: root.play_music()
+        Button:
+            id: pause
+            text: 'Pause'
+            disabled: 'True'
+            on_press: root.pause_music()
+        Button:
+            id: stop
+            text: 'Stop'
+            disabled: 'True'
+            on_press: root.stop_music()

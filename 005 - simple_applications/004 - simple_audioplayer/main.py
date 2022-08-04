@@ -255,7 +255,10 @@ class AudioPlayer(BoxLayout):
         if not (None == self.timer):
             self.timer.cancel()
 
-        self.music_file = easygui.fileopenbox(filetypes=['*.mp3'])
+        try:
+            self.music_file = easygui.fileopenbox(filetypes=['*.mp3'])
+        except (TypeError):
+            self.music_file = None
 
         if not (None == self.sound):
             self.stop_music()
