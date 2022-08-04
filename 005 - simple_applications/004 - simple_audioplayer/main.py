@@ -260,6 +260,12 @@ class AudioPlayer(BoxLayout):
         except (TypeError):
             self.music_file = None
 
+
+        # test ###########################################################+
+        print(f'!!! self.music_file = {self.music_file}') ################+
+        print(f'!!! type(self.music_file) = {type(self.music_file)})') ###+
+
+
         if not (None == self.sound):
             self.stop_music()
             self.seconds = int()
@@ -274,6 +280,13 @@ class AudioPlayer(BoxLayout):
             return
 
         self.sound = SoundLoader.load(self.music_file)
+
+
+        # test #################################################
+        print(f'!!! self.sound = {self.sound}') ################
+        print(f'!!! type(self.sound) = {type(self.sound)})') ###
+
+
         audio = MP3(self.music_file)
         m, s = divmod(audio.info.length + 1, 60)
         t = '%02d:%02d' % (m, s)
