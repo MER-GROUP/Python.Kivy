@@ -23,8 +23,8 @@
         font_size: '15sp'
     Slider:
         id: slider
-        on_touch_move: root.music_position()
-        on_touch_up: root.music_position()
+        on_touch_move: root.music_position(self)
+        on_touch_up: root.music_position(self)
         size_hint: (1, 0.1)
 
     # group
