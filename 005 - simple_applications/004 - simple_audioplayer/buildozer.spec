@@ -38,7 +38,7 @@ version = 0.1
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
 # jnius - is install default
-requirements = python3==3.9.2,hostpython3==3.9.2,kivy[full],plyer,easygui,mutagen
+requirements = python3==3.9.2,hostpython3==3.9.2,kivy,plyer,easygui,mutagen,ffpyplayer
 # requirements = python3==3.9.2,hostpython3==3.9.2,kivy
 
 # (str) Custom source folders for requirements
