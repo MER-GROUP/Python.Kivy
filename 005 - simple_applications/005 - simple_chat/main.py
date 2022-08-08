@@ -53,12 +53,21 @@ from kivy.uix.button import Button
 # где будет Label списка пользователей
 from kivy.graphics import Color, Rectangle
 # *****************************************************************************************
-
-
-
-# свойства объекта (виджета)
-from kivy.properties import ObjectProperty
+# Импортируем виджет ScrollView для прокрутки Label c сообщениями. 
+# Там же импортируем свойство для строк StringProperty
 # *****************************************************************************************
+# виджет для прокрутки
+from kivy.uix.scrollview import ScrollView
+# свойства объекта (виджета)
+# ObjectProperty - свойство для оббъекта
+# StringProrerty - свойство для строк
+from kivy.properties import ObjectProperty, StringProrerty
+# *****************************************************************************************
+
+
+
+
+
 # работа с аудио
 from kivy.core.audio import SoundLoader
 # работа с настройками основного окна программы
