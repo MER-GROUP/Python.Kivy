@@ -121,7 +121,85 @@ class ClientApp(App):
     # который будет инициализировать все виджеты
     # ---------------------------------------------------------------------------
     def build(self):
-        return None
+        # создаем главный BaxLayout
+        bl = BoxLayout(orientation='vertical')
+        # создаем верхний BoxLayout где будет три TextInput
+        # (никнейм, ip и порт) и кнопка подключения к серверу
+        self.top_bl = BoxLayout(orientation='horizontal', size_hint=(1, 0.07))
+        # создаем FloatLayout который будет по середине.
+        # в него добавим список пользователей (Label) 
+        # и список сообщений (Label)
+        self.middle_fl = FloatLayout(size_hint=(1, 0.9))
+        # создаем нижний BoxLayout где будет ввод
+        # сообщения (TextInput) и кнопка отправить
+        self.bottom_bl = BoxLayout(orientation='horizontal', size_hint=(1, 0.07))
+        # Label для отображения списка пользователей
+        self.user_label = Label(color=(0,0,0,1), 
+                                size_hint=(None, None),
+                                pos_hint={'x': 0.01,'y': 0.8},
+                                halign='left',
+                                valign='top'
+                                )
+        # рисуем для списка пользователей серый прямоугольник
+        with self.user_label.canvas.before:
+            Color(0.8, 0.8, 0.8, 1)
+            Rectangle(pos_hint=self.user_label.pos_hint, size=(150, 560))
+        # создаем TextInput для ввода имени (никнейма)
+        self.nick_input = TextInput(multiline=False, 
+                                    hint_text='Введите имя ...'
+                                    )
+        # создаем TextInput для ввода ip сервера
+        self.host_input = TextInput(multiline=False, 
+                                    hint_text='Введите IP адрес сервера ...'
+                                    )
+        # создаем TextInput для ввода порта сервера
+        self.port_input = TextInput(multiline=False, 
+                                    hint_text='Введите пор сервера ...'
+                                    )
+        # привязываем к каждому TextInput метод on_text
+        # который будет написан позже
+        self.nick_input.bind(text=self.on_text)
+        self.host_input.bind(text=self.on_text)
+        self.port_input.bind(text=self.on_text)
+        # создаем кнопку подключиться к серверу и событию on_press
+        # присваиваем connect_to_server который будет написан позже
+        self.connect_btn = Button(text='Подключиться к серверу',
+                                disabled=True,
+                                on_press=self.connect_to_server
+                                )
+        # создаем прокручиваемый Label где будут выводиться сообщения
+        self.chat_list = ScrollableLabel()
+        # создаем TextInput для ввода сообщения и события on_text_validate
+        # присваиваем метод send который напишем позже
+        self.textinp = TextInput(multiline=False,
+                                on_text_validate=self.send,
+                                disabled=True)
+        # создаем кнопку для отправки сообщения и событию on_press
+        # присваиваем метод send который напишем позже
+        self.btn = Button(text='Отправить',
+                        on_press=self.send,
+                        disabled=True) 
+        # добавляем в верхний BoxLayout
+        # три TextInput (никнейм, ip и порт)
+        # и кнопка подключиться к серверу
+        self.top_bl.add_widget(self.nick_input)
+        self.top_bl.add_widget(self.host_input)
+        self.top_bl.add_widget(self.port_input)
+        self.top_bl.add_widget(self.connect_btn)
+        # добавляем в средний FloatLayout список пользователей
+        # и список сообщений
+        self.middle_fl.add_widget(self.chat_list)
+        self.middle_fl.add_widget(self.user_label)
+        # добавляем в нижний BoxLayout TextInput для ввода
+        # сообщения и кнопку отравить
+        self.bottom_bl.add_widget(self.textinp)
+        self.bottom_bl.add_widget(self.btn)
+        # добавляем в главный Boxlayout верхний BoxLayout,
+        # средний FloatLayout и нижний BoxLayout
+        bl.add_widget(self.top_bl)
+        bl.add_widget(self.middle_fl)
+        bl.add_widget(self.bottom_bl)
+        return bl
     # ---------------------------------------------------------------------------
 
 
