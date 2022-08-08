@@ -34,12 +34,22 @@ import threading
 # создаем TCP сокет
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # присваиваем IP адреса компьютера в переменную host
-host = socket.gethostbyname(socket.gethostname)
+host = socket.gethostbyname(socket.gethostname())
+# порт
+port = 9090
+# привязываем к сокету host и port
+s.bind((host, port))
+# прослушиваем соединение с клиента
+s.listen()
 # *****************************************************************************************
 # *****************************************************************************************
 # запуск программы
 if __name__ == '__main__':
     # выводим сокет
+    print(f'socket.AF_INET = {socket.AF_INET}')
+    print(f'type(socket.AF_INET) = {type(socket.AF_INET)}')
+    print(f'socket.SOCK_STREAM = {socket.SOCK_STREAM}')
+    print(f'type(socket.SOCK_STREAM) = {type(socket.SOCK_STREAM)}')
     print(f's = {s}')
     print(f'type(s) = {type(s)}')
 # *****************************************************************************************
