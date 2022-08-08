@@ -155,15 +155,21 @@ def accept_connection():
         # отправляем список пользователей клиентам
         send_message(users)
 # ******************************************************************************************
+# Далее пишем что при запуске файла будет вызываться метод accept_connection
+# ******************************************************************************************
 # запуск программы
 if __name__ == '__main__':
-    # выводим сокет
-    print(f'socket.AF_INET = {socket.AF_INET}')
-    print(f'type(socket.AF_INET) = {type(socket.AF_INET)}')
-    print(f'socket.SOCK_STREAM = {socket.SOCK_STREAM}')
-    print(f'type(socket.SOCK_STREAM) = {type(socket.SOCK_STREAM)}')
-    print(f's = {s}')
-    print(f'type(s) = {type(s)}')
-    print(f'host = {host}')
-    print(f'port = {port}')
+    # ---------------------------------------------------------------------------
+    accept_connection()
+    # ---------------------------------------------------------------------------
+    # # выводим сокет
+    # print(f'socket.AF_INET = {socket.AF_INET}')
+    # print(f'type(socket.AF_INET) = {type(socket.AF_INET)}')
+    # print(f'socket.SOCK_STREAM = {socket.SOCK_STREAM}')
+    # print(f'type(socket.SOCK_STREAM) = {type(socket.SOCK_STREAM)}')
+    # print(f's = {s}')
+    # print(f'type(s) = {type(s)}')
+    # print(f'host = {host}')
+    # print(f'port = {port}')
+    # ---------------------------------------------------------------------------
 # *****************************************************************************************
