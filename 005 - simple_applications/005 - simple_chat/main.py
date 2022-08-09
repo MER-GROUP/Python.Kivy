@@ -298,7 +298,7 @@ class ClientApp(App):
             # создаем сокет
             self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             # подключаемся к серверу по введенному ip и порту
-            self.s.connect_ex(self.host, self.port)
+            self.s.connect_ex((self.host, self.port))
             # присваиваем переменной nick имя пользователя 
             # с TextInput nick_input
             self.nick = self.nick_input.text
