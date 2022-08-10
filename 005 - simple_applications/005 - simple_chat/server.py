@@ -98,7 +98,7 @@ def message_handler(client):
                 users = '[' + ','.join(user_left) + ']'
                 print(users)
                 users = users.encode('utf-8')
-                send_message(users)
+                send_message(users) # РАЗОБРАТЬСЯ - НЕ УДАЛЯЕТ ПОЛЬЗОВАТЕЛЯ 
             print('Количество пользователей: ' + str(len(clients)))
             break
         else:
@@ -132,6 +132,8 @@ def accept_connection():
         # присваиваем переменной mess сообщение о том 
         # что пользователь с именем зашел в чат
         mess = f'Пользователь {nick} заходит в чат'
+        # выводи в консоль mess
+        print(mess)
         # переводим в массив байт для отправки клиентским сокетам сообщение
         mess = mess.encode('utf-8')
         # выводим в консоли адрес клиентсткого сокета
@@ -141,9 +143,11 @@ def accept_connection():
             clients.append(client)
         # создаем отдельный поток для метода message_handler и
         # в качестве параметра передаем client
-        threading.Thread(target=message_handler, args=((client,))).start()
+        # threading.Thread(target=message_handler, args=((client, ))).start()
+        threading.Thread(target=message_handler, args=[client]).start()
+        # threading.Thread(target=message_handler, args=((client, )), daemon=True).start()
         # передаем всем сообщение о том кто зашел в чат
-        send_message(mess)
+        send_message(mess) # РАЗОБРАТЬСЯ - ДВА СООБЩЕНИЯ ОБЪЕДИНЯЕТ
         # в users мы из списка users_list в квадратных скобках
         # через запятую пишем всех пользователей
         users = '[' + ','.join(users_list) + ']'
@@ -153,7 +157,10 @@ def accept_connection():
         # список пользователей которые будут отображаться
         users = users.encode('utf-8')
         # отправляем список пользователей клиентам
-        send_message(users)
+        send_message(users) # РАЗОБРАТЬСЯ - ДВА СООБЩЕНИЯ ОБЪЕДИНЯЕТ
+        # TEST ##########################
+        users = users.decode('utf-8') ###
+        print('### users =', users) #####
 # ******************************************************************************************
 # Далее пишем что при запуске файла будет вызываться метод accept_connection
 # ******************************************************************************************
