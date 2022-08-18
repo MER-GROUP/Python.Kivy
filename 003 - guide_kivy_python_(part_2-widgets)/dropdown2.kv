@@ -1,0 +1,34 @@
+#:kivy 2.0.0
+<CustomDropDown>:
+    # on_select: btn.text = '{}'.format(args[1])
+    Button:
+        text: 'My first Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item1')
+        on_release: app.menu_str = 'item1'
+    Button:
+        text: 'My second Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item2')
+        on_release: app.menu_str = 'item2'
+
+    Button:
+        text: 'My third Item'
+        size_hint_y: None
+        height: 44
+        on_release: root.select('item3')
+        on_release: app.menu_str = 'item3'
+
+<HomeScreen>:
+    orientation: 'vertical'
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: 1, 0.2
+        Button:
+            text: 'MENU'
+            on_release: root.drop_down.open(self)
+            on_release: self.text = app.menu_str
+    BoxLayout:
+        
