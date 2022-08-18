@@ -30,9 +30,12 @@ class HomeScreen(BoxLayout):
     pass
     # ---------------------------------------------------------------------------
     # конструктор класса HomeScreen
-    def __init__(self, *args, **kwargs):
-        super(HomeScreen, self).__init__(*args, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.drop_down = CustomDropDown()
+    # def __init__(self, *args, **kwargs):
+    #     super(HomeScreen, self).__init__(*args, **kwargs)
+    #     self.drop_down = CustomDropDown()
     # ---------------------------------------------------------------------------
 # *****************************************************************************************
 # окно программы
