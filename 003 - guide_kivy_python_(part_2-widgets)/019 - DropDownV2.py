@@ -10,6 +10,7 @@ from kivy.app import App
 from kivy.uix.dropdown import DropDown
 # кнопка
 from kivy.uix.button import Button
+# Коробочный макет
 from kivy.uix.boxlayout import BoxLayout
 # работа с экраном программы
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -22,6 +23,7 @@ class CustomDropDown(DropDown):
 # *****************************************************************************************
 # декоратор для Screen
 # дизайн программы
+# class HomeScreen(Screen):
 class HomeScreen(BoxLayout):
     # ---------------------------------------------------------------------------
     '''root widget'''
