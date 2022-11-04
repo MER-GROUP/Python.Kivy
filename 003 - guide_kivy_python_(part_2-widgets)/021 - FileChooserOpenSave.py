@@ -51,37 +51,46 @@ class Root(FloatLayout):
     """
     # ---------------------------------------------------------------------------
     # vars - ObjectProperty
-    loadfile = ObjectProperty(None)
-    savefile = ObjectProperty(None)
+    # loadfile = ObjectProperty(None)
+    # savefile = ObjectProperty(None)
     text_input = ObjectProperty(None)
     # ---------------------------------------------------------------------------
+    # закрыть модальное окно
     def dismiss_popup(self):
         self._popup.dismiss()
     # ---------------------------------------------------------------------------
+    # показать окно для загрузки файлов
     def show_load(self):
+        # объект для модального окна (действия окна)
         content = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        # создаем модальное окно
         self._popup = Popup(title="Load file", content=content,
                             size_hint=(0.9, 0.9))
+        # открываем модальное окно
         self._popup.open()
     # ---------------------------------------------------------------------------
+    # показать окно для загрузки файлов
     def show_save(self):
+        # объект для модального окна (действия окна)
         content = SaveDialog(save=self.save, cancel=self.dismiss_popup)
+        # создаем модальное окно
         self._popup = Popup(title="Save file", content=content,
                             size_hint=(0.9, 0.9))
+        # открываем модальное окно
         self._popup.open()
     # ---------------------------------------------------------------------------
     # действие кнопки - загрузить файл (Load file)
     def load(self, path, filename):
         with open(os.path.join(path, filename[0])) as stream:
             self.text_input.text = stream.read()
-
+        # закрыть модальное окно
         self.dismiss_popup()
     # ---------------------------------------------------------------------------
     # действие кнопки - сохранить файл (Save file)
     def save(self, path, filename):
         with open(os.path.join(path, filename), 'w') as stream:
             stream.write(self.text_input.text)
-
+        # закрыть модальное окно
         self.dismiss_popup()
     # ---------------------------------------------------------------------------
     pass
@@ -104,6 +113,11 @@ class Editor(App):
     # """
     # ---------------------------------------------------------------------------
     pass
+# *****************************************************************************************
+# # регистрация классов в фабрике
+# Factory.register('Root', cls=Root)
+# Factory.register('LoadDialog', cls=LoadDialog)
+# Factory.register('SaveDialog', cls=SaveDialog)
 # *****************************************************************************************
 # запуск программы
 if __name__ == '__main__':
